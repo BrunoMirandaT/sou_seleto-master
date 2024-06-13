@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+   <body>
+
+      <h3>Adicionar aluno</h3>
+      <hr/>
+
+      {%- for category, message in get_flashed_messages(with_categories = true) %}
+         <div class = "alert alert-danger">
+            {{ message }}
+         </div>
+      {%- endfor %}
+
+      <form action = "{{ request.path }}" method = "post">
+         <label for = "nome">Nome</label><br>
+         <input type = "text" name = "nome" placeholder = "Nome" /><br>
+         <label for = "info1">info1</label><br>
+         <input type = "text" name = "info1" placeholder = "info1" /><br>
+         <label for = "info2">info2</label><br>
+         <textarea name = "info2" placeholder = "info2"></textarea><br>
+         <label for = "info3">info3</label><br>
+         <input type = "text" name = "info3" placeholder = "info3" /><br>
+         <input type = "submit" value = "Submit" />
+      </form>
+
+   </body>
+</html>
+

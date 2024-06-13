@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastros</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header id="navbar">
+        <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
+        <a href id="cad_but">CADASTROS</a>
+        <button id="login"><i class="fa fa-user" style="font-size: 36px;"></i></button>
+        </header>
+    <div id="overlay" class="overlay_container">
+        <div class="cadastro_popup">
+            <header id="cadastro_header">
+                <button>DADOS</button>
+                <button>DOCUMENTOS</button>
+            </header>
+            <div id="info">
+                <label for="nome">NOME
+                <input type="text" name="nome" id="nome">
+                    </label>
+                 <label for="nasc">DATA DE NASCIMENTO
+                <input type="text" name="nasc" id="nasc">
+                     </label>
+                 <label for="cpf">CPF
+                <input type="text" name="cpf" id="cpf">
+                     </label>
+                 <label for="mae">MÃE
+                <input type="text" name="mae" id="mae">
+                     </label>
+                 <label for="pai">PAI
+                <input type="text" name="pai" id="pai">
+                     </label>
+                 <label for="cpf2">CPF RESPONSÁVEL
+                <input type="text" name="cpf2" id="cpf2">
+                     </label>
+                 <label for="rg">RG RESPONSÁVEL
+                <input type="text" name="rg" id="rg">
+                     </label>
+                 <label for="telefone">TELEFONE
+                <input type="text" name="telefone" id="telefone">
+                     </label>
+                 <label for="celular">CELULAR
+                <input type="text" name="celular" id="celular">
+                     </label>
+                 <label for="tiposangue">TIPO SANGUÍNEO
+                <input type="text" name="tiposangue" id="tiposangue">
+                     </label>
+                 <label for="resp">RESPONSÁVEL LEGAL
+                <input type="text" name="resp" id="resp">
+                     </label>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <button onclick="togglePopup()"></button>
+        <h3>Aluno (<a href = "{{ url_for('new') }}">Adicionar aluno</a>)</h3>
+        <input type="text" id="search">
+
+                <table>
+                <tbody>
+                {% for aluno in alunos %}
+               <tr>
+                  <td>{{ aluno.nome }}</td>
+                  <td>{{ aluno.info1 }}</td>
+                  <td>{{ aluno.info2 }}</td>
+                  <td>{{ aluno.info3 }}</td>
+                  <td>
+                     <a href="/delete/{{aluno.id}}">Deletar</a>
+                  </td>
+               </tr>
+            {% endfor %}
+                </tbody>
+                    </table>
+            </div>
+
+
+
+
+    <script src="{{ url_for('static',filename='index.js') }}"></script>
+</body>
+<footer></footer>
+</html>
