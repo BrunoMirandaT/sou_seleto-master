@@ -19,6 +19,7 @@
                 <button>DADOS</button>
                 <button>DOCUMENTOS</button>
             </header>
+            <div id="foto"></div>
             <div id="info">
                 <label for="nome">NOME
                 <input type="text" name="nome" id="nome">
@@ -53,11 +54,12 @@
                  <label for="resp">RESPONSÁVEL LEGAL
                 <input type="text" name="resp" id="resp">
                      </label>
+
             </div>
+            <button id="back" onclick="closePopup()">VOLTAR</button>
         </div>
     </div>
     <div id="main">
-        <button onclick="togglePopup()"></button>
         <h3>Aluno (<a href = "{{ url_for('new') }}">Adicionar aluno</a>)</h3>
         <input type="text" id="search">
 
@@ -65,13 +67,15 @@
                 <tbody>
                 {% for aluno in alunos %}
                <tr>
-                  <td>{{ aluno.nome }}</td>
-                  <td>{{ aluno.info1 }}</td>
-                  <td>{{ aluno.info2 }}</td>
-                  <td>{{ aluno.info3 }}</td>
-                  <td>
+                   <td id="td1">{{ aluno.info1 }}</td>
+                  <td id="td2">{{ aluno.nome }}</td>
+                  <td id="td3">{{ aluno.info3 }}</td>
+                  <td id="td4">
                      <a href="/delete/{{aluno.id}}">Deletar</a>
                   </td>
+                   <td id="td5" onclick="togglePopup()">
+                       EDITAR
+                   </td>
                </tr>
             {% endfor %}
                 </tbody>
