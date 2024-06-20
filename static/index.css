@@ -184,13 +184,12 @@ footer{
     grid-template-columns: 30% 30%;
     grid-template-areas: "header header" "content content";
     justify-content: center;
-    justify-items: end;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
     color: black;
 }
 input{
-    width: 350px;
+    width: 80%;
     height:35px;
     margin-bottom:20px;
     display: grid;
@@ -199,12 +198,15 @@ input{
     text-indent: 5px;
 }
 
+label{
+margin-left: 90px;
+}
+
 label[for='nome']{
 margin-top: 50px;
 display: grid;
 grid-area: header;
-width: 100%;
-justify-content: end;
+
 }
 
 #nasc{
@@ -218,14 +220,14 @@ label[for='nasc']{
 }
 
 #nome{
-    width: 805px;
+    width: 90.5%;
 }
 
 #foto{
-width: 250px;
-height: 300px;
-top: 200px;
-left: 250px;
+width: 13%;
+height: 30%;
+top: 22%;
+left: 14%;
 background-color: white;
 position: absolute;
 }
@@ -248,3 +250,5 @@ position: absolute;
     width: 100%;
     height: 100%;
 }
+
+
