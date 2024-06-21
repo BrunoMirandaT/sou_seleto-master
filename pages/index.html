@@ -65,19 +65,20 @@
 
                 <table>
                 <tbody>
-                {% for aluno in alunos %}
+                {% for info in range(len(cadastros)) %}
                <tr>
-                   <td id="td1">{{ aluno.info1 }}</td>
-                  <td id="td2">{{ aluno.nome }}</td>
-                  <td id="td3">{{ aluno.info3 }}</td>
+                   <td id="td1">{{ info.id }}</td>
+                  <td id="td2">{{ info.nome }}</td>
+                  <td id="td3">{{ info.id }}</td>
                   <td id="td4">
-                     <a href="/delete/{{aluno.id}}">Deletar</a>
+                     <a href="/delete/{{info1}}">Deletar</a>
                   </td>
                    <td id="td5" onclick="togglePopup()">
                        EDITAR
                    </td>
                </tr>
-            {% endfor %}
+
+                {% endfor %}
                 </tbody>
                     </table>
             </div>

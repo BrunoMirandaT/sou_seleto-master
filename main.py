@@ -1,19 +1,27 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-import secrets
+import secrets, json, re
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
+from mysql.connector import connect
 from sqlalchemy.orm import relationship
 
 app = Flask(__name__, template_folder = 'pages')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///teste.db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///teste.db'
+
+db = connect(
+      user = 'root',
+      password = '',
+      host = '127.0.0.1',
+      database = 'SouSeleto')
 
 secret_key = secrets.token_hex(32)
 
 app.config['SECRET_KEY'] = secret_key
 
-app.app_context().push()
-db = SQLAlchemy(app)
+#app.app_context().push()
+#db = SQLAlchemy(app)
 
-class Aluno(db.Model):
+"""class Aluno(db.Model):
     id = db.Column('studentId',db.Integer, primary_key=True)
     nome = db.Column(db.String(200))
     info1 = db.Column(db.String(100))
@@ -24,11 +32,25 @@ class Aluno(db.Model):
         self.nome = nome_aux
         self.info1 = info1_aux
         self.info2 = info2_aux
-        self.info3 = info3_aux
+        self.info3 = info3_aux"""
+class cadastro():
+
+    def __init__(self, id1, nome):
+        self.id = id1
+        self.nome = nome
 
 @app.route("/")
 def main_page():
-    return render_template('index.html', alunos = Aluno.query.all())
+    cursor = db.cursor()
+    search = 'select idCadastro, nomeCadastro from cadastros'
+    cursor.execute(search)
+    rows = cursor.fetchall()
+    print(rows)
+    aux = str(rows[:1]).replace('(', '').replace("[", '')
+    id = aux.split(', ')
+    cadastro.id = id[0]
+
+    return render_template('index.html', info=cadastro)
 
 @app.route("/new", methods=['GET', 'POST'])
 def new():
@@ -69,5 +91,5 @@ def delete(id):
 
 
 if __name__ == '__main__':
-    db.create_all()
+
     app.run(port=3000, debug=True)
