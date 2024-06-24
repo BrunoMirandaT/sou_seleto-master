@@ -62,14 +62,14 @@
     <div id="main">
         <h3>Aluno (<a href = "{{ url_for('new') }}">Adicionar aluno</a>)</h3>
         <input type="text" id="search">
-
                 <table>
                 <tbody>
-                {% for info in range(len(cadastros)) %}
+                {% for row in info %}
                <tr>
-                   <td id="td1">{{ info.id }}</td>
-                  <td id="td2">{{ info.nome }}</td>
-                  <td id="td3">{{ info.id }}</td>
+
+                   <td id="td1" value={{row[0]}}>{{ row[0] }}</td>
+                  <td id="td2">{{ row[1] }}</td>
+                  <td id="td3">{{ row[2] }}</td>
                   <td id="td4">
                      <a href="/delete/{{info1}}">Deletar</a>
                   </td>
@@ -77,14 +77,10 @@
                        EDITAR
                    </td>
                </tr>
-
                 {% endfor %}
                 </tbody>
                     </table>
             </div>
-
-
-
 
     <script src="{{ url_for('static',filename='index.js') }}"></script>
 </body>

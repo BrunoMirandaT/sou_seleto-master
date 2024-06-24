@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from mysql.connector import connect
 from sqlalchemy.orm import relationship
+from bs4 import BeautifulSoup as BS
+from urllib.request import urlopen
 
 app = Flask(__name__, template_folder = 'pages')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///teste.db'
@@ -33,24 +35,27 @@ app.config['SECRET_KEY'] = secret_key
         self.info1 = info1_aux
         self.info2 = info2_aux
         self.info3 = info3_aux"""
-class cadastro():
-
-    def __init__(self, id1, nome):
-        self.id = id1
-        self.nome = nome
 
 @app.route("/")
 def main_page():
-    cursor = db.cursor()
-    search = 'select idCadastro, nomeCadastro from cadastros'
-    cursor.execute(search)
-    rows = cursor.fetchall()
-    print(rows)
-    aux = str(rows[:1]).replace('(', '').replace("[", '')
-    id = aux.split(', ')
-    cadastro.id = id[0]
+    try:
+        cursor = db.cursor()
+        search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros'
+        cursor.execute(search)
+        results = cursor.fetchall()
+    except:
+        print('Whoops')
 
-    return render_template('index.html', info=cadastro)
+    return render_template('index.html', info=results)
+
+def show_cad():
+    cursor = db.cursor()
+    search = 'select * from cadastros'
+    cursor.execute(search)
+    results = cursor.fetchall()
+
+
+    return render_template('index.html', cad=results)
 
 @app.route("/new", methods=['GET', 'POST'])
 def new():
