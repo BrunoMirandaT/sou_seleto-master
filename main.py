@@ -38,13 +38,14 @@ app.config['SECRET_KEY'] = secret_key
 
 @app.route("/")
 def main_page():
-    try:
-        cursor = db.cursor()
-        search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros'
-        cursor.execute(search)
-        results = cursor.fetchall()
-    except:
-        print('Whoops')
+    cursor = db.cursor()
+    search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros'
+    cursor.execute(search)
+    results = cursor.fetchall()
+
+    id = results[0]
+    aux = id[0]
+    print(aux)
 
     return render_template('index.html', info=results)
 
@@ -54,8 +55,15 @@ def show_cad():
     cursor.execute(search)
     results = cursor.fetchall()
 
-
     return render_template('index.html', cad=results)
+
+
+@app.route("/", methods=["GET", "POST"])
+def get_cad():
+    help = request.form['td1']
+    print(help)
+    print("bodia")
+    return render_template('index.html', hi=help)
 
 @app.route("/new", methods=['GET', 'POST'])
 def new():
@@ -63,9 +71,12 @@ def new():
         if not request.form['nome'] or not request.form['info1'] or not request.form['info2'] or not request.form['info3']:
             flash("Preencha todos os campos", "Erro")
         else:
-            aluno = Aluno(request.form['nome'], request.form['info1'], request.form['info2'], request.form['info3'])
-            db.session.add(aluno)
-            db.session.commit()
+            cursor = db.cursor()
+            add = 'insert into cadastros (nomeCadastro, cpfCadastro, nascimentoCadastro, nomeResponsavel, cpfResponsavel, rgResponsavel, nomeMae, nomePai, dataEntrada, tipoSanguineo) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+            info = request.form['nome'], request.form['info1'], request.form['info2'], request.form['info3'], request.form['info4'], request.form['info5'], request.form['info6'], request.form['info7'], request.form['info8'], request.form['info9']
+            cursor.execute(add, info)
+            db.commit()
+
             return redirect(url_for('main_page'))
 
     return render_template('new.html')

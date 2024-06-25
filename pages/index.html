@@ -22,7 +22,7 @@
             <div id="foto"></div>
             <div id="info">
                 <label for="nome">NOME
-                <input type="text" name="nome" id="nome">
+                <input type="text" name="nome" id="nome" placeholder="{{ hi }}">
                     </label>
                  <label for="nasc">DATA DE NASCIMENTO
                 <input type="text" name="nasc" id="nasc">
@@ -63,11 +63,11 @@
         <h3>Aluno (<a href = "{{ url_for('new') }}">Adicionar aluno</a>)</h3>
         <input type="text" id="search">
                 <table>
+                    <form action="{{ url_for('get_cad')}}" method="POST">
                 <tbody>
                 {% for row in info %}
                <tr>
-
-                   <td id="td1" value={{row[0]}}>{{ row[0] }}</td>
+                   <td name="td1" id="td1" value={{row[0]}}>{{ row[0] }}</td>
                   <td id="td2">{{ row[1] }}</td>
                   <td id="td3">{{ row[2] }}</td>
                   <td id="td4">
@@ -79,6 +79,7 @@
                </tr>
                 {% endfor %}
                 </tbody>
+                        </form>
                     </table>
             </div>
 
