@@ -4,8 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from mysql.connector import connect
 from sqlalchemy.orm import relationship
-from bs4 import BeautifulSoup as BS
-from urllib.request import urlopen
 
 app = Flask(__name__, template_folder = 'pages')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///teste.db'
@@ -55,15 +53,17 @@ def show_cad():
     cursor.execute(search)
     results = cursor.fetchall()
 
-    return render_template('index.html', cad=results)
+    return render_template('index.html', cad= 1)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/cadastro", methods=['GET', 'POST'])
 def get_cad():
-    help = request.form['td1']
+
     print(help)
     print("bodia")
-    return render_template('index.html', hi=help)
+    test = "bodia"
+    print(test)
+    return render_template('index.html', cad=test)
 
 @app.route("/new", methods=['GET', 'POST'])
 def new():

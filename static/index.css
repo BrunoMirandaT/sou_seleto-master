@@ -260,4 +260,79 @@ position: absolute;
     height: 100%;
 }
 
+ /* CSS para centralizar os botões e ajustar o estilo */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Espaço acima dos botões */
+        }
 
+        .button-container input[type="submit"],
+        .button-container input[name="voltar"] {
+            width: 200px;
+            height: 50px;
+            padding: 10px 20px; /* Ajuste o padding conforme necessário */
+            font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+            margin: 0 10px; /* Espaçamento entre os botões */
+            background-color: #46AC22; /* Cor de fundo */
+            color: white; /* Cor do texto */
+            border: none; /* Remove a borda */
+            border-radius: 10px; /* Borda arredondada */
+            cursor: pointer; /* Cursor ao passar por cima */
+            transition: background-color 0.3s; /* Transição suave */
+            margin-bottom: 20px;
+        }
+
+        .button-container input[type="submit"]:hover,
+        .button-container input[name="voltar"]:hover {
+            background-color: #368c1c; /* Cor de fundo ao passar o mouse */
+        }
+
+        .title {
+            text-align: center; /* Centraliza o texto */
+            font-weight: bold;
+            font-size: 25px;
+            margin-top: 20px; /* Espaço acima do título */
+            color: #333; /* Cor do texto (opcional) */
+            font-family: 'Roboto', sans-serif;
+        }
+
+
+
+        /* Estilo para a mensagem de aviso */
+        .warning-message {
+            background-color: #f2dede; /* Cor de fundo vermelha */
+            color: #a94442; /* Cor do texto vermelho */
+            border: 1px solid #ebccd1; /* Borda vermelha */
+            padding: 15px; /* Espaçamento interno */
+            margin-top: 20px; /* Espaço acima da mensagem */
+            text-align: center; /* Centraliza o texto */
+            display: none; /* Inicialmente oculta */
+        }
+
+#cadastrar{
+    background-color: lightgray;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+#foto_cad{
+    width: 13%;
+height: 30%;
+top: 28%;
+left: 14%;
+background-color: white;
+position: absolute;
+}
+
+
+
+#test{
+    width: 100px;
+    height: 20px;
+    background-color: white;
+    z-index: 20;
+    border: black 1px solid;
+    margin-left: 50px;
+}

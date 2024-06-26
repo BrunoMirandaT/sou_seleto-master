@@ -19,11 +19,16 @@
                 <button>DADOS</button>
                 <button>DOCUMENTOS</button>
             </header>
-            <div id="foto"></div>
+
             <div id="info">
+
                 <label for="nome">NOME
-                <input type="text" name="nome" id="nome" placeholder="{{ hi }}">
+                    <div id="foto">{{hi}}</div>
+                <input type="text" name="nome" id="nome">
                     </label>
+                <table>
+                <tr>
+                    <td id="test">{{ cad }}</td></tr></table>
                  <label for="nasc">DATA DE NASCIMENTO
                 <input type="text" name="nasc" id="nasc">
                      </label>
@@ -63,23 +68,27 @@
         <h3>Aluno (<a href = "{{ url_for('new') }}">Adicionar aluno</a>)</h3>
         <input type="text" id="search">
                 <table>
-                    <form action="{{ url_for('get_cad')}}" method="POST">
+
                 <tbody>
                 {% for row in info %}
                <tr>
                    <td name="td1" id="td1" value={{row[0]}}>{{ row[0] }}</td>
                   <td id="td2">{{ row[1] }}</td>
                   <td id="td3">{{ row[2] }}</td>
+                   <td id="teste">{{ cad }}</td>
                   <td id="td4">
                      <a href="/delete/{{info1}}">Deletar</a>
                   </td>
-                   <td id="td5" onclick="togglePopup()">
-                       EDITAR
-                   </td>
+
+                        <td id="td5" onclick="togglePopup()">
+                            EDITAR
+                        </td>
+
                </tr>
                 {% endfor %}
+
                 </tbody>
-                        </form>
+
                     </table>
             </div>
 
