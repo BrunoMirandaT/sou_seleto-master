@@ -1,11 +1,14 @@
-function togglePopup(){
+window.onload = function togglePopup(){
+    link = window.location.href;
+    if(link != 'http://127.0.0.1:3000/'){
     const overlay = document.getElementById('overlay');
     overlay.classList.toggle('show');
-    fetch('/cadastro')
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+    }   else{
+            return 0;
+        }
 }
+
+
 
 function closePopup(){
     const overlay = document.getElementById('overlay');
@@ -37,4 +40,14 @@ function closePopup(){
             // Exemplo de redirecionamento
             window.history.back();
         }
+function toggleLogin(){
+    const overlay = document.getElementById('login');
+    overlay.classList.toggle('show');
+}
 
+function showUsers(){
+    fetch('/usuarios')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+}

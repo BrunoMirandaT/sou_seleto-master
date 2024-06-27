@@ -10,62 +10,72 @@
 <body>
     <header id="navbar">
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
-        <a href id="cad_but">CADASTROS</a>
-        <button id="login"><i class="fa fa-user" style="font-size: 36px;"></i></button>
+        <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
+        <a href = "{{ url_for('get_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
+        <button id="user" onclick="toggleLogin()"><i class="fa fa-user" style="font-size: 36px;"></i></button>
         </header>
+    <div id="login" class="overlay_container">
+        <div id="login-box">
+
+            <h1 id="loginTitle">Entrar</h1>
+            <label for="cpfUser" class="loginLabel">CPF</label>
+                <input type="text" name="cpfUser" class="loginInput">
+            <label for="passwordUser" class="loginLabel">SENHA</label>
+            <input type="password" name="passwordUser" class="loginInput">
+            <input type="submit" value="Entrar" id="loginSubmit"/>
+        </div>
+    </div>
     <div id="overlay" class="overlay_container">
         <div class="cadastro_popup">
             <header id="cadastro_header">
                 <button>DADOS</button>
                 <button>DOCUMENTOS</button>
             </header>
-
             <div id="info">
-
+                {% for row in cad %}
+                <div id="foto"></div>
                 <label for="nome">NOME
-                    <div id="foto">{{hi}}</div>
-                <input type="text" name="nome" id="nome">
+                <input type="text" name="nome" id="nome" value="{{row[1]}}">
                     </label>
-                <table>
-                <tr>
-                    <td id="test">{{ cad }}</td></tr></table>
                  <label for="nasc">DATA DE NASCIMENTO
-                <input type="text" name="nasc" id="nasc">
+                <input type="text" name="nasc" id="nasc" value="{{row[3]}}">
                      </label>
                  <label for="cpf">CPF
-                <input type="text" name="cpf" id="cpf">
+                <input type="text" name="cpf" id="cpf" value="{{row[2]}}">
                      </label>
                  <label for="mae">MÃE
-                <input type="text" name="mae" id="mae">
+                <input type="text" name="mae" id="mae" value="{{row[10]}}">
                      </label>
                  <label for="pai">PAI
-                <input type="text" name="pai" id="pai">
+                <input type="text" name="pai" id="pai" value="{{row[11]}}">
+                     </label>
+                <label for="resp">RESPONSÁVEL LEGAL
+                <input type="text" name="resp" id="resp" value="{{row[4]}}">
                      </label>
                  <label for="cpf2">CPF RESPONSÁVEL
-                <input type="text" name="cpf2" id="cpf2">
+                <input type="text" name="cpf2" id="cpf2" value="{{row[5]}}">
                      </label>
                  <label for="rg">RG RESPONSÁVEL
-                <input type="text" name="rg" id="rg">
+                <input type="text" name="rg" id="rg" value="{{row[6]}}">
                      </label>
                  <label for="telefone">TELEFONE
-                <input type="text" name="telefone" id="telefone">
+                <input type="text" name="telefone" id="telefone" value="{{row[8]}}">
                      </label>
                  <label for="celular">CELULAR
-                <input type="text" name="celular" id="celular">
+                <input type="text" name="celular" id="celular" value="{{row[9]}}">
                      </label>
                  <label for="tiposangue">TIPO SANGUÍNEO
-                <input type="text" name="tiposangue" id="tiposangue">
-                     </label>
-                 <label for="resp">RESPONSÁVEL LEGAL
-                <input type="text" name="resp" id="resp">
+                <input type="text" name="tiposangue" id="tiposangue" value="{{row[8]}}">
                      </label>
 
             </div>
-            <button id="back" onclick="closePopup()">VOLTAR</button>
+            {% endfor %}
+            <button id="back" onclick="closePopup()">
+                <a href ="{{url_for('main_page')}}">VOLTAR</a></button>
         </div>
     </div>
     <div id="main">
-        <h3>Aluno (<a href = "{{ url_for('new') }}">Adicionar aluno</a>)</h3>
+        <h3>Aluno (<a href ={{url_for('new_cad')}}>Adicionar aluno</a>)</h3>
         <input type="text" id="search">
                 <table>
 
@@ -75,15 +85,13 @@
                    <td name="td1" id="td1" value={{row[0]}}>{{ row[0] }}</td>
                   <td id="td2">{{ row[1] }}</td>
                   <td id="td3">{{ row[2] }}</td>
-                   <td id="teste">{{ cad }}</td>
                   <td id="td4">
                      <a href="/delete/{{info1}}">Deletar</a>
                   </td>
 
                         <td id="td5" onclick="togglePopup()">
-                            EDITAR
+                            <a href ="{{url_for('get_cad', cadastro=row[0])}}">EDITAR</a>
                         </td>
-
                </tr>
                 {% endfor %}
 
@@ -93,6 +101,7 @@
             </div>
 
     <script src="{{ url_for('static',filename='index.js') }}"></script>
+
 </body>
 <footer></footer>
 </html>

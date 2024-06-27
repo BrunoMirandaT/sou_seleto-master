@@ -6,10 +6,10 @@
    <body>
         <header id="navbar">
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
-        <a href id="headerButton">CADASTROS</a>
+        <a href id="cad_but">CADASTROS</a>
         <button id="login"><i class="fa fa-user" style="font-size: 36px;"></i></button>
         </header>
-      <h3 class="title">Adicionar aluno</h3>
+      <h3 class="title">Adicionar usuario</h3>
       <hr/>
 
       {%- for category, message in get_flashed_messages(with_categories = true) %}

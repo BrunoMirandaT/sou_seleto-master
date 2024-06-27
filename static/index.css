@@ -20,12 +20,11 @@ body{
     width: 105px;
 }
 
-#cad_but{
+#headerButton{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 500;
     font-size: 24px;
     position: relative;
-    margin-left: 10px;
     text-decoration: none;
     padding: 16px;
     transition: .2s;
@@ -39,13 +38,10 @@ a:hover{
     backdrop-filter: brightness(90%);
 }
 
-#login{
+#user{
     width: 50px;
     height: 50px;
     background-color: white;
-}
-
-#login{
     border-radius: 100px;
     background-color: transparent;
     border: black solid 2px;
@@ -53,6 +49,7 @@ a:hover{
     right: 1rem;
     margin-bottom: .3rem;
 }
+
 
 #main{
     width: 100%;
@@ -336,3 +333,77 @@ position: absolute;
     border: black 1px solid;
     margin-left: 50px;
 }
+
+#login-box{
+    width: 20%;
+    height: 40%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.loginInput{
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.loginLabel{
+    margin-left: 0;
+    margin-bottom: 10px;
+    align-self: start;
+    margin-left: 5px;
+}
+
+#loginTitle{
+    margin-top: 0;
+}
+
+#loginSubmit{
+    width: 200px;
+    height: 50px;
+    padding: 10px 20px; /* Ajuste o padding conforme necessário */
+    font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+    margin: 0 10px; /* Espaçamento entre os botões */
+    background-color: #46AC22; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda */
+    border-radius: 10px; /* Borda arredondada */
+    cursor: pointer; /* Cursor ao passar por cima */
+    transition: background-color 0.3s; /* Transição suave */
+    margin-top: 20px;
+
+    &:hover{
+    background-color: #368c1c;
+    }
+}
+
+#close{
+
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+}
+
+
+#close:before, #close:after {
+
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+#close:before {
+  transform: rotate(45deg);
+}
+#close:after {
+  transform: rotate(-45deg);
+}
+
+
+

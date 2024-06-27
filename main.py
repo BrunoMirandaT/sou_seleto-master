@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-import secrets, json, re
+import secrets, json, re, random, string
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from mysql.connector import connect
 from sqlalchemy.orm import relationship
+
 
 app = Flask(__name__, template_folder = 'pages')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///teste.db'
@@ -34,18 +35,18 @@ app.config['SECRET_KEY'] = secret_key
         self.info2 = info2_aux
         self.info3 = info3_aux"""
 
+def random_senha():
+    random_senha = ''.join(random.choice(string.ascii_letters) for i in range(6))
+
 @app.route("/")
 def main_page():
     cursor = db.cursor()
     search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros'
     cursor.execute(search)
     results = cursor.fetchall()
+    print("yu")
 
-    id = results[0]
-    aux = id[0]
-    print(aux)
-
-    return render_template('index.html', info=results)
+    return render_template('index.html', info=results, cad='o')
 
 def show_cad():
     cursor = db.cursor()
@@ -53,20 +54,30 @@ def show_cad():
     cursor.execute(search)
     results = cursor.fetchall()
 
-    return render_template('index.html', cad= 1)
+    return render_template('index.html', blob='')
 
+@app.route("/cadastro=<cadastro>", methods=['GET', 'POST'])
+def get_cad(cadastro):
+    cursor = db.cursor()
+    search = 'select * from cadastros where idCadastro = %s'
+    cursor.execute(search, tuple(cadastro))
+    results = cursor.fetchall()
 
-@app.route("/cadastro", methods=['GET', 'POST'])
-def get_cad():
+    return render_template('index.html', cad=results)
 
-    print(help)
-    print("bodia")
-    test = "bodia"
-    print(test)
-    return render_template('index.html', cad=test)
+@app.route("/usuarios", methods=['GET', 'POST'])
+def get_users():
+    cursor = db.cursor()
+    search = 'select idUsuario, nomeUsuario, nascimentoUsuario from usuarios'
+    cursor.execute(search)
+    results = cursor.fetchall()
+    print("oi")
+    link = 'new_cad'
+
+    return render_template('index.html', info=results, link=link)
 
 @app.route("/new", methods=['GET', 'POST'])
-def new():
+def new_cad():
     if request.method == 'POST':
         if not request.form['nome'] or not request.form['info1'] or not request.form['info2'] or not request.form['info3']:
             flash("Preencha todos os campos", "Erro")
@@ -77,9 +88,25 @@ def new():
             cursor.execute(add, info)
             db.commit()
 
-            return redirect(url_for('main_page'))
+            return redirect(url_for('get_cad'))
 
     return render_template('new.html')
+
+@app.route("/new", methods=['GET', 'POST'])
+def new_user():
+    if request.method == 'POST':
+        if not request.form['nome'] or not request.form['nasc'] or not request.form['cpf'] or not request.form['celular'] or not request.form['nvlAcesso']:
+            flash("Preencha todos os campos", "Erro")
+        else:
+            cursor = db.cursor()
+            add = 'insert into usuarios (nomeUsuario, nascimentoUsuario, cpfUsuario, hashSenha, celularUsuario, nvlAcesso) values (%s, %s, %s, %s, %s, %s)'
+            info = request.form['nome'], request.form['nasc'], request.form['cpf'], random_senha(), request.form['celular'], request.form['nvlAcesso']
+            cursor.execute(add, info)
+            db.commit()
+
+            return redirect(url_for('main_page'))
+
+    return render_template('new_user.html')
 
 @app.route("/update/<int:id>", methods = ['GET','POST'])
 def update(id):
