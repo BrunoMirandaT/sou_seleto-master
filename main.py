@@ -56,7 +56,7 @@ def show_cad():
 
     return render_template('index.html', blob='')
 
-@app.route("/cadastro=<cadastro>", methods=['GET', 'POST'])
+@app.route("/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
     cursor = db.cursor()
     search = 'select * from cadastros where idCadastro = %s'
@@ -107,6 +107,22 @@ def new_user():
             return redirect(url_for('main_page'))
 
     return render_template('new_user.html')
+
+@app.route('/', methods=['GET', 'POST'])
+def login_user():
+    if request.method == 'GET':
+        if not request.form['nome'] or not request.form['nasc']:
+            flash("Preencha todos os campos", "Erro")
+        else:
+            cursor = db.cursor()
+            search = 'select cpfUsuario, hashSenha from usuarios where cpfUsuario = %s'
+            info = request.form['cpfUser']
+            cursor.execute(search, info)
+
+            return redirect(url_for('main_page'))
+
+    return render_template('new_user.html')
+
 
 @app.route("/update/<int:id>", methods = ['GET','POST'])
 def update(id):
