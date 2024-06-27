@@ -72,9 +72,9 @@ def get_users():
     cursor.execute(search)
     results = cursor.fetchall()
     print("oi")
-    link = 'new_cad'
+    print(results)
 
-    return render_template('index.html', info=results, link=link)
+    return render_template('index.html', info=results)
 
 @app.route("/new", methods=['GET', 'POST'])
 def new_cad():
@@ -118,6 +118,8 @@ def login_user():
             search = 'select cpfUsuario, hashSenha from usuarios where cpfUsuario = %s'
             info = request.form['cpfUser']
             cursor.execute(search, info)
+            results = cursor.fetchall()
+            print(results)
 
             return redirect(url_for('main_page'))
 
