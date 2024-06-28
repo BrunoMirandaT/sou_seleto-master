@@ -15,23 +15,16 @@ function closePopup(){
 }
 
 function validateForm(event) {
-            var submitButton = event.submitter;
-
-            // Verifica se o botão clicado foi o de Submit
-
-                // Verifica se todos os campos estão preenchidos
-                var inputs = document.querySelectorAll('.info input');
-                for (var i = 0; i < inputs.length; i++) {
-                    if (inputs[i].value.trim() === '') {
-                        // Mostra a mensagem de aviso
-                        document.getElementById('warningMessage').style.display = 'block';
-                        return false; // Impede o envio do formulário
+    var submitButton = event.submitter;
+        var inputs = document.querySelectorAll('.info input');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value.trim() === '') {
+                   document.getElementById('warningMessage').style.display = 'block';
+                   return false;
                     }
                 }
-
-
-            return true; // Permite o envio do formulário se todos os campos estiverem preenchidos
-        }
+            return true;
+            }
 
 function goBack() {
    window.history.back();
