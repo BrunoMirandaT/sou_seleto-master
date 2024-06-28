@@ -79,16 +79,13 @@ def get_users():
 @app.route("/new", methods=['GET', 'POST'])
 def new_cad():
     if request.method == 'POST':
-        if not request.form['nome'] or not request.form['info1'] or not request.form['info2'] or not request.form['info3']:
-            flash("Preencha todos os campos", "Erro")
-        else:
-            cursor = db.cursor()
-            add = 'insert into cadastros (nomeCadastro, cpfCadastro, nascimentoCadastro, nomeResponsavel, cpfResponsavel, rgResponsavel, nomeMae, nomePai, dataEntrada, tipoSanguineo) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-            info = request.form['nome'], request.form['info1'], request.form['info2'], request.form['info3'], request.form['info4'], request.form['info5'], request.form['info6'], request.form['info7'], request.form['info8'], request.form['info9']
-            cursor.execute(add, info)
-            db.commit()
+        cursor = db.cursor()
+        add = 'insert into cadastros (nomeCadastro, cpfCadastro, nascimentoCadastro, nomeResponsavel, cpfResponsavel, rgResponsavel, nomeMae, nomePai, dataEntrada, tipoSanguineo) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+        info = request.form['nome'], request.form['info1'], request.form['info2'], request.form['info3'], request.form['info4'], request.form['info5'], request.form['info6'], request.form['info7'], request.form['info8'], request.form['info9']
+        cursor.execute(add, info)
+        db.commit()
 
-            return redirect(url_for('main_page'))
+        return redirect(url_for('main_page'))
 
     return render_template('new.html')
 
@@ -132,17 +129,15 @@ def update_cad(cad):
     print("yahu")
     if request.method == 'POST':
         print("guhh")
-        if not request.form['nome']:
-            flash("Preencha todos os campos", "Erro")
-        else:
-            cursor = db.cursor()
-            add = 'update cadastros set nomeCadastro = %s, cpfCadastro = %s, nascimentoCadastro = %s, nomeMae = %s, nomePai = %s, nomeResponsavel = %s, cpfResponsavel = %s, rgResponsavel = %s, tipoSanguineo = %s where idCadastro = %s'
-            info = request.form['nome'], request.form['cpf'], request.form['nasc'], request.form['mae'], request.form['pai'], request.form['resp'], request.form['cpf2'], request.form['rg'], request.form['tiposangue'], cad
-            cursor.execute(add, info)
-            db.commit()
-            print("brabo")
 
-            return redirect(url_for('update_cad'))
+        cursor = db.cursor()
+        add = 'update cadastros set nomeCadastro = %s, cpfCadastro = %s, nascimentoCadastro = %s, nomeMae = %s, nomePai = %s, nomeResponsavel = %s, cpfResponsavel = %s, rgResponsavel = %s, tipoSanguineo = %s where idCadastro = %s'
+        info = request.form['nome'], request.form['cpf'], request.form['nasc'], request.form['mae'], request.form['pai'], request.form['resp'], request.form['cpf2'], request.form['rg'], request.form['tiposangue'], cad
+        cursor.execute(add, info)
+        db.commit()
+        print("brabo")
+
+        return redirect(url_for('main_page'))
 
     return render_template('index.html')
 

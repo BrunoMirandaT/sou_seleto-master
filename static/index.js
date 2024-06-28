@@ -23,7 +23,7 @@ function closePopup(){
                 // Verifica se todos os campos estão preenchidos
                 var inputs = document.querySelectorAll('.info input');
                 for (var i = 0; i < inputs.length; i++) {
-                    if (inputs[i].value.trim() === '') {
+                    if (inputs[i].value.trim() === '' && i != 6 && i != 7) {
                         // Mostra a mensagem de aviso
                         document.getElementById('warningMessage').style.display = 'block';
                         return false; // Impede o envio do formulário

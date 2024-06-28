@@ -2,6 +2,8 @@
 
 body{
     margin: 0;
+    overflow-y: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #navbar{
@@ -97,9 +99,9 @@ tbody{
 }
 #search{
     width: 80%;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     width: 50rem;
-    height: 2.5rem;
+    height: 50px;
     border: 1px solid black;
     border-radius: 3px;
     background-color: lightgray;
@@ -107,7 +109,6 @@ tbody{
     font-size: 20px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     align-self: self-end;
-    margin-right: 50px;
 }
 
 #popup_cad{
@@ -194,7 +195,7 @@ footer{
     font-weight: bold;
     color: black;
 }
-input{
+input[type='text']{
     width: 80%;
     height:35px;
     margin-bottom:20px;
@@ -238,7 +239,7 @@ background-color: white;
 position: absolute;
 }
 
-#back{
+/*.back{
    background-color: #46AC22;
    color: white;
    border: solid black 2px;
@@ -247,10 +248,11 @@ position: absolute;
    font-size: 12px;
    justify-content: center;
    position: relative;
+   align-items: center;
    left: 50%;
    font-weight: bold;
    padding: 20px;
-}
+}*/
 
 #show_cad{
     background: transparent;
@@ -258,39 +260,50 @@ position: absolute;
     height: 100%;
 }
 
+input[type='submit']{
+    width: 0;
+    height: 0;
+}
+
  /* CSS para centralizar os botões e ajustar o estilo */
         .button-container {
-            display: flex;
+             display: flex;
             justify-content: center;
+            align-items: center;
             margin-top: 20px; /* Espaço acima dos botões */
         }
 
         .button-container input[type="submit"],
-        .button-container input[name="voltar"] {
+        .button-container input[name="voltar"],
+        .button-container #voltar{
+            text-align:center;
+            line-height: 46px;
+            font-weight: bold;
             width: 200px;
             height: 50px;
-            padding: 10px 20px; /* Ajuste o padding conforme necessário */
-            font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
-            margin: 0 10px; /* Espaçamento entre os botões */
-            background-color: #46AC22; /* Cor de fundo */
-            color: white; /* Cor do texto */
-            border: none; /* Remove a borda */
-            border-radius: 10px; /* Borda arredondada */
-            cursor: pointer; /* Cursor ao passar por cima */
-            transition: background-color 0.3s; /* Transição suave */
+            font-size: 16px;
+            margin: 0px 10px;
+            margin-left: 40px;
+            background-color: #46AC22;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
             margin-bottom: 20px;
         }
 
         .button-container input[type="submit"]:hover,
-        .button-container input[name="voltar"]:hover {
-            background-color: #368c1c; /* Cor de fundo ao passar o mouse */
+        .button-container input[name="voltar"]:hover,
+        .button-container #voltar:hover{
+            background-color: #368c1c;
         }
 
         .title {
             text-align: center; /* Centraliza o texto */
             font-weight: bold;
             font-size: 25px;
-            margin-top: 20px; /* Espaço acima do título */
+            margin-top: 20px; /
             color: #333; /* Cor do texto (opcional) */
             font-family: 'Roboto', sans-serif;
         }
@@ -405,6 +418,36 @@ position: absolute;
 #close:after {
   transform: rotate(-45deg);
 }
+
+a:visited{
+    color: inherit;
+}
+
+a:link{
+    text-decoration: none;
+    color: inherit;
+}
+
+#tableTop{
+    width: 95%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+#addButton{
+    background-color: #46AC22;
+    width: 70px;
+    height: 70px;
+    font-size: 80px;
+    text-align: center;
+    border: solid 1px black;
+    border-radius: 5px;
+    line-height: 50px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
 
 
 

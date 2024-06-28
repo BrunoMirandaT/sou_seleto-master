@@ -32,9 +32,13 @@
                 <button>DADOS</button>
                 <button>DOCUMENTOS</button>
             </header>
-            <div id="info">
+
+
                 {% for row in cad %}
-                <div id="foto"></div>
+            <form id="cadastro" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST" onsubmit="return validateForm(event);">
+            <div id="info">
+
+                    <div id="foto"></div>
                 <label for="nome">NOME
                 <input type="text" name="nome" id="nome" value="{{row[1]}}">
                     </label>
@@ -68,19 +72,20 @@
                  <label for="tiposangue">TIPO SANGUÍNEO
                 <input type="text" name="tiposangue" id="tiposangue" value="{{row[8]}}">
                      </label>
-
             </div>
-            <form id="cadastrar" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST" onsubmit="return validateForm(event);">
-            <input type="submit" id="back" value="Salvar" onclick="closePopup()">
-            </form>
+                <div class="button-container">
+            <input type="submit" class="back" value="Salvar" onclick="closePopup()">
+                </form>
+                <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
+        </div>
             {% endfor %}
-
-                <a id="back" style="display:none" onclick="closePopup()" href ="{{url_for('main_page')}}">VOLTAR</a>
         </div>
         </div>
     </div><div id="main">
-        <h3>Aluno (<a href ={{url_for('new_cad')}}>Adicionar aluno</a>)</h3>
+        <div id="tableTop">
+        <a id="addButton" href ={{url_for('new_cad')}}>+</a></h3>
         <input type="text" id="search">
+        </div>
                 <table>
 
                 <tbody>
@@ -102,10 +107,12 @@
                 </tbody>
 
                     </table>
-            </div>
+
 
     <script src="{{ url_for('static',filename='index.js') }}"></script>
 
+        </div>
+
 </body>
-<footer></footer>
+
 </html>
