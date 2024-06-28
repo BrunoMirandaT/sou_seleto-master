@@ -6,8 +6,8 @@
    <body>
         <header id="navbar">
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
-        <a href id="headerButton">CADASTROS</a>
-        <button id="login"><i class="fa fa-user" style="font-size: 36px;"></i></button>
+       <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
+        <a href = "{{ url_for('get_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
         </header>
       <h3 class="title">Adicionar aluno</h3>
       <hr/>
@@ -21,8 +21,8 @@
       <form id="cadastrar" action="{{ request.path }}" method="post" onsubmit="return validateForm(event);">
         <div id="info" class="info">
             <div id="foto_cad"></div>
-            <label for="nome">NOME*
-                <input type="text" name="nome" placeholder="Digite aqui" />
+            <label for="info0">NOME*
+                <input type="text" name="info0" placeholder="Digite aqui" />
             </label>
             <label for="info1">CPF*
                 <input type="text" name="info1" placeholder="Digite aqui" />
@@ -50,6 +50,9 @@
             </label>
             <label for="info9">TIPO SANGUÍNEO*
                 <input type="text" name="info9" placeholder="Digite aqui" />
+            </label>
+            <label for="info10">TELEFONE*
+                <input type="text" name="info10" placeholder="Digite aqui" />
             </label>
         </div>
         <div class="button-container">

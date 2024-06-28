@@ -92,6 +92,7 @@ text-align: left;
 #td3{
     padding-left: 25px;
     padding-right: 25px;
+    width: 200px;
 }
 tbody{
     width: 100%;
@@ -227,7 +228,17 @@ label[for='nasc']{
 }
 
 #nome{
-    width: 90.5%;
+    width: 91%;
+}
+
+input[name='info0']{
+    width: 91%;
+}
+
+label[for='info0']{
+    margin-top: 50px;
+    display: grid;
+    grid-area: header;
 }
 
 #foto{
@@ -448,6 +459,15 @@ a:link{
     margin-left: 5px;
 }
 
+#usuario_popup{
+    width: 50%;
+    height: 80%;
+}
 
-
+#edit {
+    display: block;
+    line-height:40px;
+    height: 40px;
+    padding: 0px 10px;
+}
 

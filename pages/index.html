@@ -12,7 +12,7 @@
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
         <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
         <a href = "{{ url_for('get_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
-        <button id="user" onclick="toggleLogin()"><i class="fa fa-user" style="font-size: 36px;"></i></button>
+        <button id="user"><i class="fa fa-user" style="font-size: 36px;"></i></button>
         </header>
     <form id="cadastrar" action="{{ request.path }}" method="POST">
     <div id="login" class="overlay_container">
@@ -26,6 +26,12 @@
         </div>
     </div>
     </form>
+
+    <div id="overlay2" class="overlay_container">
+    <div id="usuario_popup">
+    </div>
+        </div>
+
     <div id="overlay" class="overlay_container">
         <div class="cadastro_popup">
             <header id="cadastro_header">
@@ -33,11 +39,9 @@
                 <button>DOCUMENTOS</button>
             </header>
 
-
                 {% for row in cad %}
-            <form id="cadastro" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST" onsubmit="return validateForm(event);">
+            <form id="cadastro" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST">
             <div id="info">
-
                     <div id="foto"></div>
                 <label for="nome">NOME
                 <input type="text" name="nome" id="nome" value="{{row[1]}}">
@@ -49,10 +53,10 @@
                 <input type="text" name="cpf" id="cpf" value="{{row[2]}}">
                      </label>
                  <label for="mae">MÃE
-                <input type="text" name="mae" id="mae" value="{{row[10]}}">
+                <input type="text" name="mae" id="mae" value="{{row[12]}}">
                      </label>
                  <label for="pai">PAI
-                <input type="text" name="pai" id="pai" value="{{row[11]}}">
+                <input type="text" name="pai" id="pai" value="{{row[13]}}">
                      </label>
                 <label for="resp">RESPONSÁVEL LEGAL
                 <input type="text" name="resp" id="resp" value="{{row[4]}}">
@@ -64,7 +68,7 @@
                 <input type="text" name="rg" id="rg" value="{{row[6]}}">
                      </label>
                  <label for="telefone">TELEFONE
-                <input type="text" name="telefone" id="telefone" value="{{row[8]}}">
+                <input type="text" name="telefone" id="telefone" value="{{row[9]}}">
                      </label>
                  <label for="celular">CELULAR
                 <input type="text" name="celular" id="celular" value="{{row[9]}}">
@@ -74,7 +78,7 @@
                      </label>
             </div>
                 <div class="button-container">
-            <input type="submit" class="back" value="Salvar" onclick="closePopup()">
+            <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
                 </form>
                 <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
         </div>
@@ -94,12 +98,11 @@
                    <td name="td1" id="td1" value={{row[0]}}>{{ row[0] }}</td>
                   <td id="td2">{{ row[1] }}</td>
                   <td id="td3">{{ row[2] }}</td>
-                  <td id="td4">
-                     <a href="/delete/{{info1}}">Deletar</a>
-                  </td>
-
-                        <td id="td5" onclick="togglePopup()">
-                            <a href ="{{url_for('get_cad', cadastro=row[0])}}">EDITAR</a>
+                   <td id="td4" onclick="togglePopup()">
+                       <a id="edit" href="{{url_for('get_cad', cadastro=row[0])}}">EDITAR</a>
+                   </td>
+                        <td id="td5">
+                            <a id="edit" href="{{url_for('delete', id=row[0])}}">DELETAR</a>
                         </td>
                </tr>
                 {% endfor %}
