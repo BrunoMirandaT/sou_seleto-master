@@ -249,6 +249,7 @@ position: absolute;
    position: relative;
    left: 50%;
    font-weight: bold;
+   padding: 20px;
 }
 
 #show_cad{

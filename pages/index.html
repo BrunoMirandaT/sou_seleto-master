@@ -14,16 +14,18 @@
         <a href = "{{ url_for('get_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
         <button id="user" onclick="toggleLogin()"><i class="fa fa-user" style="font-size: 36px;"></i></button>
         </header>
+    <form id="cadastrar" action="{{ request.path }}" method="POST">
     <div id="login" class="overlay_container">
         <div id="login-box">
             <h1 id="loginTitle">Entrar</h1>
             <label for="cpfUser" class="loginLabel">CPF</label>
-                <input type="text" name="cpfUser" class="loginInput">
+            <input type="text" name="cpf_User" class="loginInput">
             <label for="passwordUser" class="loginLabel">SENHA</label>
-            <input type="password" name="passwordUser" class="loginInput">
-            <input type="submit" value="Entrar" id="loginSubmit"/>
+            <input type="password" name="password_User" class="loginInput">
+            <a href ="{{url_for('login_user')}}" id="loginSubmit"/>Entrar</a>
         </div>
     </div>
+    </form>
     <div id="overlay" class="overlay_container">
         <div class="cadastro_popup">
             <header id="cadastro_header">
@@ -68,12 +70,15 @@
                      </label>
 
             </div>
+            <form id="cadastrar" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST" onsubmit="return validateForm(event);">
+            <input type="submit" id="back" value="Salvar" onclick="closePopup()">
+            </form>
             {% endfor %}
-            <button id="back" onclick="closePopup()">
-                <a href ="{{url_for('main_page')}}">VOLTAR</a></button>
+
+                <a id="back" style="display:none" onclick="closePopup()" href ="{{url_for('main_page')}}">VOLTAR</a>
         </div>
-    </div>
-    <div id="main">
+        </div>
+    </div><div id="main">
         <h3>Aluno (<a href ={{url_for('new_cad')}}>Adicionar aluno</a>)</h3>
         <input type="text" id="search">
                 <table>

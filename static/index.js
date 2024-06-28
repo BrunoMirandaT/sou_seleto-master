@@ -1,6 +1,6 @@
 window.onload = function togglePopup(){
     link = window.location.href;
-    if(link != 'http://127.0.0.1:3000/'){
+    if(link == 'http://127.0.0.1:3000/1'){
     const overlay = document.getElementById('overlay');
     overlay.classList.toggle('show');
     }   else{

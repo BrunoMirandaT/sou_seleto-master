@@ -41,7 +41,7 @@ def random_senha():
 @app.route("/")
 def main_page():
     cursor = db.cursor()
-    search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros'
+    search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros limit 15'
     cursor.execute(search)
     results = cursor.fetchall()
     print("yu")
@@ -88,7 +88,7 @@ def new_cad():
             cursor.execute(add, info)
             db.commit()
 
-            return redirect(url_for('get_cad'))
+            return redirect(url_for('main_page'))
 
     return render_template('new.html')
 
@@ -108,10 +108,10 @@ def new_user():
 
     return render_template('new_user.html')
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login_user():
-    if request.method == 'GET':
-        if not request.form['nome'] or not request.form['nasc']:
+    if request.method == 'POST':
+        if not request.form['cpf_User'] or not request.form['password_User']:
             flash("Preencha todos os campos", "Erro")
         else:
             cursor = db.cursor()
@@ -119,29 +119,32 @@ def login_user():
             info = request.form['cpfUser']
             cursor.execute(search, info)
             results = cursor.fetchall()
+            print('oi')
             print(results)
 
-            return redirect(url_for('main_page'))
+            return redirect(url_for('login_user'))
 
-    return render_template('new_user.html')
+    return render_template('index.html')
 
 
-@app.route("/update/<int:id>", methods = ['GET','POST'])
-def update(id):
-    aluno = Aluno.query.get(id)
+@app.route("/update/<cad>", methods = ['GET','POST'])
+def update_cad(cad):
+    print("yahu")
     if request.method == 'POST':
-        if not request.form['nome'] or not request.form['cidade'] or not request.form['email'] or not request.form['pin']:
+        print("guhh")
+        if not request.form['nome']:
             flash("Preencha todos os campos", "Erro")
         else:
-            aluno.nome = request.form['nome']
-            aluno.cidade = request.form['cidade']
-            aluno.email = request.form['email']
-            aluno.pin = request.form['pin']
-            db.session.add(aluno)
-            db.session.commit()
-            return redirect(url_for('show_all'))
+            cursor = db.cursor()
+            add = 'update cadastros set nomeCadastro = %s, cpfCadastro = %s, nascimentoCadastro = %s, nomeMae = %s, nomePai = %s, nomeResponsavel = %s, cpfResponsavel = %s, rgResponsavel = %s, tipoSanguineo = %s where idCadastro = %s'
+            info = request.form['nome'], request.form['cpf'], request.form['nasc'], request.form['mae'], request.form['pai'], request.form['resp'], request.form['cpf2'], request.form['rg'], request.form['tiposangue'], cad
+            cursor.execute(add, info)
+            db.commit()
+            print("brabo")
 
-    return render_template('update.html', aluno=aluno)
+            return redirect(url_for('update_cad'))
+
+    return render_template('index.html')
 
 @app.route("/delete/<int:id>")
 def delete(id):
