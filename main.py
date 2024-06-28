@@ -17,7 +17,6 @@ def main_page():
     search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros limit 13'
     cursor.execute(search)
     results = cursor.fetchall()
-    print("yu")
 
     return render_template('index.html', info=results, cad='o')
 
