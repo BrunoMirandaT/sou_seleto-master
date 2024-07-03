@@ -43,6 +43,7 @@
             <form id="cadastro" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST">
             <div id="info">
                     <div id="foto"></div>
+                <h2 id="entrada">Data de entrada <br> {{ row[9] }}</h2>
                 <label for="nome">NOME
                 <input type="text" name="nome" id="nome" value="{{row[1]}}">
                     </label>
@@ -53,28 +54,28 @@
                 <input type="text" name="cpf" id="cpf" value="{{row[2]}}">
                      </label>
                  <label for="mae">MÃE
-                <input type="text" name="mae" id="mae" value="{{row[12]}}">
+                <input type="text" name="mae" id="mae" value="{{row[4]}}">
                      </label>
                  <label for="pai">PAI
-                <input type="text" name="pai" id="pai" value="{{row[13]}}">
+                <input type="text" name="pai" id="pai" value="{{row[5]}}">
                      </label>
                 <label for="resp">RESPONSÁVEL LEGAL
                 <input type="text" name="resp" id="resp" value="{{row[4]}}">
                      </label>
                  <label for="cpf2">CPF RESPONSÁVEL
-                <input type="text" name="cpf2" id="cpf2" value="{{row[5]}}">
+                <input type="text" name="cpf2" id="cpf2" value="{{row[7]}}">
                      </label>
                  <label for="rg">RG RESPONSÁVEL
-                <input type="text" name="rg" id="rg" value="{{row[6]}}">
+                <input type="text" name="rg" id="rg" value="{{row[8]}}">
                      </label>
                  <label for="telefone">TELEFONE
-                <input type="text" name="telefone" id="telefone" value="{{row[9]}}">
+                <input type="text" name="telefone" id="telefone" value="{{row[12]}}">
                      </label>
                  <label for="celular">CELULAR
-                <input type="text" name="celular" id="celular" value="{{row[9]}}">
+                <input type="text" name="celular" id="celular" value="{{row[11]}}">
                      </label>
                  <label for="tiposangue">TIPO SANGUÍNEO
-                <input type="text" name="tiposangue" id="tiposangue" value="{{row[8]}}">
+                <input type="text" name="tiposangue" id="tiposangue" value="{{row[10]}}">
                      </label>
             </div>
                 <div class="button-container">

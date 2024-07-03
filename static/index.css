@@ -471,3 +471,9 @@ a:link{
     padding: 0px 10px;
 }
 
+#entrada{
+    position: absolute;
+    bottom: 39%;
+    left: 15.7%;
+    text-align: center;
+}
