@@ -11,13 +11,30 @@ db = connect(
       database = 'SouSeleto')
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def main_page():
     cursor = db.cursor()
-    search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros limit 13'
-    cursor.execute(search)
-    results = cursor.fetchall()
+    try:
+        if request.method == 'POST':
+            searchbar = request.form.get('searchbar')
+            search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like "%%%s%%"'
+            cursor.execute(search, searchbar)
+            print(searchbar)
+        else:
+            print("oi")
+            search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros limit 13'
+            cursor.execute(search)
+    except:
+        print('oops')
 
+    results = cursor.fetchall()
+    print(search)
+    print(results)
+    '''idUser = 1
+    if idUser == 1:
+        return render_template('index.html', info=results, cad='o')
+    else:
+        return render_template('new.html', info=results, cad='o')'''
     return render_template('index.html', info=results, cad='o')
 
 def show_cad():
@@ -45,7 +62,7 @@ def get_cad(cadastro):
 @app.route("/usuarios", methods=['GET', 'POST'])
 def get_users():
     cursor = db.cursor()
-    search = 'select * from usuarios where idUsuario'
+    search = 'select * from usuarios'
     cursor.execute(search)
     results = cursor.fetchall()
 
@@ -121,4 +138,4 @@ def delete(id):
 
 if __name__ == '__main__':
 
-    app.run(port=3000, debug=False)
+    app.run(port=3000, debug=True)

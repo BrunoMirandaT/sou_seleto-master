@@ -88,7 +88,9 @@
     </div><div id="main">
         <div id="tableTop">
         <a id="addButton" href ={{url_for('new_cad')}}>+</a></h3>
-        <input type="text" id="search">
+            <form id="searchbar" action="{{ url_for('main_page') }}" method="POST">
+        <input type="text" id="search" name="searchbar">
+            </form>
         </div>
                 <table>
 
