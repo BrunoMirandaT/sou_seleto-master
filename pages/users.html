@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastros</title>
+    <title>Usuários</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -40,7 +40,7 @@
             </header>
 
                 {% for row in cad %}
-            <form id="cadastro" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST">
+            <form id="cadastro" action="{{ url_for('update_user', user=row[0]) }}" method="POST">
             <div id="info">
                     <div id="foto"></div>
                 <h2 id="entrada">Data de entrada <br> {{ row[9] }}</h2>
@@ -105,7 +105,7 @@
                        <a id="edit" href="{{url_for('get_cad', cadastro=row[0])}}">EDITAR</a>
                    </td>
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_cad', id=row[0])}}">DELETAR</a>
+                            <a id="edit" href="{{url_for('delete_user', id=row[0])}}">DELETAR</a>
                         </td>
                </tr>
                 {% endfor %}
@@ -116,7 +116,6 @@
 
 
     <script src="{{ url_for('static',filename='index.js') }}"></script>
-
 
         </div>
 <footer>
