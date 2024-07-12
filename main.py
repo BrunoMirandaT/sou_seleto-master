@@ -18,22 +18,40 @@ def main_page():
     try:
         if request.method == 'POST':
             searchbar = request.form.get('searchbar')
-            search = "select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like '%s'"
-            cursor.execute(search, searchbar)
+            cursor.execute("select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like '%s%%' where cadastroAtivo = 1" % (searchbar))
             print(searchbar)
         else:
             print("oi")
-            search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros limit 13'
+            search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where cadastroAtivo = 1 limit 13'
             cursor.execute(search)
     except:
         print("dead")
 
     results = cursor.fetchall()
-    print(search)
     print(results)
-    return render_template('index.html', info=results, cad='o')
+    return render_template('index.html', info=results, mode='CADASTROS ATIVOS')
 
 
+@app.route('/cadastros/inativos', methods=['GET', 'POST'])
+def cadastros_inativos():
+    cursor = db.cursor()
+    try:
+        if request.method == 'POST':
+            searchbar = request.form.get('searchbar')
+            cursor.execute(
+                "select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like '%s%%' where cadastroAtivo = 0" % (
+                    searchbar))
+            print(searchbar)
+        else:
+            print("oi")
+            search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where cadastroAtivo = 0 limit 13'
+            cursor.execute(search)
+    except:
+        print("dead")
+
+    results = cursor.fetchall()
+    print(results)
+    return render_template('index.html', info=results, mode='CADASTROS INATIVOS')
 @app.route("/cadastro/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
     cursor = db.cursor()
@@ -59,8 +77,8 @@ def new_cad():
         cursor = db.cursor() # Abre conexão com o banco de dados
         add = ('insert into cadastros(nomeCadastro, cpfCadastro, nascimentoCadastro,'
                ' nomeResponsavel, cpfResponsavel, rgResponsavel, nomeMae, nomePai,'
-               ' dataEntrada, tipoSanguineo, celularResponsavel, telefoneResponsavel)'
-               ' values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)') # Comando sql utilizado para inserir cadastro no banco de dados
+               ' dataEntrada, tipoSanguineo, celularResponsavel, telefoneResponsavel, cadastroAtivo)'
+               ' values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 1)') # Comando sql utilizado para inserir cadastro no banco de dados
         info = (request.form['info0'], request.form['info1'], request.form['info2'],
                 request.form['info3'], request.form['info4'], request.form['info5'],
                 request.form['info6'], request.form['info7'], request.form['info8'],
@@ -138,8 +156,7 @@ def update_user(user):
 @app.route("/delete/cadastros/<id>")
 def delete_cad(id):
     cursor = db.cursor()
-    remove = 'delete from cadastros where idCadastro = %s'
-    cursor.execute(remove, tuple(id))
+    cursor.execute('update cadastros set cadastroAtivo = 0 where idCadastro = %s' % (id))
     db.commit()
 
     return redirect(url_for('main_page'))
