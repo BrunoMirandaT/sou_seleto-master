@@ -1,6 +1,9 @@
 window.onload = function togglePopup(){
     link = window.location.href;
-    if(link != 'http://127.0.0.1:3000/' && link != 'http://127.0.0.1:3000/usuarios'){
+    mode = document.getElementById("overlay")
+    modes = mode.value
+    console.log(modes)
+    if(modes == 1){
     const overlay = document.getElementById('overlay');
     overlay.classList.toggle('show');
     }
@@ -12,6 +15,7 @@ window.onload = function togglePopup(){
 function closePopup(){
     const overlay = document.getElementById('overlay');
     overlay.classList.remove('show');
+    overlay.value = '0'
 }
 
 function validateForm(event) {

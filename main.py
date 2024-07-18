@@ -29,7 +29,7 @@ def main_page():
 
     results = cursor.fetchall()
     print(results)
-    return render_template('index.html', info=results, mode='CADASTROS ATIVOS')
+    return render_template('index.html', info=results, mode='CADASTROS ATIVOS', popup=0)
 
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
@@ -59,7 +59,7 @@ def get_cad(cadastro):
     cursor.execute(search, tuple(cadastro))
     results = cursor.fetchall()
 
-    return render_template('index.html', cad=results)
+    return render_template('index.html', cad=results, popup=1)
 
 @app.route("/usuarios", methods=['GET', 'POST'])
 def list_users():

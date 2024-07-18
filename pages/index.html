@@ -32,7 +32,7 @@
     </div>
         </div>
 
-    <div id="overlay" class="overlay_container">
+    <div id="overlay" class="overlay_container" value={{popup}}>
         <div class="cadastro_popup">
             <header id="cadastro_header">
                 <button>DADOS</button>
@@ -111,7 +111,7 @@
                   <td id="td2">{{ row[1] }}</td>
                   <td id="td3">{{ row[2] }}</td>
                    <td id="td4" onclick="togglePopup()">
-                       <a id="edit" href="{{url_for('get_cad', cadastro=row[0])}}">EDITAR</a>
+                       <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=row[0])}}">EDITAR</a>
                    </td>
                         <td id="td5">
                             <a id="edit" href="{{url_for('delete_cad', id=row[0])}}">DELETAR</a>
