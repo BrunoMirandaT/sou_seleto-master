@@ -93,7 +93,7 @@
             <div class="dropdown">
                 <button class="dropbtn">{{ mode }}</button>
                     <div class="dropdown-content">
-                        <a href={{url_for('main_page')}}>Cadastros ativos</a>
+                        <a href="{{url_for('main_page')}}">Cadastros ativos</a>
                         <a href="{{url_for('cadastros_inativos')}}">Cadastros inativos</a>
                     </div>
             </div>
@@ -105,7 +105,7 @@
                 <table>
 
                 <tbody>
-                {% for row in info %}
+                {% for row in cad %}
                <tr>
                    <td name="td1" id="td1" value={{row[0]}}>{{ row[0] }}</td>
                   <td id="td2">{{ row[1] }}</td>
@@ -114,7 +114,7 @@
                        <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=row[0])}}">EDITAR</a>
                    </td>
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_cad', id=row[0])}}">DELETAR</a>
+                            <a id="edit" href="{{url_for('delete_cad', id=row[0])}}">REMOVER</a>
                         </td>
                </tr>
                 {% endfor %}

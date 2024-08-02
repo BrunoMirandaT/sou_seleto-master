@@ -1,9 +1,7 @@
 window.onload = function togglePopup(){
     link = window.location.href;
-    mode = document.getElementById("overlay")
-    modes = mode.value
-    console.log(modes)
-    if(modes == 1){
+    mode = document.getElementById("overlay").getAttribute("value")
+    if(mode == 1){
     const overlay = document.getElementById('overlay');
     overlay.classList.toggle('show');
     }

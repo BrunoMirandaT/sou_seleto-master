@@ -82,7 +82,7 @@
                 <div class="button-container">
             <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
                 </form>
-                <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
+                <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('list_users', cadastro=0)}}">Voltar</a>
         </div>
             {% endfor %}
         </div>
@@ -90,7 +90,7 @@
     </div><div id="main">
         <div id="tableTop">
         <a id="addButton" href ={{url_for('new_cad')}}>+</a></h3>
-            <form id="searchbar" action="{{ url_for('main_page') }}" method="POST">
+            <form id="searchbar" action="{{ url_for('list_users') }}" method="POST">
         <input type="text" id="search" name="searchbar">
             </form>
         </div>
@@ -103,10 +103,10 @@
                   <td id="td2">{{ row[1] }}</td>
                   <td id="td3">{{ row[2] }}</td>
                    <td id="td4" onclick="togglePopup()">
-                       <a id="edit" href="{{url_for('get_cad', cadastro=row[0])}}">EDITAR</a>
+                       <a id="edit" href="">EDITAR</a>
                    </td>
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_user', id=row[0])}}">DELETAR</a>
+                            <a id="edit" href="{{url_for('delete_user', id=row[0])}}">REMOVER</a>
                         </td>
                </tr>
                 {% endfor %}
