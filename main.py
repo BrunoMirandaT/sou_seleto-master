@@ -151,13 +151,20 @@ def update_user(user):
 
     return render_template('index.html')
 
-@app.route("/delete/cadastros/<id>")
-def delete_cad(id):
-    cursor = db.cursor()
-    cursor.execute('update cadastros set cadastroAtivo = 0 where idCadastro = %s' % (id))
-    db.commit()
-
-    return redirect(url_for('main_page'))
+@app.route("/delete/cadastros/<type>/<id>")
+def delete_cad(id, type):
+    if type == "CADASTROS ATIVOS":
+        cursor = db.cursor()
+        cursor.execute('update cadastros set cadastroAtivo = 0 where idCadastro = %s' % (id))
+        db.commit()
+        print("yuurr")
+        return redirect(url_for('main_page'))
+    else:
+        cursor = db.cursor()
+        cursor.execute('update cadastros set cadastroAtivo = 1 where idCadastro = %s' % (id))
+        db.commit()
+        print("not yuuur")
+        return redirect(url_for('cadastros_inativos'))
 
 @app.route("/delete/usuarios/<id>")
 def delete_user(id):
