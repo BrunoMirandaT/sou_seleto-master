@@ -6,7 +6,7 @@ import psycopg2
 app = Flask(__name__, template_folder = 'pages')
 
 db = psycopg2.connect( 
-    host="db.khshicwyxmoqafmmtgyd.supabase.co",
+    host="https://khshicwyxmoqafmmtgyd.supabase.co",
     database="postgres",
     user="postgres",
     password="CN9DOegxuvI9Syvs"
