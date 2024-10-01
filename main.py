@@ -16,7 +16,7 @@ db = psycopg2.connect(
 
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
-    cursor = db.cursor()
+    cursor = db.cursor() 
 
     if request.method == 'POST':
         searchbar = request.form.get('searchbar')
@@ -26,7 +26,7 @@ def main_page():
     else:
         print("oi")
         search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where cadastroAtivo = 1 limit 13'
-        cursor.execute(search)
+        cursor.execute('select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where cadastroAtivo = 1 limit 13')
 
     results = cursor.fetchall()
     return render_template('index.html', cad=results, mode='CADASTROS ATIVOS', popup=0)
