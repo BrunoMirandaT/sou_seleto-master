@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+import Flask, render_template, request, flash, redirect, url_for
 import random, string
 
 from mysql.connector import connect
