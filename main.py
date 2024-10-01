@@ -5,11 +5,11 @@ from mysql.connector import connect
 
 app = Flask(__name__, template_folder = 'pages')
 
-db = connect( # Configuração da conexão com banco de dados
+'''db = connect( # Configuração da conexão com banco de dados
       user = 'root',
       password = '',
       host = '127.0.0.1',
-      database = 'SouSeleto')
+      database = 'SouSeleto')'''
 
 
 @app.route("/", methods=['GET', 'POST'])
