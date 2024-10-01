@@ -5,18 +5,11 @@ from psycopg2 import connect
 
 app = Flask(__name__, template_folder = 'pages')
 
-db = psycopg2.connect( POSTGRES_URL="postgres://postgres.khshicwyxmoqafmmtgyd:CN9DOegxuvI9Syvs@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x",
-POSTGRES_PRISMA_URL="postgres://postgres.khshicwyxmoqafmmtgyd:CN9DOegxuvI9Syvs@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x",
-SUPABASE_URL="https://khshicwyxmoqafmmtgyd.supabase.co",
-NEXT_PUBLIC_SUPABASE_URL="https://khshicwyxmoqafmmtgyd.supabase.co",
-POSTGRES_URL_NON_POOLING="postgres://postgres.khshicwyxmoqafmmtgyd:CN9DOegxuvI9Syvs@aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require",
-SUPABASE_JWT_SECRET="LH4SYatNAjbf1tu6sC+8ESrZbyABX56subRcF2xKjYYAkCLaJvUWKWe6ZpDFY7Ben5vJboU6We6XyyfSjwtW6w==",
-POSTGRES_USER="postgres",
-NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtoc2hpY3d5eG1vcWFmbW10Z3lkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc3MDU2ODYsImV4cCI6MjA0MzI4MTY4Nn0.Z1mHh3fsV7EQ7_6tYf5qq6ZpjbBmc9UFO8qRcE3PNDk",
-POSTGRES_PASSWORD="CN9DOegxuvI9Syvs",
-POSTGRES_DATABASE="postgres",
-SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtoc2hpY3d5eG1vcWFmbW10Z3lkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzcwNTY4NiwiZXhwIjoyMDQzMjgxNjg2fQ.z2ktKfcjcCNCPidfrILHXlN4Vtx8yOYOGM6n_a-X0A4",
-POSTGRES_HOST="db.khshicwyxmoqafmmtgyd.supabase.co",
+db = psycopg2.connect( 
+    host="db.khshicwyxmoqafmmtgyd.supabase.co",
+    database="postgres",
+    user="postgres",
+    password="CN9DOegxuvI9Syvs"
 )
 
 
