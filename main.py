@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import random, string
 
-from psycopg2 import connect
+import psycopg2
 
 app = Flask(__name__, template_folder = 'pages')
 
