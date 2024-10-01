@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import random, string
 
-from mysql.connector import connect
+from psycopg2 import connect
 
 app = Flask(__name__, template_folder = 'pages')
 
-db = connect( POSTGRES_URL="postgres://postgres.khshicwyxmoqafmmtgyd:CN9DOegxuvI9Syvs@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x",
+db = psycopg2.connect( POSTGRES_URL="postgres://postgres.khshicwyxmoqafmmtgyd:CN9DOegxuvI9Syvs@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x",
 POSTGRES_PRISMA_URL="postgres://postgres.khshicwyxmoqafmmtgyd:CN9DOegxuvI9Syvs@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x",
 SUPABASE_URL="https://khshicwyxmoqafmmtgyd.supabase.co",
 NEXT_PUBLIC_SUPABASE_URL="https://khshicwyxmoqafmmtgyd.supabase.co",
