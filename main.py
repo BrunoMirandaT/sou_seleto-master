@@ -25,7 +25,7 @@ def main_page():
 
     else:
         print("oi")
-        search = '''select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where cadastroAtivo = 1 limit 13'''
+        search = '''select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where cadastros.cadastroAtivo = 1 limit 13'''
         cursor.execute(search)
 
     results = cursor.fetchall()
