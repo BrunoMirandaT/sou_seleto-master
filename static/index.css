@@ -459,7 +459,11 @@ a:link{
     border: solid 1px black;
     border-radius: 5px;
     line-height: 50px;
-    margin-left: 5px;
+    margin-right: 20px;
+}
+
+#addButton:hover{
+    filter: brightness(90%);
 }
 
 #usuario_popup{
@@ -493,10 +497,10 @@ p{
 }
 
 #leftTableTop{
-    width: 17%;
+    width: 25%;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: stretch;
     align-items: center;
 }
 
@@ -511,7 +515,6 @@ p{
   font-size: 18px;
   border: solid 1px black;
   border-radius: 2px;
-  position: relative;
   z-index: 0;
 }
 
@@ -519,6 +522,7 @@ p{
 .dropdown {
   position: relative;
   z-index: 0;
+  transition: .2s;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -544,10 +548,10 @@ p{
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {backdrop-filter: brightness(90%);}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {filter: brightness(90%);}

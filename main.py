@@ -20,17 +20,17 @@ def main_page():
 
     if request.method == 'POST':
         searchbar = request.form.get('searchbar')
-        search = '''select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like '%s%%' and cadastroAtivo = 1" % (searchbar)'''
+        search = '''select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like '%s%%' and cadastroAtivo = 1 ORDER BY idCadastro ASC" % (searchbar)'''
         cursor.execute(search, searchbar)
         print(searchbar)
 
     else:
         print("oi")
-        search = '''select cadastros.idCadastro, cadastros.nomeCadastro, cadastros.nascimentoCadastro from cadastros where cadastros.cadastroativo = 1 limit 13'''
+        search = '''select cadastros.idCadastro, cadastros.nomeCadastro, cadastros.nascimentoCadastro from cadastros where cadastros.cadastroativo = 1 ORDER BY idCadastro ASC limit 13'''
         
     cursor.execute(search)
     results = cursor.fetchall()
-    return render_template('index.html', cad=results, mode='CADASTROS ATIVOS', popup=0)
+    return render_template('index.html', cad=results, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER")
     print(results)
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
@@ -52,7 +52,7 @@ def cadastros_inativos():
 
     results = cursor.fetchall()
     print(results)
-    return render_template('index.html', cad=results, mode='CADASTROS INATIVOS')
+    return render_template('index.html', cad=results, mode='CADASTROS INATIVOS', aux='RESTAURAR')
 @app.route("/cadastro/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
     cursor = db.cursor()
