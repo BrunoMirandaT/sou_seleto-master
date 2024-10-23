@@ -40,10 +40,13 @@
             </header>
 
                 {% for row in cad %}
-            <form id="cadastro" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST">
-            <div id="info">
-                    <div id="foto"></div>
+
+            <div id="left_side"><form id="cadastro" action="{{ url_for('update_cad', cad=row[0]) }}" method="POST">
+            <div id="foto"></div>
                 <h2 id="entrada">Data de entrada <br> {{ row[9] }}</h2>
+                </div>
+
+                <div id="info">
                 <label for="nome">NOME
                 <input type="text" name="nome" id="nome" value="{{row[1]}}">
                     </label>
