@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import random, string
+from datetime import datetime
 
 import psycopg2
 
@@ -16,19 +17,17 @@ db = psycopg2.connect(
 
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
-    cursor = db.cursor() 
-
+    cursor = db.cursor()
     if request.method == 'POST':
-        searchbar = request.form.get('searchbar')
-        search = '''select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like '%s%%' and cadastroAtivo = 1 ORDER BY idCadastro ASC" % (searchbar)'''
-        cursor.execute(search, searchbar)
+        searchbar = "%" + request.form.get('searchbar') + "%%"
+        cursor.execute('''select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like %s and cadastroAtivo = 1 ORDER BY idCadastro ASC''' ,(searchbar,))
         print(searchbar)
 
     else:
         print("oi")
         search = '''select cadastros.idCadastro, cadastros.nomeCadastro, cadastros.nascimentoCadastro from cadastros where cadastros.cadastroativo = 1 ORDER BY idCadastro ASC limit 13'''
-        
-    cursor.execute(search)
+        cursor.execute(search)
+
     results = cursor.fetchall()
     return render_template('index.html', cad=results, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER")
     print(results)
@@ -74,6 +73,7 @@ def list_users():
 
 @app.route("/cadastros/novo", methods=['GET', 'POST'])
 def new_cad():
+    date = datetime.now()
     if request.method == 'POST':
         cursor = db.cursor() # Abre conexão com o banco de dados
         add = ('insert into cadastros(nomeCadastro, cpfCadastro, nascimentoCadastro,'
@@ -89,7 +89,7 @@ def new_cad():
 
         return redirect(url_for('main_page')) # Retorna para rota main_page
 
-    return render_template('new.html') # Renderiza página de cadastro
+    return render_template('new.html', d = date.strftime("%Y-%m-%d")) # Renderiza página de cadastro
 
 @app.route("/new", methods=['GET', 'POST'])
 def new_user():
