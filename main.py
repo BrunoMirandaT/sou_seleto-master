@@ -1,36 +1,39 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import random, string
 from datetime import datetime
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 import psycopg2
 
+def lenght(list):
+    size = len(list)
+    return size
+
 app = Flask(__name__, template_folder = 'pages')
+app.jinja_env.filters.update(lenght = lenght)
+  # Substitua pelo caminho do seu arquivo JSON
+app_options = {'projectId': 'souseleto-33d19'}
+default_app = firebase_admin.initialize_app(options=app_options)
 
-db = psycopg2.connect( 
-    host="aws-0-us-east-1.pooler.supabase.com",
-    port="6543",
-    database="postgres",
-    user="postgres.khshicwyxmoqafmmtgyd",
-    password="LrCFpq2pidPI2kG7"
-)
-
+db = firestore.client()
 
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
-    cursor = db.cursor()
-    if request.method == 'POST':
-        searchbar = "%" + request.form.get('searchbar') + "%%"
-        cursor.execute('''select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like %s and cadastroAtivo = 1 ORDER BY idCadastro ASC''' ,(searchbar,))
-        print(searchbar)
+    alunos_ref = db.collection('Alunos')
+    alunos_docs = alunos_ref.stream()
 
-    else:
-        print("oi")
-        search = '''select cadastros.idCadastro, cadastros.nomeCadastro, cadastros.nascimentoCadastro from cadastros where cadastros.cadastroativo = 1 ORDER BY idCadastro ASC limit 13'''
-        cursor.execute(search)
+    alunos = []
+    i = 1
+    for aluno in alunos_docs:
+        aluno_data = aluno.to_dict()
+        aluno_data['id'] = aluno.id  # Inclui o ID do documento no aluno
+        alunos.count(id)
+        alunos.append(aluno_data.get('NomeAluno'))
+        alunos.append(aluno_data.get('DataNasc'))
 
-    results = cursor.fetchall()
-    return render_template('index.html', cad=results, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER")
-    print(results)
+    return render_template('index.html',  alunos=alunos, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER")
+
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
 def cadastros_inativos():
@@ -54,12 +57,29 @@ def cadastros_inativos():
     return render_template('index.html', cad=results, mode='CADASTROS INATIVOS', aux='RESTAURAR')
 @app.route("/cadastro/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
-    cursor = db.cursor()
-    search = 'select * from cadastros where idCadastro = %s'
-    cursor.execute(search, tuple(cadastro))
-    results = cursor.fetchall()
+    alunos_ref = db.collection('Alunos').limit(1)
+    alunos_docs = alunos_ref.stream()
 
-    return render_template('index.html', cad=results, popup=1)
+    info = []
+    for aluno in alunos_docs:
+        aluno_data = aluno.to_dict()
+        aluno_data['id'] = aluno.id  # Inclui o ID do documento no aluno
+        info.count(id)
+        info.append(aluno_data.get('NomeAluno'))
+        info.append(aluno_data.get('CpfAluno'))
+        info.append(aluno_data.get('DataNasc'))
+        info.append(aluno_data.get('NomeResp'))
+        info.append(aluno_data.get('CpfResp'))
+        info.append(aluno_data.get('RgResp'))
+        info.append(aluno_data.get('NomeMae'))
+        info.append(aluno_data.get('NomePai'))
+        info.append(aluno_data.get('DataEnt'))
+        info.append(aluno_data.get('Sangue'))
+        info.append(aluno_data.get('CellResp'))
+
+        print(info)
+
+    return render_template('index.html', infos=info, popup=1)
 
 @app.route("/usuarios", methods=['GET', 'POST'])
 def list_users():
