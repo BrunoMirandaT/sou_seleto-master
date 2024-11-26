@@ -39,11 +39,11 @@
                 <button>DOCUMENTOS</button>
             </header>
 
-                {% for info in infos %}
+
 
             <div id="left_side"><form id="cadastro" action="{{ url_for('update_cad', cad=infos[0]) }}" method="POST">
             <div id="foto"></div>
-                <h2 id="entrada">Data de entrada <br> {{ infos[9] }}</h2>
+                <h2 id="entrada">Data de entrada <br> {{ infos[8] }}</h2>
                 </div>
 
                 <div id="info">
@@ -60,16 +60,16 @@
                 <input type="text" name="mae" id="mae" value="{{infos[3]}}">
                      </label>
                  <label for="pai">PAI
-                <input type="text" name="pai" id="pai" value="{{infos[4]}}">
+                <input type="text" name="pai" id="pai" value="{{infos[7]}}">
                      </label>
                 <label for="resp">RESPONSÁVEL LEGAL
-                <input type="text" name="resp" id="resp" value="{{infos[3]}}">
+                <input type="text" name="resp" id="resp" value="{{infos[6]}}">
                      </label>
                  <label for="cpf2">CPF RESPONSÁVEL
-                <input type="text" name="cpf2" id="cpf2" value="{{infos[6]}}">
+                <input type="text" name="cpf2" id="cpf2" value="{{infos[4]}}">
                      </label>
                  <label for="rg">RG RESPONSÁVEL
-                <input type="text" name="rg" id="rg" value="{{infos[7]}}">
+                <input type="text" name="rg" id="rg" value="{{infos[5]}}">
                      </label>
                  <label for="telefone">TELEFONE
                 <input type="text" name="telefone" id="telefone" value="{{infos[11]}}">
@@ -78,7 +78,7 @@
                 <input type="text" name="celular" id="celular" value="{{infos[10]}}">
                      </label>
                  <label for="tiposangue">TIPO SANGUÍNEO
-                <input type="text" name="tiposangue" id="tiposangue" value="{{infos[10]}}">
+                <input type="text" name="tiposangue" id="tiposangue" value="{{infos[9]}}">
                      </label>
             </div>
                 <div class="button-container">
@@ -86,7 +86,7 @@
                 </form>
                 <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
         </div>
-            {% endfor %}
+
         </div>
         </div>
     </div><div id="main">
@@ -114,13 +114,13 @@
 
                <tr>
                    <td name="td1" id="td1" value={{alunos}}>{{ loop.index }}</td>
-                  <td id="td2">{{ alunos[loop.index0 * 2] }}</td>
-                  <td id="td3">{{ alunos[1+loop.index0 * 2] }}</td>
+                  <td id="td2">{{ alunos[loop.index0 * 3] }}</td>
+                  <td id="td3">{{ alunos[1+loop.index0 * 3] }}</td>
                    <td id="td4" onclick="togglePopup()">
-                       <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=alunos[0])}}">EDITAR</a>
+                       <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=alunos[2+loop.index0 * 3])}}">EDITAR</a>
                    </td>
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_cad', id=alunos[0], type=mode)}}">{{ aux }}</a>
+                            <a id="edit" href="{{url_for('delete_cad', id=alunos[2], type=mode)}}">{{ aux }}</a>
                         </td>
                </tr>
 

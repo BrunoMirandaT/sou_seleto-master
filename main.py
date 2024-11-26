@@ -5,6 +5,8 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 import psycopg2
+from google.cloud.firestore_v1 import FieldFilter
+
 
 def lenght(list):
     size = len(list)
@@ -31,8 +33,9 @@ def main_page():
         alunos.count(id)
         alunos.append(aluno_data.get('NomeAluno'))
         alunos.append(aluno_data.get('DataNasc'))
+        alunos.append(aluno_data.get('id'))
 
-    return render_template('index.html',  alunos=alunos, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER")
+    return render_template('index.html',  alunos=alunos, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0)
 
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
@@ -57,27 +60,33 @@ def cadastros_inativos():
     return render_template('index.html', cad=results, mode='CADASTROS INATIVOS', aux='RESTAURAR')
 @app.route("/cadastro/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
-    alunos_ref = db.collection('Alunos').limit(1)
+    docRef = db.collection('Alunos').document(cadastro)
+    idAluno = docRef.id
+    print(idAluno)
+
+    alunos_ref = db.collection('Alunos')
+
     alunos_docs = alunos_ref.stream()
 
     info = []
-    for aluno in alunos_docs:
-        aluno_data = aluno.to_dict()
-        aluno_data['id'] = aluno.id  # Inclui o ID do documento no aluno
-        info.count(id)
-        info.append(aluno_data.get('NomeAluno'))
-        info.append(aluno_data.get('CpfAluno'))
-        info.append(aluno_data.get('DataNasc'))
-        info.append(aluno_data.get('NomeResp'))
-        info.append(aluno_data.get('CpfResp'))
-        info.append(aluno_data.get('RgResp'))
-        info.append(aluno_data.get('NomeMae'))
-        info.append(aluno_data.get('NomePai'))
-        info.append(aluno_data.get('DataEnt'))
-        info.append(aluno_data.get('Sangue'))
-        info.append(aluno_data.get('CellResp'))
+    for alunos in alunos_docs:
 
-        print(info)
+        aluno_data = alunos.to_dict()
+        aluno_data['id'] = alunos.id  # Inclui o ID do documento no aluno
+        if aluno_data['id'] == cadastro:
+
+            print(aluno_data)
+            info.append(aluno_data.get('NomeAluno'))
+            info.append(aluno_data.get('CpfAluno'))
+            info.append(aluno_data.get('DataNasc'))
+            info.append(aluno_data.get('NomeResp'))
+            info.append(aluno_data.get('CpfResp'))
+            info.append(aluno_data.get('RgResp'))
+            info.append(aluno_data.get('NomeMae'))
+            info.append(aluno_data.get('NomePai'))
+            info.append(aluno_data.get('DataEnt'))
+            info.append(aluno_data.get('Sangue'))
+            info.append(aluno_data.get('CellResp'))
 
     return render_template('index.html', infos=info, popup=1)
 
