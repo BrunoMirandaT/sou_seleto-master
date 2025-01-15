@@ -110,7 +110,7 @@
                 <tbody>
                 {% if popup %}
                 {% else %}
-               {% for aluno in range((alunos | lenght)*0,5) %}
+               {% for aluno in range((alunos | lenght)//3) %}
 
                <tr>
                    <td name="td1" id="td1" value={{alunos}}>{{ loop.index }}</td>

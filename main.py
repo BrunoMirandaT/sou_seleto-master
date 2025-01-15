@@ -4,7 +4,6 @@ from datetime import datetime
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-import psycopg2
 from google.cloud.firestore_v1 import FieldFilter
 
 
@@ -104,17 +103,12 @@ def list_users():
 def new_cad():
     date = datetime.now()
     if request.method == 'POST':
-        cursor = db.cursor() # Abre conexão com o banco de dados
-        add = ('insert into cadastros(nomeCadastro, cpfCadastro, nascimentoCadastro,'
-               ' nomeResponsavel, cpfResponsavel, rgResponsavel, nomeMae, nomePai,'
-               ' dataEntrada, tipoSanguineo, celularResponsavel, telefoneResponsavel, cadastroAtivo)'
-               ' values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 1)') # Comando sql utilizado para inserir cadastro no banco de dados
-        info = (request.form['info0'], request.form['info1'], request.form['info2'],
-                request.form['info3'], request.form['info4'], request.form['info5'],
-                request.form['info6'], request.form['info7'], request.form['info8'],
-                request.form['info9'], request.form['info10'], request.form['info10']) # Pega todas as informações do cadastro e insere em uma variavel
-        cursor.execute(add, info) # Executa comando sql junto com informações acima
-        db.commit() # Envia mudanças para o BD
+        info = {"CadAtv": True, "NomeAluno": request.form['info0'], "CpfAluno": request.form['info1'],"DataNasc": request.form['info2'],
+                "NomeResp": request.form['info3'],"CpfResp": request.form['info4'],"RgResp": request.form['info5'],
+                "NomeMae": request.form['info6'], "NomePai": request.form['info7'], "DataEnt": request.form['info8'],
+                "Sangue": request.form['info9'], "CellResp": request.form['info10'],"TelResp": request.form['info10']}
+
+        db.collection('Alunos').document("teste").set(info)
 
         return redirect(url_for('main_page')) # Retorna para rota main_page
 
@@ -156,15 +150,13 @@ def login_user():
 @app.route("/update/<cad>", methods = ['POST'])
 def update_cad(cad):
     if request.method == 'POST':
-        cursor = db.cursor() # Abre conexão com o banco de dados
-        add = ('update cadastros set nomeCadastro = %s, cpfCadastro = %s, nascimentoCadastro = %s, nomeMae = %s,'
-               ' nomePai = %s, nomeResponsavel = %s, cpfResponsavel = %s, rgResponsavel = %s, tipoSanguineo = %s,'
-               ' telefoneResponsavel = %s, celularResponsavel = %s where idCadastro = %s') # Comando sql utilizado para atualizar cadastro no banco de dados
-        info = (request.form['nome'], request.form['cpf'], request.form['nasc'], request.form['mae'],
-                request.form['pai'], request.form['resp'], request.form['cpf2'], request.form['rg'],
-                request.form['tiposangue'], request.form['telefone'], request.form['celular'], cad) # Pega todas as informações do cadastro e insere em uma variavel
-        cursor.execute(add, info) # Executa comando sql junto com informações acima
-        db.commit() # Envia mudanças para o BD
+        if request.method == 'POST':
+            info = {"CadAtv": True, "NomeAluno": request.form['info0'], "CpfAluno": request.form['info1'],"DataNasc": request.form['info2'],
+                "NomeResp": request.form['info3'],"CpfResp": request.form['info4'],"RgResp": request.form['info5'],
+                "NomeMae": request.form['info6'], "NomePai": request.form['info7'], "DataEnt": request.form['info8'],
+                "Sangue": request.form['info9'], "CellResp": request.form['info10'],"TelResp": request.form['info10']}
+
+        db.collection('Alunos').document(cad).set(info)
 
         return redirect(url_for('main_page')) # Retorna para rota main_page
 
