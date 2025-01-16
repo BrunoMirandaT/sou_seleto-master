@@ -41,7 +41,7 @@
 
 
 
-            <div id="left_side"><form id="cadastro" action="{{ url_for('update_cad', cad=infos[0]) }}" method="POST">
+            <div id="left_side"><form id="cadastro" action="{{ url_for('update_cad', cad=infos[11]) }}" method="POST">
             <div id="foto"></div>
                 <h2 id="entrada">Data de entrada <br> {{ infos[8] }}</h2>
                 </div>
@@ -72,7 +72,7 @@
                 <input type="text" name="rg" id="rg" value="{{infos[5]}}">
                      </label>
                  <label for="telefone">TELEFONE
-                <input type="text" name="telefone" id="telefone" value="{{infos[11]}}">
+                <input type="text" name="telefone" id="telefone" value="{{infos[10]}}">
                      </label>
                  <label for="celular">CELULAR
                 <input type="text" name="celular" id="celular" value="{{infos[10]}}">
@@ -80,6 +80,7 @@
                  <label for="tiposangue">TIPO SANGUÍNEO
                 <input type="text" name="tiposangue" id="tiposangue" value="{{infos[9]}}">
                      </label>
+                     <input type="text" name="tiposangue" id="tiposangue" value="{{infos[11]}}" style="display: none;">
             </div>
                 <div class="button-container">
             <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
@@ -120,7 +121,7 @@
                        <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=alunos[2+loop.index0 * 3])}}">EDITAR</a>
                    </td>
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_cad', id=alunos[2], type=mode)}}">{{ aux }}</a>
+                            <a id="edit" href="{{url_for('delete_cad', id=alunos[2+loop.index0 * 3], type=mode)}}">{{ aux }}</a>
                         </td>
                </tr>
 

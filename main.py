@@ -21,7 +21,12 @@ db = firestore.client()
 
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
-    alunos_ref = db.collection('Alunos')
+    if request.method == 'POST':
+        searchbar = request.form.get('searchbar')
+        alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True))
+        
+    else:
+        alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True))
     alunos_docs = alunos_ref.stream()
 
     alunos = []
@@ -33,30 +38,36 @@ def main_page():
         alunos.append(aluno_data.get('NomeAluno'))
         alunos.append(aluno_data.get('DataNasc'))
         alunos.append(aluno_data.get('id'))
+        print(alunos)
 
     return render_template('index.html',  alunos=alunos, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0)
 
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
 def cadastros_inativos():
-    cursor = db.cursor()
     try:
         if request.method == 'POST':
             searchbar = request.form.get('searchbar')
-            cursor.execute(
-                "select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where nomeCadastro like '%s%%' where cadastroAtivo = 0" % (
-                    searchbar))
-            print(searchbar)
+            alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', False)).where(filter=FieldFilter('NomeAluno', '==', searchbar))
+            
         else:
+            alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', False))
             print("oi")
-            search = 'select idCadastro, nomeCadastro, nascimentoCadastro from cadastros where cadastroAtivo = 0 limit 13'
-            cursor.execute(search)
+        alunos_docs = alunos_ref.stream()
+
+        alunos = []
+        i = 1
+        for aluno in alunos_docs:
+            aluno_data = aluno.to_dict()
+            aluno_data['id'] = aluno.id  # Inclui o ID do documento no aluno
+            alunos.count(id)
+            alunos.append(aluno_data.get('NomeAluno'))
+            alunos.append(aluno_data.get('DataNasc'))
+            alunos.append(aluno_data.get('id'))
     except:
         print("dead")
 
-    results = cursor.fetchall()
-    print(results)
-    return render_template('index.html', cad=results, mode='CADASTROS INATIVOS', aux='RESTAURAR')
+    return render_template('index.html', alunos=alunos, mode='CADASTROS INATIVOS', aux='RESTAURAR', infos=0)
 @app.route("/cadastro/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
     docRef = db.collection('Alunos').document(cadastro)
@@ -74,7 +85,6 @@ def get_cad(cadastro):
         aluno_data['id'] = alunos.id  # Inclui o ID do documento no aluno
         if aluno_data['id'] == cadastro:
 
-            print(aluno_data)
             info.append(aluno_data.get('NomeAluno'))
             info.append(aluno_data.get('CpfAluno'))
             info.append(aluno_data.get('DataNasc'))
@@ -86,6 +96,8 @@ def get_cad(cadastro):
             info.append(aluno_data.get('DataEnt'))
             info.append(aluno_data.get('Sangue'))
             info.append(aluno_data.get('CellResp'))
+            info.append(aluno_data.get('id'))
+            print(info)
 
     return render_template('index.html', infos=info, popup=1)
 
@@ -150,13 +162,14 @@ def login_user():
 @app.route("/update/<cad>", methods = ['POST'])
 def update_cad(cad):
     if request.method == 'POST':
-        if request.method == 'POST':
-            info = {"CadAtv": True, "NomeAluno": request.form['info0'], "CpfAluno": request.form['info1'],"DataNasc": request.form['info2'],
-                "NomeResp": request.form['info3'],"CpfResp": request.form['info4'],"RgResp": request.form['info5'],
-                "NomeMae": request.form['info6'], "NomePai": request.form['info7'], "DataEnt": request.form['info8'],
-                "Sangue": request.form['info9'], "CellResp": request.form['info10'],"TelResp": request.form['info10']}
+        info = {"CadAtv": True, "NomeAluno": request.form['nome'], "CpfAluno": request.form['cpf'],"DataNasc": request.form['nasc'],
+                "NomeResp": request.form['resp'],"CpfResp": request.form['cpf2'],"RgResp": request.form['rg'],
+                "NomeMae": request.form['mae'], "NomePai": request.form['pai'],
+                "Sangue": request.form['tiposangue'], "CellResp": request.form['celular'],"TelResp": request.form['telefone']}
 
-        db.collection('Alunos').document(cad).set(info)
+        aluno = db.collection('Alunos').document(cad)
+        aluno.update(info)
+        print(cad)
 
         return redirect(url_for('main_page')) # Retorna para rota main_page
 
@@ -178,16 +191,14 @@ def update_user(user):
 @app.route("/delete/cadastros/<type>/<id>")
 def delete_cad(id, type):
     if type == "CADASTROS ATIVOS":
-        cursor = db.cursor()
-        cursor.execute('update cadastros set cadastroAtivo = 0 where idCadastro = %s' % (id))
-        db.commit()
-        print("yuurr")
+        info = {"CadAtv": False}
+        aluno = db.collection('Alunos').document(id)
+        aluno.update(info)
         return redirect(url_for('main_page'))
     else:
-        cursor = db.cursor()
-        cursor.execute('update cadastros set cadastroAtivo = 1 where idCadastro = %s' % (id))
-        db.commit()
-        print("not yuuur")
+        info = {"CadAtv": True}
+        aluno = db.collection('Alunos').document(id)
+        aluno.update(info)
         return redirect(url_for('cadastros_inativos'))
 
 @app.route("/delete/usuarios/<id>")
