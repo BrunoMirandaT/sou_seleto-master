@@ -8,6 +8,7 @@ window.onload = function togglePopup(){
     else{
             return 0;
         }
+  
 }
 
 function closePopup(){
@@ -17,6 +18,9 @@ function closePopup(){
 }
 
 function validateForm(event) {
+    nvl = document.getElementById("nvl").innerText
+                console.log(nvl)
+                document.getElementById("copy").setAttribute('value',nvl)
     var submitButton = event.submitter;
         var inputs = document.querySelectorAll('.info input');
             for (var i = 0; i < inputs.length; i++) {
@@ -25,6 +29,7 @@ function validateForm(event) {
                    return false;
                     }
                 }
+                
             return true;
             }
 
@@ -42,4 +47,22 @@ function showUsers(){
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error(error));
+}
+
+document.addEventListener("click", toggleDrop);
+
+function toggleDrop(event) {
+    var dropdown = document.getElementById("drop");
+    
+if (event.target.classList.contains('nvl')){
+    dropdown.style.visibility = "visible"
+} else {
+  dropdown.style.visibility = "hidden" 
+}
+}
+
+function nvlAcesso(button){
+    option = document.getElementById(button).innerHTML
+    console.log(option)
+    document.getElementById('nvl').innerHTML = option + "<img src='/static/25243.png' id='caretIcon'>"
 }

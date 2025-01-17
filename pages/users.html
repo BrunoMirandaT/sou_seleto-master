@@ -6,7 +6,7 @@
     <title>Usuários</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="icon" href="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
 </head>
 <body>
     <header id="navbar">
@@ -23,7 +23,7 @@
             <input type="text" name="cpf_User" class="loginInput">
             <label for="passwordUser" class="loginLabel">SENHA</label>
             <input type="password" name="password_User" class="loginInput">
-            <a href ="{{url_for('login_user')}}" id="loginSubmit"/>Entrar</a>
+            <a href ="{{url_for('login_user')}}" id="loginSubmit">Entrar</a>
         </div>
     </div>
     </form>
@@ -89,7 +89,7 @@
         </div>
     </div><div id="main">
         <div id="tableTop">
-        <a id="addButton" href ={{url_for('new_cad')}}>+</a></h3>
+        <a id="addButton" href ={{url_for('new_user')}}>+</a></h3>
             <form id="searchbar" action="{{ url_for('list_users') }}" method="POST">
         <input type="text" id="search" name="searchbar">
             </form>
@@ -97,16 +97,16 @@
                 <table>
 
                 <tbody>
-                {% for row in info %}
+                    {% for user in range((users | lenght)//3) %}
                <tr>
-                   <td name="td1" id="td1" value={{row[0]}}>{{ row[0] }}</td>
-                  <td id="td2">{{ row[1] }}</td>
-                  <td id="td3">{{ row[2] }}</td>
+                   <td name="td1" id="td1" value={{users}}>{{ loop.index }}</td>
+                  <td id="td2">{{ users[loop.index0 * 3] }}</td>
+                  <td id="td3">{{ users[1+loop.index0 * 3] }}</td>
                    <td id="td4" onclick="togglePopup()">
                        <a id="edit" href="">EDITAR</a>
                    </td>
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_user', id=row[0])}}">REMOVER</a>
+                            <a id="edit" href="{{url_for('delete_user', id=users[2+loop.index0 * 3])}}">REMOVER</a>
                         </td>
                </tr>
                 {% endfor %}

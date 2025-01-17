@@ -103,12 +103,27 @@ def get_cad(cadastro):
 
 @app.route("/usuarios", methods=['GET', 'POST'])
 def list_users():
-    cursor = db.cursor() # Abre conexão com o banco de dados
-    search = 'select * from usuarios' # Comando sql utilizado para pegar usuários do banco de dados
-    cursor.execute(search) # executa comando sql acima
-    results = cursor.fetchall() # salva resultado do comando acima em uma variável
+    if request.method == 'POST':
+        searchbar = request.form.get('searchbar')
+        user_ref = db.collection('Usuarios')
+        
+    else:
+        user_ref = db.collection('Usuarios')
+    user_docs = user_ref.stream()
 
-    return render_template('users.html', info=results) # Renderiza página de lista de usuários,
+    users = []
+    i = 1
+    for user in user_docs:
+        user_data = user.to_dict()
+        user_data['id'] = user.id  # Inclui o ID do documento no aluno
+        users.count(id)
+        users.append(user_data.get('NomeUser'))
+        users.append(user_data.get('DataNasc'))
+        users.append(user_data.get('id'))
+        print(users)
+
+
+    return render_template('users.html', users=users) # Renderiza página de lista de usuários,
                                                                         # passando resultado de pesquisa sql para exibição no html
 
 @app.route("/cadastros/novo", methods=['GET', 'POST'])
@@ -129,16 +144,12 @@ def new_cad():
 @app.route("/new", methods=['GET', 'POST'])
 def new_user():
     if request.method == 'POST':
-        if not request.form['nome'] or not request.form['nasc'] or not request.form['cpf'] or not request.form['celular'] or not request.form['nvlAcesso']:
-            flash("Preencha todos os campos", "Erro")
-        else:
-            cursor = db.cursor()
-            add = 'insert into usuarios (nomeUsuario, nascimentoUsuario, cpfUsuario, hashSenha, celularUsuario, nvlAcesso) values (%s, %s, %s, %s, %s, %s)'
-            info = request.form['nome'], request.form['nasc'], request.form['cpf'], random_senha(), request.form['celular'], request.form['nvlAcesso']
-            cursor.execute(add, info)
-            db.commit()
+        info = {"userAtv": True, "NomeUser": request.form['info0'], "Cpf": request.form['info1'],"DataNasc": request.form['info2'],
+                "Nvl": request.form['copy']}
 
-            return redirect(url_for('main_page'))
+        db.collection('Usuarios').document("teste").set(info)
+
+        return redirect(url_for('list_users'))
 
     return render_template('new_user.html')
 
@@ -203,10 +214,7 @@ def delete_cad(id, type):
 
 @app.route("/delete/usuarios/<id>")
 def delete_user(id):
-    cursor = db.cursor() # Abre conexão com o banco de dados
-    remove = 'delete from usuarios where idUsuario = %s' # Comando sql utilizado para deletar usuário especifico no banco de dados
-    cursor.execute(remove, tuple(id)) # Executa comando sql junto com o id do usuário que sera deletado
-    db.commit() # Envia mudanças para o BD
+    db.collection('Usuarios').document(id).delete()
 
     return redirect(url_for('list_users')) # Retorna para rota list_users
 
