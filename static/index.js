@@ -66,3 +66,20 @@ function nvlAcesso(button){
     console.log(option)
     document.getElementById('nvl').innerHTML = option + "<img src='/static/25243.png' id='caretIcon'>"
 }
+
+const icon = document.getElementById('togglePassword');
+let password = document.getElementById('password');
+
+/* Event fired when <i> is clicked */
+icon.addEventListener('click', function() {
+  if(password.type === "password") {
+    password.type = "text";
+    icon.classList.add("fa-eye");
+    icon.classList.remove("fa-eye-slash");
+  }
+  else {
+    password.type = "password";
+    icon.classList.add("fa-eye-slash");
+    icon.classList.remove("fa-eye");
+  }
+});

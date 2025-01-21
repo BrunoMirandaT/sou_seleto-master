@@ -13,7 +13,6 @@ def lenght(list):
 
 app = Flask(__name__, template_folder = 'pages')
 app.jinja_env.filters.update(lenght = lenght)
-  # Substitua pelo caminho do seu arquivo JSON
 app_options = {'projectId': 'souseleto-33d19'}
 default_app = firebase_admin.initialize_app(options=app_options)
 
@@ -155,19 +154,28 @@ def new_user():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
+    error = ''
     if request.method == 'POST':
         if not request.form['cpf_User'] or not request.form['password_User']:
-            flash("Preencha todos os campos", "Erro")
+            error="CPF ou Senha invalidos!"
         else:
-            cursor = db.cursor()
-            search = 'select cpfUsuario, hashSenha from usuarios where cpfUsuario = %s'
-            info = request.form['cpfUser']
-            cursor.execute(search, info)
-            results = cursor.fetchall()
+            docRef = db.collection('Usuarios').where(filter=FieldFilter('Cpf', '==', request.form['cpf_User']))
+            print(docRef)
 
-            return redirect(url_for('login_user'))
+            user_docs = docRef.stream()
 
-    return render_template('index.html')
+            info = []
+            for users in user_docs:
+
+                user_data = users.to_dict()
+                if user_data.get('password') == request.form['password_User'] and user_data.get('Cpf') == request.form['cpf_User']:
+                    return redirect(url_for('main_page'))
+                else:
+                    error="CPF ou Senha invalidos!"
+
+           
+
+    return render_template('login.html', error=error)
 
 
 @app.route("/update/<cad>", methods = ['POST'])
@@ -219,5 +227,5 @@ def delete_user(id):
     return redirect(url_for('list_users')) # Retorna para rota list_users
 
 if __name__ == '__main__':
-
+    app.secret_key = 'super secret key'
     app.run(port=3000, debug=True)

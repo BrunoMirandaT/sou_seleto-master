@@ -40,9 +40,12 @@ body{
 
 a:visited{
     color: black;
+    text-decoration: none;
 }
 
 a:hover{
+    color: black;
+    text-decoration: none;
     backdrop-filter: brightness(90%);
 }
 
@@ -70,9 +73,12 @@ a:hover{
 }
 
 #main2{
+    display: flex;
+    flex-flow: column wrap;
     width: 100%;
     height: 52rem;
-    padding-bottom: 5rem; 
+    padding-bottom: 5rem;
+    align-items: center;
 }
 
 table{
@@ -215,9 +221,8 @@ footer{
     color: black;
     float: center;
     width: 500px;
-    margin-left: 32%;
 }
-input[type='text']{
+.cadInput{
     width: 80%;
     height:40%;
     margin-bottom:20px;
@@ -227,7 +232,7 @@ input[type='text']{
     text-indent: 5px;
 }
 
-input[type='date']{
+.cadInput2{
     width: 80%;
     height:40%;
     margin-bottom:20px;
@@ -235,9 +240,12 @@ input[type='date']{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     text-indent: 5px;
+    justify-self: center;
 }
 
-
+.info label{
+    text-indent: 20px;
+}
 
 label[for='nome']{
 margin-top: 50px;
@@ -300,8 +308,10 @@ input[type='submit']{
  /* CSS para centralizar os botões e ajustar o estilo */
         .button-container {
              display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
+            width: 500px;
+            justify-self: center;
             margin-top: 20px; /* Espaço acima dos botões */
         }
 
@@ -314,8 +324,6 @@ input[type='submit']{
             width: 200px;
             height: 50px;
             font-size: 16px;
-            margin: 0px 10px;
-            margin-left: 40px;
             background-color: #159F53;
             color: white;
             border: none;
@@ -355,10 +363,14 @@ input[type='submit']{
         }
 
 #cadastrar{
-    background-color: lightgray;
-    width: 80%;
-    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 30%;
     border-radius: 10px;
+    height: 600px;
+    justify-content: center;
+    background-color: lightgrey;
 }
 
 #cadastrarUser{
@@ -390,9 +402,9 @@ position: absolute;
 }
 
 #login-box{
-    width: 20%;
-    height: 40%;
-    background-color: white;
+    width: 100%;
+    height: 100%;
+    background-color: lightgrey;
     border: 1px solid black;
     border-radius: 10px;
     display: flex;
@@ -404,8 +416,19 @@ position: absolute;
 }
 
 .loginInput{
+    height: 50px;
     width: 70%;
     margin-bottom: 20px;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    text-indent: 5px;
+    margin-top: 20px;
+}
+
+.loginInput:focus{
+    outline: none;
+    
 }
 
 .loginLabel{
@@ -413,6 +436,9 @@ position: absolute;
     margin-bottom: 10px;
     align-self: start;
     margin-left: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    display: none;
 }
 
 #loginTitle{
@@ -420,11 +446,10 @@ position: absolute;
 }
 
 #loginSubmit{
-    width: 200px;
+    width: 380px;
     height: 50px;
     padding: 10px 20px; /* Ajuste o padding conforme necessário */
-    font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
-    margin: 0 10px; /* Espaçamento entre os botões */
+    font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
     background-color: #159F53; /* Cor de fundo */
     color: white; /* Cor do texto */
     border: none; /* Remove a borda */
@@ -432,6 +457,7 @@ position: absolute;
     cursor: pointer; /* Cursor ao passar por cima */
     transition: background-color 0.3s; /* Transição suave */
     margin-top: 20px;
+    text-align: center;
 
     &:hover{
     background-color: #368c1c;
@@ -460,13 +486,10 @@ position: absolute;
   transform: rotate(-45deg);
 }
 
-a:visited{
-    color: inherit;
-}
 
 a:link{
     text-decoration: none;
-    color: inherit;
+    color: black;
 }
 
 #tableTop{
@@ -646,4 +669,11 @@ p{
     float: center;
     width: 500px;
     margin-left: 32%;
+}
+
+#togglePassword{
+    position: relative;
+    float: right;
+    left: 31%;
+    bottom:51px;
 }

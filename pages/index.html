@@ -15,18 +15,6 @@
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
         <button id="user"><i class="fa fa-user" style="font-size: 36px;"></i></button>
         </header>
-    <form id="cadastrar" action="{{ request.path }}" method="POST">
-    <div id="login" class="overlay_container">
-        <div id="login-box">
-            <h1 id="loginTitle">Entrar</h1>
-            <label for="cpfUser" class="loginLabel">CPF</label>
-            <input type="text" name="cpf_User" class="loginInput">
-            <label for="passwordUser" class="loginLabel">SENHA</label>
-            <input type="password" name="password_User" class="loginInput">
-            <a href ="{{url_for('login_user')}}" id="loginSubmit"/>Entrar</a>
-        </div>
-    </div>
-    </form>
 
     <div id="overlay2" class="overlay_container">
     <div id="usuario_popup">
@@ -49,39 +37,39 @@
 
                 <div id="info">
                 <label for="nome">NOME
-                <input type="text" name="nome" id="nome" value="{{infos[0]}}">
+                <input type="text" class="cadInput" name="nome" id="nome" value="{{infos[0]}}">
                     </label>
                  <label for="nasc">DATA DE NASCIMENTO
-                <input type="text" name="nasc" id="nasc" value="{{infos[2]}}">
+                <input type="text" class="cadInput" name="nasc" id="nasc" value="{{infos[2]}}">
                      </label>
                  <label for="cpf">CPF
-                <input type="text" name="cpf" id="cpf" value="{{infos[1]}}">
+                <input type="text" class="cadInput" class="cadInput" name="cpf" id="cpf" value="{{infos[1]}}">
                      </label>
                  <label for="mae">MÃE
-                <input type="text" name="mae" id="mae" value="{{infos[3]}}">
+                <input type="text" class="cadInput" name="mae" id="mae" value="{{infos[3]}}">
                      </label>
                  <label for="pai">PAI
-                <input type="text" name="pai" id="pai" value="{{infos[7]}}">
+                <input type="text" class="cadInput" name="pai" id="pai" value="{{infos[7]}}">
                      </label>
                 <label for="resp">RESPONSÁVEL LEGAL
-                <input type="text" name="resp" id="resp" value="{{infos[6]}}">
+                <input type="text" class="cadInput" name="resp" id="resp" value="{{infos[6]}}">
                      </label>
                  <label for="cpf2">CPF RESPONSÁVEL
-                <input type="text" name="cpf2" id="cpf2" value="{{infos[4]}}">
+                <input type="text" class="cadInput" name="cpf2" id="cpf2" value="{{infos[4]}}">
                      </label>
                  <label for="rg">RG RESPONSÁVEL
-                <input type="text" name="rg" id="rg" value="{{infos[5]}}">
+                <input type="text" class="cadInput" name="rg" id="rg" value="{{infos[5]}}">
                      </label>
                  <label for="telefone">TELEFONE
-                <input type="text" name="telefone" id="telefone" value="{{infos[10]}}">
+                <input type="text" class="cadInput" name="telefone" id="telefone" value="{{infos[10]}}">
                      </label>
                  <label for="celular">CELULAR
-                <input type="text" name="celular" id="celular" value="{{infos[10]}}">
+                <input type="text" class="cadInput" name="celular" id="celular" value="{{infos[10]}}">
                      </label>
                  <label for="tiposangue">TIPO SANGUÍNEO
-                <input type="text" name="tiposangue" id="tiposangue" value="{{infos[9]}}">
+                <input type="text" class="cadInput" name="tiposangue" id="tiposangue" value="{{infos[9]}}">
                      </label>
-                     <input type="text" name="tiposangue" id="tiposangue" value="{{infos[11]}}" style="display: none;">
+                     <input type="text" class="cadInput" name="tiposangue" id="tiposangue" value="{{infos[11]}}" style="display: none;">
             </div>
                 <div class="button-container">
             <input type="submit" class="back" value="Salvar" onclick="closePopup()" >

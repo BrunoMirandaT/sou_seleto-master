@@ -15,19 +15,7 @@
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
         <button id="user"><i class="fa fa-user" style="font-size: 36px;"></i></button>
         </header>
-    <form id="cadastrar" action="{{ request.path }}" method="POST">
-    <div id="login" class="overlay_container">
-        <div id="login-box">
-            <h1 id="loginTitle">Entrar</h1>
-            <label for="cpfUser" class="loginLabel">CPF</label>
-            <input type="text" name="cpf_User" class="loginInput">
-            <label for="passwordUser" class="loginLabel">SENHA</label>
-            <input type="password" name="password_User" class="loginInput">
-            <a href ="{{url_for('login_user')}}" id="loginSubmit">Entrar</a>
-        </div>
-    </div>
-    </form>
-
+    
     <div id="overlay2" class="overlay_container">
     <div id="usuario_popup">
     </div>
