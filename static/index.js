@@ -83,3 +83,26 @@ icon.addEventListener('click', function() {
     icon.classList.remove("fa-eye");
   }
 });
+
+function getImgData() {
+    const chooseFile = document.getElementById("foto_cad");
+const imgPreview = document.getElementById("preview");
+    const files = chooseFile.files[0];
+    if (files) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(files);
+      fileReader.addEventListener("load", function () {
+        imgPreview.style.display = "block";
+        imgPreview.src = this.result;
+        document.getElementById('img_aluno2').style.display = "none"
+      });    
+    }
+  }
+
+function visible(){
+    document.getElementById('img_aluno2').style.display = "flex"
+}
+
+function invisible(){
+    document.getElementById('img_aluno2').style.display = "none"
+}

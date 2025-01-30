@@ -21,8 +21,17 @@
       {%- endfor %}
 
       <form id="cadastrar" action="{{ request.path }}" method="post" onsubmit="return validateForm(event);">
+        
         <div id="info" class="info">
-            <div id="foto_cad"></div>
+            <div id="img_aluno2">
+            <label for="foto_cad" class="custom-file-upload">
+                Custom Upload
+            </label>
+            <input type="file" id="foto_cad" onchange="getImgData()"/>
+        </div>
+            <div id="img_aluno">
+            <img id="preview" onmouseover="visible()" onmouseout="invisible()">
+        </div>
             <label for="info0">NOME*
                 <input type="text" class="cadInput2" name="info0" placeholder="Digite aqui" />
             </label>

@@ -213,14 +213,21 @@ footer{
 
 #info{
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-areas: "header header" "content content";
+    grid-template-columns: 30% 35% 35%;
+    grid-template-rows: 16.6% 16.6% 16.6% 16.6% 16.6% 16.6%;
+    grid-template-areas:
+    "sidenav header header" 
+    "sidenav content content"
+    "sidenav content content"
+    "sidenav content content"
+    "sidenav content content"
+    "sidenav content content";
     justify-content: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
     color: black;
     float: center;
-    width: 500px;
+    width: 800px;
 }
 .cadInput{
     width: 80%;
@@ -233,6 +240,7 @@ footer{
 }
 
 .cadInput2{
+    grid-area: content;
     width: 80%;
     height:40%;
     margin-bottom:20px;
@@ -245,12 +253,6 @@ footer{
 
 .info label{
     text-indent: 20px;
-}
-
-label[for='nome']{
-margin-top: 50px;
-display: grid;
-grid-area: header;
 }
 
 #nasc{
@@ -266,12 +268,10 @@ grid-area: content;
 
 input[name='info0']{
     width: 90%;
-    height: 58%;
+    height: 40%;
 }
 
 label[for='info0']{
-    margin-top: 50px;
-    display: grid;
     grid-area: header;
 }
 
@@ -330,13 +330,21 @@ input[type='submit']{
             border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         .button-container input[type="submit"]:hover,
         .button-container input[name="voltar"]:hover,
         .button-container #voltar:hover{
-            background-color: #368c1c;
+           filter: brightness(90%);
+        }
+
+        #preview{
+            grid-area: sidenav;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 5;
         }
 
         .title {
@@ -366,7 +374,7 @@ input[type='submit']{
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    width: 30%;
+    width: 45%;
     border-radius: 10px;
     height: 600px;
     justify-content: center;
@@ -382,14 +390,49 @@ input[type='submit']{
 }
 
 #foto_cad{
-    width: 13%;
-height: 30%;
-top: 28%;
-left: 14%;
-background-color: white;
-position: absolute;
+   display: none;
 }
 
+#img_aluno{
+    grid-area: sidenav;
+    width: 90%;
+    height: 70%;
+    margin-top: 50px;
+}
+
+#img_aluno2{
+    background-color: transparent;
+    grid-area: sidenav;
+    width: 90%;
+    height: 70%;
+    margin-top: 50px;
+    z-index: 5;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#preview:hover{
+    #img_aluno2{
+        display: flex;
+    }
+    
+}
+
+.custom-file-upload {
+    grid-area: sidenav;
+    border: 1px solid rgb(189, 189, 189);
+    display: inline-block;
+    cursor: pointer;
+    padding: 6px 12px;
+    width: 50%;
+    height: 8%;
+    font-size: 12px;
+    text-align: center;
+    background-color: lightgrey;
+    z-index: 10;
+  }
 
 
 #test{

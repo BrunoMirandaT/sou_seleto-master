@@ -20,27 +20,36 @@ db = firestore.client()
 
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
-    if request.method == 'POST':
-        searchbar = request.form.get('searchbar')
-        alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True))
-        
-    else:
-        alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True))
-    alunos_docs = alunos_ref.stream()
+    searchbar = ""
+    
+    info = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True))
 
-    alunos = []
-    i = 1
+    alunos_docs = info.stream()
+
+    val1 = []
+    val2 = []
+    val3 = []
+
     for aluno in alunos_docs:
         aluno_data = aluno.to_dict()
         aluno_data['id'] = aluno.id  # Inclui o ID do documento no aluno
-        alunos.count(id)
-        alunos.append(aluno_data.get('NomeAluno'))
-        alunos.append(aluno_data.get('DataNasc'))
-        alunos.append(aluno_data.get('id'))
-        print(alunos)
+        val1.append(aluno_data["NomeAluno"])
+        val2.append(aluno_data["DataNasc"])
+        val3.append(aluno_data["id"])
+        
+    val1 = list(map(str.upper,val1))
+        
+    searchbar = searchbar.upper()
+    result = [v for v in val1 if searchbar in v]
 
-    return render_template('index.html',  alunos=alunos, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0)
+    final = []
 
+    for x in range(len(result)) :
+        final.append(result[x])
+        final.append(val2[x])
+        final.append(val3[x])
+
+    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0)
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
 def cadastros_inativos():
@@ -53,6 +62,8 @@ def cadastros_inativos():
             alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', False))
             print("oi")
         alunos_docs = alunos_ref.stream()
+
+    
 
         alunos = []
         i = 1
