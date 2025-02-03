@@ -211,6 +211,17 @@ footer{
     border-top-right-radius: 10px;
 }
 
+#cadastro{
+display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    height: 600px;
+    justify-content: center;
+    background-color: lightgrey;
+}
+
 #info{
     display: grid;
     grid-template-columns: 30% 35% 35%;
@@ -230,6 +241,7 @@ footer{
     width: 800px;
 }
 .cadInput{
+    grid-area: content;
     width: 80%;
     height:40%;
     margin-bottom:20px;
@@ -237,6 +249,8 @@ footer{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     text-indent: 5px;
+    justify-self: center;
+    
 }
 
 .cadInput2{
@@ -257,13 +271,13 @@ footer{
 
 #nasc{
 margin-top: 0px;
-display: grid;
 grid-area: content;
 }
 
 #nome{
     width: 90%;
-    height: 56%;
+    height: 40%;
+    grid-area: header;
 }
 
 input[name='info0']{

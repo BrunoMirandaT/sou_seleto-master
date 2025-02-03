@@ -30,12 +30,19 @@
 
 
 
-            <div id="left_side"><form id="cadastro" action="{{ url_for('update_cad', cad=infos[11]) }}" method="POST">
-            <div id="foto"></div>
-                <h2 id="entrada">Data de entrada <br> {{ infos[8] }}</h2>
-                </div>
-
+            <form id="cadastro" action="{{ url_for('update_cad', cad=infos[11]) }}" method="POST">
                 <div id="info">
+                    <div id="img_aluno2">
+                        <label for="foto_cad" class="custom-file-upload">
+                            Custom Upload
+                        </label>
+                        <input type="file" id="foto_cad" onchange="getImgData()"/>
+                    </div>
+                        <div id="img_aluno">
+                        <img id="preview" onmouseover="visible()" onmouseout="invisible()">
+                        <h2 id="entrada">Data de entrada <br> {{ infos[8] }}</h2>
+                    </div>
+                    
                 <label for="nome">NOME
                 <input type="text" class="cadInput" name="nome" id="nome" value="{{infos[0]}}">
                     </label>

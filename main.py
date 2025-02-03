@@ -20,10 +20,12 @@ db = firestore.client()
 
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
-    searchbar = ""
+    if request.method == 'POST':
+        searchbar = request.form.get('searchbar').upper()
+    else:
+        searchbar = ""
     
     info = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True))
-
     alunos_docs = info.stream()
 
     val1 = []
@@ -39,8 +41,10 @@ def main_page():
         
     val1 = list(map(str.upper,val1))
         
-    searchbar = searchbar.upper()
+    
     result = [v for v in val1 if searchbar in v]
+
+    print(searchbar)
 
     final = []
 
@@ -48,6 +52,7 @@ def main_page():
         final.append(result[x])
         final.append(val2[x])
         final.append(val3[x])
+       
 
     return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0)
 
