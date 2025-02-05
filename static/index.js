@@ -94,15 +94,17 @@ const imgPreview = document.getElementById("preview");
       fileReader.addEventListener("load", function () {
         imgPreview.style.display = "block";
         imgPreview.src = this.result;
-        document.getElementById('img_aluno2').style.display = "none"
+        document.getElementById('img_aluno').style.zIndex = 25
       });    
     }
   }
 
 function visible(){
-    document.getElementById('img_aluno2').style.display = "flex"
+  document.getElementById('img_aluno').style.zIndex = 0
+  document.getElementById('preview').style.filter = "brightness(90%)"
 }
 
 function invisible(){
-    document.getElementById('img_aluno2').style.display = "none"
+  document.getElementById('img_aluno').style.zIndex = 25
+  document.getElementById('preview').style.filter = "brightness(100%)"
 }
