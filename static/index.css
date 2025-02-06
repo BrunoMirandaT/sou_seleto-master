@@ -59,6 +59,8 @@ a:hover{
     position: absolute;
     right: 1rem;
     margin-bottom: .3rem;
+    text-align: center;
+    line-height: 4;
 }
 
 
@@ -238,12 +240,12 @@ display: flex;
     font-weight: bold;
     color: black;
     float: center;
-    width: 800px;
+    width: 1000px;
 }
 .cadInput{
     grid-area: content;
     width: 80%;
-    height:40%;
+    height:45%;
     margin-bottom:20px;
     display: grid;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -256,7 +258,7 @@ display: flex;
 .cadInput2{
     grid-area: content;
     width: 80%;
-    height:40%;
+    height:45%;
     margin-bottom:20px;
     display: grid;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -269,20 +271,32 @@ display: flex;
     text-indent: 20px;
 }
 
+#info label{
+    text-indent: 30px;
+}
+
+#infoUser label{
+    text-indent: 20px;
+}
+
 #nasc{
 margin-top: 0px;
-grid-area: content;
+
+grid-row-start: 2;
 }
 
 #nome{
     width: 90%;
-    height: 40%;
+    height: 45%;
+}
+
+label[for='nome']{
     grid-area: header;
 }
 
 input[name='info0']{
     width: 90%;
-    height: 40%;
+    height: 45%;
 }
 
 label[for='info0']{
@@ -388,7 +402,7 @@ input[type='submit']{
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    width: 45%;
+    width: 1140px;
     border-radius: 10px;
     height: 600px;
     justify-content: center;
@@ -396,11 +410,14 @@ input[type='submit']{
 }
 
 #cadastrarUser{
-    background-color: lightgray;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
     width: 30%;
-    height: 500px;
-    margin: 0 auto;
     border-radius: 10px;
+    height: 600px;
+    justify-content: center;
+    background-color: lightgrey;
 }
 
 #foto_cad{
@@ -467,6 +484,12 @@ input[type='submit']{
     margin-left: 50px;
 }
 
+#login{
+    margin-top: 50px;
+    width: 30%;
+    height: 70%;
+}
+
 #login-box{
     width: 100%;
     height: 100%;
@@ -482,29 +505,20 @@ input[type='submit']{
 }
 
 .loginInput{
-    height: 50px;
-    width: 70%;
-    margin-bottom: 20px;
-    border: 2px solid black;
-    border-radius: 5px;
+    grid-area: content;
+    width: 80%;
+    height:45%;
+    margin-bottom:20px;
+    display: grid;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     text-indent: 5px;
-    margin-top: 20px;
+    justify-self: center;
 }
 
 .loginInput:focus{
     outline: none;
     
-}
-
-.loginLabel{
-    margin-left: 0;
-    margin-bottom: 10px;
-    align-self: start;
-    margin-left: 5px;
-    font-weight: bold;
-    font-size: 18px;
-    display: none;
 }
 
 #loginTitle{
@@ -685,8 +699,8 @@ p{
 
 
 #nvl{
-    width: 80%;
-    height:40%;
+    width: 83%;
+    height:100%;
     display: grid;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
@@ -695,6 +709,17 @@ p{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 37.8px;
+    justify-self: center;
+    grid-column: 2;
+    background-color: white;
+    border: 1px rgb(118, 118, 118);
+    border-style:ridge;
+    border-radius: 2px;
+}
+
+#nomeUser{
+    width: 90%;
 }
 
 #drop button{
@@ -704,15 +729,17 @@ p{
     display: block;
     border: none;
     text-align: start;
-    width: 198px;
+    width: 100%;
     font-size: 16px;
   }
 
 #drop{
     visibility: hidden;
     border: 1px solid black;
-    width: 198px;
+    width: 82.5%;
     border-radius: 2px;
+    justify-self: center;
+
 }
   
   /* Change color of dropdown links on hover */
@@ -726,20 +753,152 @@ p{
 
 #infoUser{
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-areas: "header header" "content content";
+    grid-template-columns: 45% 45%;
+    grid-template-rows: 25% 25% 25%;
+    grid-template-areas: 
+    "header header"
+    "content content"
+    "content content";
     justify-content: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
     color: black;
-    float: center;
-    width: 500px;
-    margin-left: 32%;
+    width: 100%;
 }
 
 #togglePassword{
     position: relative;
     float: right;
-    left: 31%;
-    bottom:51px;
+    left: 32%;
+    bottom:75px;
+    height: 55px;
+    width: 40px;
+    cursor:pointer;
 }
+
+#documents{
+    display: none;
+    grid-template-columns: 40% 20% 40%;
+    grid-template-rows: 50% 20% 30%;
+    grid-template-areas: 
+    "header1 header2 header3"
+    "content content content"
+    "content2 content2 content2";
+    justify-items: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    color: black;
+    width: 50%;
+    height: 600px;
+    margin-top: 50px;
+    justify-self: center;
+}
+
+.foto_cads{
+    z-index: 20;
+   display: none;
+   text-align: center;
+}
+
+#upload{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-indent: 0;
+    font-size: 80px;
+    color: #159F53;
+}
+
+#img_doc{
+    grid-area: header1;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+#img_doc2{
+    grid-area: header3;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+#img_identidade{
+    background-color: transparent;
+    grid-area: header1;
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#img_termo{
+    background-color: transparent;
+    grid-area: header3;
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+
+.custom-file-upload {
+    grid-area: sidenav;
+    display: inline-block;
+    cursor: pointer;
+    padding: 6px 12px;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    text-align: center;
+    background-color: transparent;
+    z-index: 10;
+  }
+
+  .preview_docs{
+    grid-area: sidenav;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 5;
+}
+
+.foto_docs{
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+   display: none;
+   text-align: center;
+
+}
+
+#idLabel{
+    justify-self: center;
+    grid-column-start: 1;
+    font-size: 26px;
+}
+
+#termoLabel{
+    justify-self: center;
+    grid-column-start: 3;
+    font-size: 26px;
+}
+
+.button-container{
+    grid-row-start: 2;
+    grid-area: content2;
+    align-items: start;
+}
+
+

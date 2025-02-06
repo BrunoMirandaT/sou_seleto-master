@@ -84,9 +84,9 @@ icon.addEventListener('click', function() {
   }
 });
 
-function getImgData() {
-    const chooseFile = document.getElementById("foto_cad");
-const imgPreview = document.getElementById("preview");
+function getImgData(file, preview, output) {
+    const chooseFile = document.getElementById(file);
+const imgPreview = document.getElementById(preview);
     const files = chooseFile.files[0];
     if (files) {
       const fileReader = new FileReader();
@@ -94,17 +94,27 @@ const imgPreview = document.getElementById("preview");
       fileReader.addEventListener("load", function () {
         imgPreview.style.display = "block";
         imgPreview.src = this.result;
-        document.getElementById('img_aluno').style.zIndex = 25
+        document.getElementById(output).style.zIndex = 25
       });    
     }
   }
 
-function visible(){
-  document.getElementById('img_aluno').style.zIndex = 0
-  document.getElementById('preview').style.filter = "brightness(90%)"
+function visible(output, preview){
+  document.getElementById(output).style.zIndex = 0
+  document.getElementById(preview).style.filter = "brightness(90%)"
 }
 
-function invisible(){
-  document.getElementById('img_aluno').style.zIndex = 25
-  document.getElementById('preview').style.filter = "brightness(100%)"
+function invisible(output, preview){
+  document.getElementById(output).style.zIndex = 25
+  document.getElementById(preview).style.filter = "brightness(100%)"
+}
+
+function showDocs(){
+  document.getElementById("cadastro").style.display = "none"
+  document.getElementById("documents").style.display = "grid"
+}
+
+function hideDocs(){
+  document.getElementById("cadastro").style.display = "flex"
+  document.getElementById("documents").style.display = "none"
 }

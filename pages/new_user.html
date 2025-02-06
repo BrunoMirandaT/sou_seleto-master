@@ -26,17 +26,17 @@
       <form id="cadastrarUser" action="{{ request.path }}" method="post" onsubmit="return validateForm(event);">
         <div id="infoUser" class="infoUser">
             <label for="info0">NOME*
-                <input type="text" name="info0" placeholder="Digite aqui" />
+                <input type="text" id="nomeUser" name="info0" class="cadInput" placeholder="Digite aqui" />
             </label>
             <label for="info1">CPF*
-                <input type="text" name="info1" placeholder="Digite aqui" />
+                <input type="text" name="info1" class="cadInput" placeholder="Digite aqui" />
             </label>
             <label for="info2">DATA DE NASCIMENTO*
-                <input name="info2" placeholder="Digite aqui"/>
+                <input name="info2" class="cadInput" placeholder="Digite aqui"/>
             </label>
             <label for="info3">NIVEL DE ACESSO*
                 <div class="dropdown">
-                <button type="button" id="nvl" class="nvl" name="info3" value="Padrão">Padrão</button>
+                <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão</button>
                 <div id="drop" class="dropdown-content-nvl">
                     <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
                     <button type="button" onclick="nvlAcesso(id)" id="nvlButton2">Master</button>

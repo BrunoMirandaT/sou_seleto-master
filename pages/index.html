@@ -13,7 +13,7 @@
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
         <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
-        <button id="user"><i class="fa fa-user" style="font-size: 36px;"></i></button>
+        <a id="user" href ="{{url_for('login_user')}}"><i class="fa fa-user" style="font-size: 36px;"></i></a>
         </header>
 
     <div id="overlay2" class="overlay_container">
@@ -24,22 +24,22 @@
     <div id="overlay" class="overlay_container" value={{popup}}>
         <div class="cadastro_popup">
             <header id="cadastro_header">
-                <button>DADOS</button>
-                <button>DOCUMENTOS</button>
+                <button onclick="hideDocs()">DADOS</button>
+                <button onclick="showDocs()">DOCUMENTOS</button>
             </header>
 
 
 
             <form id="cadastro" action="{{ url_for('update_cad', cad=infos[11]) }}" method="POST">
                 <div id="info">
-                    <div id="img_aluno2">
-                        <label for="foto_cad" class="custom-file-upload">
-                            Custom Upload
+                    <div id="img_aluno2" onmouseover="visible('img_aluno', 'preview')" onmouseout="invisible('img_aluno', 'preview')">
+                        <label for="foto_cad" class="custom-file-upload" id="back">
+                            <i class="fa fa-upload" id="upload"></i>
                         </label>
-                        <input type="file" id="foto_cad" onchange="getImgData()"/>
+                        <input type="file" id="foto_cad" onchange="getImgData('foto_cad', 'preview', 'img_aluno')"/>
                     </div>
                         <div id="img_aluno">
-                        <img id="preview" onmouseover="visible()" onmouseout="invisible()">
+                        <img id="preview" onmouseover="visible('img_aluno', 'preview')" onmouseout="invisible('img_aluno', 'preview')">
                         <h2 id="entrada">Data de entrada <br> {{ infos[8] }}</h2>
                     </div>
                     
@@ -80,8 +80,37 @@
             </div>
                 <div class="button-container">
             <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
+            <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
+        </div>
                 </form>
-                <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
+            <div id="documents">
+                <div id="img_identidade" class="img_docs" onmouseover="visible('img_doc', 'preview2')" onmouseout="invisible('img_doc', 'preview2')" name="identidade">
+                    <label for="foto_doc" class="custom-file-upload" id="back">
+                        <i class="fa fa-upload" id="upload"></i>
+                    </label>
+                    <input type="file" class="foto_docs" id="foto_doc" onchange="getImgData('foto_doc', 'preview2', 'img_doc')"/>
+                </div>
+                    <div id="img_doc" class="img_docs2">
+                    <img id="preview2" class="preview_docs" onmouseover="visible('img_doc', 'preview2')" onmouseout="invisible('img_doc', 'preview2')">
+                </div>
+                <label id="idLabel" for="identidade">IDENTIDADE</label>
+                
+                <div id="img_termo" class="img_docs" onmouseover="visible('img_doc2', 'preview3')" onmouseout="invisible('img_doc2', 'preview3')" name="contrato">
+                    <label for="foto_doc3" class="custom-file-upload" id="back">
+                        <i class="fa fa-upload" id="upload"></i>
+                    </label>
+                    <input class="foto_docs" type="file" id="foto_doc3" onchange="getImgData('foto_doc3', 'preview3', 'img_doc2')"/>
+                </div>
+                    <div class="img_docs2" id="img_doc2">
+                    <img class="preview_docs" id="preview3" onmouseover="visible('img_doc2', 'preview3')" onmouseout="invisible('img_doc2', 'preview3')">
+                </div>
+                <label id="termoLabel" for="contrato">CONTRATO</label>
+                <div class="button-container">
+                    <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
+                    <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
+                </div>
+            </div>
+            
         </div>
 
         </div>
