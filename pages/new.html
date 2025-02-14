@@ -21,18 +21,18 @@
          </div>
       {%- endfor %}
 
-      <form id="cadastrar" action="{{ request.path }}" method="post" onsubmit="return validateForm(event);">
+      <form id="cadastrar" action="{{ request.path }}" method="post" onsubmit="return validateForm(event);" enctype="multipart/form-data">
         
         <div id="info" class="info">
-            <div id="img_aluno2" onmouseover="visible()" onmouseout="invisible()">
-            <label for="foto_cad" class="custom-file-upload" id="back">
-                <i class="fa fa-upload" id="upload"></i>
-            </label>
-            <input type="file" id="foto_cad" onchange="getImgData()"/>
-        </div>
-            <div id="img_aluno">
-            <img id="preview" onmouseover="visible()" onmouseout="invisible()">
-        </div>
+            <div id="img_aluno2" onmouseover="visible('img_aluno', 'preview')" onmouseout="invisible('img_aluno', 'preview')">
+                <label for="foto_cad" class="custom-file-upload" id="back">
+                    <i class="fa fa-upload" id="upload"></i>
+                </label>
+                <input type="file" name="foto_cad" id="foto_cad" onchange="getImgData('foto_cad', 'preview', 'img_aluno')"/>
+            </div>
+                <div id="img_aluno">
+                <img id="preview" onmouseover="visible('img_aluno', 'preview')" onmouseout="invisible('img_aluno', 'preview')">
+                </div>
             <label for="info0">NOME*
                 <input type="text" class="cadInput2" name="info0" placeholder="Digite aqui" />
             </label>

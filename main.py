@@ -149,8 +149,15 @@ def new_cad():
                 "NomeResp": request.form['info3'],"CpfResp": request.form['info4'],"RgResp": request.form['info5'],
                 "NomeMae": request.form['info6'], "NomePai": request.form['info7'], "DataEnt": request.form['info8'],
                 "Sangue": request.form['info9'], "CellResp": request.form['info10'],"TelResp": request.form['info10']}
+        
+        document = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=20))
 
-        db.collection('Alunos').document("teste").set(info)
+        db.collection('Alunos').document(document).set(info)
+
+        img = request.files.get('foto_cad', '')
+
+        
+
 
         return redirect(url_for('main_page')) # Retorna para rota main_page
 

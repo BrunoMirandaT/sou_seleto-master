@@ -640,7 +640,7 @@ p{
     width: 25%;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: stretch;
+    justify-content: start;
     align-items: center;
 }
 
