@@ -119,26 +119,42 @@ def get_cad(cadastro):
 @app.route("/usuarios", methods=['GET', 'POST'])
 def list_users():
     if request.method == 'POST':
-        searchbar = request.form.get('searchbar')
-        user_ref = db.collection('Usuarios')
+       searchbar = request.form.get('searchbar').upper()
+        
         
     else:
-        user_ref = db.collection('Usuarios')
-    user_docs = user_ref.stream()
+        searchbar = ""
 
-    users = []
-    i = 1
+    info = db.collection('Usuarios').where(filter=FieldFilter('userAtv', '==', True))
+    user_docs = info.stream()
+
+    val1 = []
+    val2 = []
+    val3 = []
+
     for user in user_docs:
         user_data = user.to_dict()
         user_data['id'] = user.id  # Inclui o ID do documento no aluno
-        users.count(id)
-        users.append(user_data.get('NomeUser'))
-        users.append(user_data.get('DataNasc'))
-        users.append(user_data.get('id'))
-        print(users)
+        val1.append(user_data["NomeUser"])
+        val2.append(user_data["DataNasc"])
+        val3.append(user_data["id"])
+        
+    val1 = list(map(str.upper,val1))
+        
+    
+    result = [v for v in val1 if searchbar in v]
 
+    print(searchbar)
 
-    return render_template('users.html', users=users) # Renderiza página de lista de usuários,
+    final = []
+
+    for x in range(len(result)) :
+        final.append(result[x])
+        final.append(val2[x])
+        final.append(val3[x])
+       
+
+    return render_template('users.html', users=final) # Renderiza página de lista de usuários,
                                                                         # passando resultado de pesquisa sql para exibição no html
 
 @app.route("/cadastros/novo", methods=['GET', 'POST'])
