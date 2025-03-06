@@ -24,7 +24,7 @@
     <div id="overlay" class="overlay_container" value={{popup}}>
         <div class="cadastro_popup">
             <header id="cadastro_header">
-                <button onclick="hideDocs()">DADOS</button>
+                <button id="first" onclick="hideDocs()">DADOS</button>
                 <button onclick="showDocs()">DOCUMENTOS</button>
             </header>
 
@@ -128,7 +128,7 @@
             </div>
                 </div>
             <form id="searchbar" action="{{ url_for('main_page') }}" method="POST">
-        <input type="text" id="search" name="searchbar">
+        <input type="text" id="search" name="searchbar" value={{default}}>
             </form>
         </div>
             <div id="legenda">
@@ -141,10 +141,8 @@
                 <table>
 
                 <tbody>
-                {% if popup %}
-                {% else %}
+                
                {% for aluno in range((alunos | lenght)//3) %}
-
                <tr>
                    <td name="td1" id="td1" value={{alunos}}>{{ loop.index }}</td>
                   <td id="td2">{{ alunos[loop.index0 * 3] }}</td>
@@ -159,7 +157,7 @@
 
 
                 {% endfor %}
-                {% endif %}
+                
 
                 </tbody>
 

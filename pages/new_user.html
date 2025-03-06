@@ -32,11 +32,11 @@
                 <input type="text" name="info1" class="cadInput" placeholder="Digite aqui" />
             </label>
             <label for="info2">DATA DE NASCIMENTO*
-                <input name="info2" class="cadInput" placeholder="Digite aqui"/>
+                <input type="date" name="info2" class="cadInput" placeholder="Digite aqui"/>
             </label>
             <label for="info3">NIVEL DE ACESSO*
                 <div class="dropdown">
-                <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão</button>
+                <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão <img src='/static/25243.png' id='caretIcon'></button>
                 <div id="drop" class="dropdown-content-nvl">
                     <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
                     <button type="button" onclick="nvlAcesso(id)" id="nvlButton2">Master</button>

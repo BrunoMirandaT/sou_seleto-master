@@ -6,7 +6,6 @@ from firebase_admin import credentials, firestore
 
 from google.cloud.firestore_v1 import FieldFilter
 
-
 def lenght(list):
     size = len(list)
     return size
@@ -18,13 +17,7 @@ default_app = firebase_admin.initialize_app(options=app_options)
 
 db = firestore.client()
 
-@app.route("/", methods=['GET', 'POST'])
-def main_page():
-    if request.method == 'POST':
-        searchbar = request.form.get('searchbar').upper()
-    else:
-        searchbar = ""
-    
+def get_cadastros(input):
     info = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True))
     alunos_docs = info.stream()
 
@@ -42,9 +35,9 @@ def main_page():
     val1 = list(map(str.upper,val1))
         
     
-    result = [v for v in val1 if searchbar in v]
+    result = [v for v in val1 if input in v]
 
-    print(searchbar)
+    print(input)
 
     final = []
 
@@ -52,9 +45,21 @@ def main_page():
         final.append(result[x])
         final.append(val2[x])
         final.append(val3[x])
-       
 
-    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0)
+    return final
+
+
+@app.route("/", methods=['GET', 'POST'])
+def main_page():
+    if request.method == 'POST':
+        searchbar = request.form.get('searchbar')
+    else:
+        searchbar = ""
+    
+    final = get_cadastros(searchbar.upper())
+    
+       
+    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar)
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
 def cadastros_inativos():
@@ -83,8 +88,12 @@ def cadastros_inativos():
         print("dead")
 
     return render_template('index.html', alunos=alunos, mode='CADASTROS INATIVOS', aux='RESTAURAR', infos=0)
-@app.route("/cadastro/<cadastro>", methods=['GET', 'POST'])
+@app.route("/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
+    if request.method == 'POST':
+        searchbar = request.form.get('searchbar')
+    else:
+        searchbar = ""
     docRef = db.collection('Alunos').document(cadastro)
     idAluno = docRef.id
     print(idAluno)
@@ -94,10 +103,10 @@ def get_cad(cadastro):
     alunos_docs = alunos_ref.stream()
 
     info = []
-    for alunos in alunos_docs:
+    for aluno in alunos_docs:
 
-        aluno_data = alunos.to_dict()
-        aluno_data['id'] = alunos.id  # Inclui o ID do documento no aluno
+        aluno_data = aluno.to_dict()
+        aluno_data['id'] = aluno.id  # Inclui o ID do documento no aluno
         if aluno_data['id'] == cadastro:
 
             info.append(aluno_data.get('NomeAluno'))
@@ -114,7 +123,10 @@ def get_cad(cadastro):
             info.append(aluno_data.get('id'))
             print(info)
 
-    return render_template('index.html', infos=info, popup=1)
+            lista = get_cadastros(searchbar.upper())
+            print(searchbar)
+    
+    return render_template('index.html', alunos=lista, infos=info, popup=1, aux="REMOVER", mode='CADASTROS ATIVOS', default=searchbar)
 
 @app.route("/usuarios", methods=['GET', 'POST'])
 def list_users():
@@ -136,7 +148,7 @@ def list_users():
         user_data = user.to_dict()
         user_data['id'] = user.id  # Inclui o ID do documento no aluno
         val1.append(user_data["NomeUser"])
-        val2.append(user_data["DataNasc"])
+        val2.append(user_data["Nvl"])
         val3.append(user_data["id"])
         
     val1 = list(map(str.upper,val1))

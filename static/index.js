@@ -53,11 +53,19 @@ document.addEventListener("click", toggleDrop);
 
 function toggleDrop(event) {
     var dropdown = document.getElementById("drop");
+    console.log(dropdown.style.visibility)
     
 if (event.target.classList.contains('nvl')){
-    dropdown.style.visibility = "visible"
+    if(dropdown.style.visibility == "visible"){
+      dropdown.style.visibility = "hidden"
+      document.getElementById('caretIcon').style.transform = "rotate(360deg)"
+    }else{
+      dropdown.style.visibility = "visible"
+      document.getElementById('caretIcon').style.transform = "rotate(180deg)"
+    }
 } else {
-  dropdown.style.visibility = "hidden" 
+  dropdown.style.visibility = "hidden"
+  document.getElementById('caretIcon').style.transform = "rotate(360deg)"
 }
 }
 
@@ -95,6 +103,7 @@ const imgPreview = document.getElementById(preview);
         imgPreview.style.display = "block";
         imgPreview.src = this.result;
         document.getElementById(output).style.zIndex = 25
+        invisible();
       });    
     }
   }
@@ -105,8 +114,12 @@ function visible(output, preview){
 }
 
 function invisible(output, preview){
-  document.getElementById(output).style.zIndex = 25
+  const imgPreview = document.getElementById(preview);
+  if(imgPreview.src != ""){
+    document.getElementById(output).style.zIndex = 25
+  } 
   document.getElementById(preview).style.filter = "brightness(100%)"
+
 }
 
 function showDocs(){
