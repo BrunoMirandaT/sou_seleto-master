@@ -1,2 +1,2 @@
 [functions]
-  included_files = ["/application_default_credentials.json"]
+  included_files = ["/**.json"]
