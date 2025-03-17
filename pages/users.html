@@ -21,58 +21,40 @@
     </div>
         </div>
 
-    <div id="overlay" class="overlay_container">
-        <div class="cadastro_popup">
+    <div id="overlay" class="overlay_container" value={{popup}}>
+        <div class="user_popup">
             <header id="cadastro_header">
                 <button>DADOS</button>
-                <button>DOCUMENTOS</button>
             </header>
 
-                {% for row in cad %}
-            <form id="cadastro" action="{{ url_for('update_user', user=row[0]) }}" method="POST">
-            <div id="info">
-                    <div id="foto"></div>
-                <h2 id="entrada">Data de entrada <br> {{ row[9] }}</h2>
+            <form id="cadastro" action="{{ url_for('update_user', user=infos[0]) }}" method="POST">
+            <div id="infoUser">
                 <label for="nome">NOME
-                <input type="text" name="nome" id="nome" value="{{row[1]}}">
-                    </label>
-                 <label for="nasc">DATA DE NASCIMENTO
-                <input type="text" name="nasc" id="nasc" value="{{row[3]}}">
-                     </label>
-                 <label for="cpf">CPF
-                <input type="text" name="cpf" id="cpf" value="{{row[2]}}">
-                     </label>
-                 <label for="mae">MÃE
-                <input type="text" name="mae" id="mae" value="{{row[4]}}">
-                     </label>
-                 <label for="pai">PAI
-                <input type="text" name="pai" id="pai" value="{{row[5]}}">
-                     </label>
-                <label for="resp">RESPONSÁVEL LEGAL
-                <input type="text" name="resp" id="resp" value="{{row[4]}}">
-                     </label>
-                 <label for="cpf2">CPF RESPONSÁVEL
-                <input type="text" name="cpf2" id="cpf2" value="{{row[7]}}">
-                     </label>
-                 <label for="rg">RG RESPONSÁVEL
-                <input type="text" name="rg" id="rg" value="{{row[8]}}">
-                     </label>
-                 <label for="telefone">TELEFONE
-                <input type="text" name="telefone" id="telefone" value="{{row[12]}}">
-                     </label>
-                 <label for="celular">CELULAR
-                <input type="text" name="celular" id="celular" value="{{row[11]}}">
-                     </label>
-                 <label for="tiposangue">TIPO SANGUÍNEO
-                <input type="text" name="tiposangue" id="tiposangue" value="{{row[10]}}">
-                     </label>
-            </div>
-                <div class="button-container">
+                    <input type="text" class="cadInput" name="nome" id="nome" value="{{infos[0]}}">
+                        </label>
+                <label for="email">EMAIL
+                    <input type="text" class="cadInput" name="email" id="nome" value="{{infos[3]}}">
+                        </label>
+                     <label for="nasc">CPF
+                    <input type="text" class="cadInput" name="nasc" id="nasc" value="{{infos[1]}}">
+                         </label>
+                     <label for="cpf">DATA DE NASCIMENTO
+                    <input type="date" class="cadInput" name="cpf" id="cpf" value="{{infos[2]}}">
+                         </label>
+                         <label for="info3">NIVEL DE ACESSO*
+                            <div class="dropdown">
+                            <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão <img src='/static/25243.png' id='caretIcon'></button>
+                            <div id="drop" class="dropdown-content-nvl">
+                                <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
+                                <button type="button" onclick="nvlAcesso(id)" id="nvlButton2">Master</button>
+                            </div>
+            </div></label>
+                
+        </div>
+        <div class="button-container">
             <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
                 </form>
                 <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('list_users', cadastro=0)}}">Voltar</a>
-        </div>
-            {% endfor %}
         </div>
         </div>
     </div><div id="main">
@@ -98,7 +80,7 @@
                   <td id="td2">{{ users[loop.index0 * 3] }}</td>
                   <td id="td3">{{ users[1+loop.index0 * 3] }}</td>
                    <td id="td4" onclick="togglePopup()">
-                       <a id="edit" href="">EDITAR</a>
+                       <a id="edit" href="{{url_for('get_user', id=users[2+loop.index0 * 3])}}">EDITAR</a>
                    </td>
                         <td id="td5">
                             <a id="edit" href="{{url_for('delete_user', id=users[2+loop.index0 * 3])}}">REMOVER</a>

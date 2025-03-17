@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastros</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" href="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
+    </head>
+    <body>
+        <header id="navbar">
+            <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
+            <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
+            <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
+            <a id="user" href ="{{url_for('login_user')}}"><i class="fa fa-user" style="font-size: 36px;"></i></a>
+            </header>
+    <div id="main">
+        <div id="tableTop">
+            <div id="leftTableTop">
+        <a id="addButton" href ={{url_for('new_cad')}}>+</a></h3>
+            <div class="dropdown">
+                <button class="dropbtn">{{ mode }}</button>
+                    <div class="dropdown-content">
+                        <a href="{{url_for('main_page')}}">Cadastros ativos</a>
+                        <a href="{{url_for('cadastros_inativos')}}">Cadastros inativos</a>
+                    </div>
+            </div>
+                </div>
+            <form id="searchbar" action="{{ url_for('main_page') }}" method="POST">
+        <input type="text" id="search" name="searchbar" value={{default}}>
+            </form>
+        </div>
+            <div id="legenda">
+                <ul id="list" style="list-style-type:none;">
+                    <li>ID</li>
+                    <li id="nome_leg">NOME</li>
+                    <li>NASCIMENTO</li>
+                </ul>
+            </div>
+                <table>
+
+                <tbody>
+                
+               {% for aluno in range((alunos | lenght)//3) %}
+               <tr>
+                   <td name="td1" id="td1" value={{alunos}}>{{ loop.index }}</td>
+                  <td id="td2">{{ alunos[loop.index0 * 3] }}</td>
+                  <td id="td3">{{ alunos[1+loop.index0 * 3] }}</td>
+                   <td id="td4" onclick="togglePopup()">
+                       <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=alunos[2+loop.index0 * 3])}}">EDITAR</a>
+                   </td>
+                        <td id="td5">
+                            <a id="edit" href="{{url_for('delete_cad', id=alunos[2+loop.index0 * 3], type=mode)}}">{{ aux }}</a>
+                        </td>
+               </tr>
+
+
+                {% endfor %}
+                
+
+                </tbody>
+
+                    </table>
+
+
+    <script src="{{ url_for('static',filename='index.js') }}"></script>
+
+
+        </div>
+<footer>
+    <div id="grupo">
+    <p>Bruno Miranda Tessilla</p>
+    <p>Paulo Henrique Vidal Assis de Paula</p>
+    <p>Nicolas Stringari</p>
+        </div>
+</footer>
+</body>
+
+</html>    

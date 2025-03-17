@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 import random, string
 from datetime import datetime
 import firebase_admin
 from firebase_admin import credentials, firestore
+import pyrebase
 
 from google.cloud.firestore_v1 import FieldFilter
 
@@ -14,6 +15,15 @@ app = Flask(__name__, template_folder = 'pages')
 app.jinja_env.filters.update(lenght = lenght)
 app_options = {'projectId': 'souseleto-33d19'}
 default_app = firebase_admin.initialize_app(options=app_options)
+
+config = {
+    "apiKey": "AIzaSyDMS7dH3iwxf5vTaz4Ir40iZ04r-mxgc0U",
+    "authDomain": "souseleto-33d19.firebaseapp.com",
+    "databaseURL": "",
+    "storageBucket": "souseleto-33d19.firebasestorage.app"
+}
+
+firebase = pyrebase.initialize_app(config)
 
 db = firestore.client()
 
@@ -48,6 +58,37 @@ def get_cadastros(input):
 
     return final
 
+def get_users(input):
+    info = db.collection('Usuarios').where(filter=FieldFilter('userAtv', '==', True))
+    user_docs = info.stream()
+
+    val1 = []
+    val2 = []
+    val3 = []
+
+    for user in user_docs:
+        user_data = user.to_dict()
+        user_data['id'] = user.id  # Inclui o ID do documento no aluno
+        val1.append(user_data["NomeUser"])
+        val2.append(user_data["Nvl"])
+        val3.append(user_data["id"])
+        
+    val1 = list(map(str.upper,val1))
+        
+    
+    result = [v for v in val1 if input in v]
+
+    print(input)
+
+    final = []
+
+    for x in range(len(result)) :
+        final.append(result[x])
+        final.append(val2[x])
+        final.append(val3[x])
+
+    return final
+
 
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
@@ -57,9 +98,8 @@ def main_page():
         searchbar = ""
     
     final = get_cadastros(searchbar.upper())
-    
        
-    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar)
+    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar, user = session['nameUser'])
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
 def cadastros_inativos():
@@ -123,59 +163,65 @@ def get_cad(cadastro):
             info.append(aluno_data.get('id'))
             print(info)
 
-            lista = get_cadastros(searchbar.upper())
+        lista_aluno = get_cadastros(searchbar.upper())
+        print(searchbar)
+    
+    return render_template('index.html', alunos=lista_aluno, infos=info, popup=1, aux="REMOVER", mode='CADASTROS ATIVOS', default=searchbar)
+
+@app.route("/usuarios/<id>", methods=['GET', 'POST'])
+def get_user(id):
+    if request.method == 'POST':
+        searchbar = request.form.get('searchbar')
+    else:
+        searchbar = ""
+    docRef = db.collection('Usuarios').document(id)
+    idUser = docRef.id
+    print(idUser)
+
+    users_ref = db.collection('Usuarios')
+
+    users_docs = users_ref.stream()
+
+    info = []
+    for user in users_docs:
+
+        user_data = user.to_dict()
+        user_data['id'] = user.id  # Inclui o ID do documento no aluno
+        if user_data['id'] == id:
+
+            info.append(user_data.get('NomeUser'))
+            info.append(user_data.get('Cpf'))
+            info.append(user_data.get('DataNasc'))
+            info.append(user_data.get('UserEmail'))
+            info.append(user_data.get('Nvl'))
+            
+            print(info)
+
+            lista_users = get_users(searchbar.upper())
             print(searchbar)
     
-    return render_template('index.html', alunos=lista, infos=info, popup=1, aux="REMOVER", mode='CADASTROS ATIVOS', default=searchbar)
+    return render_template('users.html', users=lista_users, infos=info, popup=1, aux="REMOVER", default=searchbar)
 
 @app.route("/usuarios", methods=['GET', 'POST'])
 def list_users():
     if request.method == 'POST':
-       searchbar = request.form.get('searchbar').upper()
-        
+       searchbar = request.form.get('searchbar')
         
     else:
         searchbar = ""
 
-    info = db.collection('Usuarios').where(filter=FieldFilter('userAtv', '==', True))
-    user_docs = info.stream()
+    final = get_users(searchbar.upper())
 
-    val1 = []
-    val2 = []
-    val3 = []
-
-    for user in user_docs:
-        user_data = user.to_dict()
-        user_data['id'] = user.id  # Inclui o ID do documento no aluno
-        val1.append(user_data["NomeUser"])
-        val2.append(user_data["Nvl"])
-        val3.append(user_data["id"])
-        
-    val1 = list(map(str.upper,val1))
-        
-    
-    result = [v for v in val1 if searchbar in v]
-
-    print(searchbar)
-
-    final = []
-
-    for x in range(len(result)) :
-        final.append(result[x])
-        final.append(val2[x])
-        final.append(val3[x])
-       
-
-    return render_template('users.html', users=final) # Renderiza página de lista de usuários,
+    return render_template('users.html', users=final, infos="") # Renderiza página de lista de usuários,
                                                                         # passando resultado de pesquisa sql para exibição no html
 
 @app.route("/cadastros/novo", methods=['GET', 'POST'])
 def new_cad():
     date = datetime.now()
     if request.method == 'POST':
-        info = {"CadAtv": True, "NomeAluno": request.form['info0'], "CpfAluno": request.form['info1'],"DataNasc": request.form['info2'],
+        info = {"CadAtv": True, "NomeAluno": request.form['info0'], "CpfAluno": request.form['info1'],"DataNasc": datetime.strptime(request.form['info2'] , '%Y-%m-%d').strftime("%d/%m/%Y"),
                 "NomeResp": request.form['info3'],"CpfResp": request.form['info4'],"RgResp": request.form['info5'],
-                "NomeMae": request.form['info6'], "NomePai": request.form['info7'], "DataEnt": request.form['info8'],
+                "NomeMae": request.form['info6'], "NomePai": request.form['info7'], "DataEnt": datetime.strptime(request.form['info8'] , '%Y-%m-%d').strftime("%d/%m/%Y"),
                 "Sangue": request.form['info9'], "CellResp": request.form['info10'],"TelResp": request.form['info10']}
         
         document = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=20))
@@ -194,7 +240,7 @@ def new_cad():
 @app.route("/new", methods=['GET', 'POST'])
 def new_user():
     if request.method == 'POST':
-        info = {"userAtv": True, "NomeUser": request.form['info0'], "Cpf": request.form['info1'],"DataNasc": request.form['info2'],
+        info = {"userAtv": True, "NomeUser": request.form['info0'], "Cpf": request.form['info1'],"DataNasc": datetime.strptime(request.form['info2'] , '%Y-%m-%d').strftime("%d/%m/%Y"),
                 "Nvl": request.form['copy']}
 
         db.collection('Usuarios').document("teste").set(info)
@@ -207,32 +253,68 @@ def new_user():
 def login_user():
     error = ''
     if request.method == 'POST':
-        if not request.form['cpf_User'] or not request.form['password_User']:
+        email = request.form['cpfUser']
+        senha = request.form['passwordUser']
+        if not email or not senha:
             error="CPF ou Senha invalidos!"
         else:
-            docRef = db.collection('Usuarios').where(filter=FieldFilter('Cpf', '==', request.form['cpf_User']))
-            print(docRef)
+            try:
+                sign_user = firebase.auth().sign_in_with_email_and_password(email, senha)
+                
+                sign_user = firebase.auth().refresh(sign_user['refreshToken'])
+                
+                session['user'] = sign_user['idToken']
+                
+                docRef = db.collection('Usuarios').where(filter=FieldFilter('UserEmail', '==', email))
+    
+                users_docs = docRef.stream()
 
-            user_docs = docRef.stream()
+                for user in users_docs:
 
-            info = []
-            for users in user_docs:
-
-                user_data = users.to_dict()
-                if user_data.get('password') == request.form['password_User'] and user_data.get('Cpf') == request.form['cpf_User']:
-                    return redirect(url_for('main_page'))
-                else:
-                    error="CPF ou Senha invalidos!"
+                    user_data = user.to_dict()
+                    user_data['id'] = user.id  # Inclui o ID do documento no aluno
+                    print(user_data)
+                        
+                    session['nameUser'] = (user_data.get('NomeUser'))
+                    print("yay")
+                
+                return redirect(url_for('main_page'))
+            except:
+                error="CPF ou Senha invalidos!"
+                print("no works")
 
            
 
     return render_template('login.html', error=error)
 
+@app.route('/auth', methods=['GET', 'POST'])
+def auth(email):
+    docRef = db.collection('Usuarios').document(id)
+    idUser = docRef.id
+    print(idUser)
+
+    users_ref = db.collection('Usuarios')
+
+    users_docs = users_ref.stream()
+
+    info = []
+    for user in users_docs:
+
+        user_data = user.to_dict()
+        user_data['id'] = user.id  # Inclui o ID do documento no aluno
+        if user_data['id'] == id:
+
+            info.append(user_data.get('NomeUser'))
+            info.append(user_data.get('Cpf'))
+            info.append(user_data.get('DataNasc'))
+            info.append(user_data.get('Nvl'))
+            
+
 
 @app.route("/update/<cad>", methods = ['POST'])
 def update_cad(cad):
     if request.method == 'POST':
-        info = {"CadAtv": True, "NomeAluno": request.form['nome'], "CpfAluno": request.form['cpf'],"DataNasc": request.form['nasc'],
+        info = {"CadAtv": True, "NomeAluno": request.form['nome'], "CpfAluno": request.form['cpf'],"DataNasc": datetime.strptime(request.form['info2'] , '%Y-%m-%d').strftime("%d/%m/%Y"),
                 "NomeResp": request.form['resp'],"CpfResp": request.form['cpf2'],"RgResp": request.form['rg'],
                 "NomeMae": request.form['mae'], "NomePai": request.form['pai'],
                 "Sangue": request.form['tiposangue'], "CellResp": request.form['celular'],"TelResp": request.form['telefone']}
