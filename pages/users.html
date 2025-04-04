@@ -13,7 +13,9 @@
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
         <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
-        <button id="user"><i class="fa fa-user" style="font-size: 36px;"></i></button>
+        <div id="user">
+            <p id="nameUser">{{username}}</p>
+            <a id="loginUser" href ="{{url_for('login_user')}}"><i class="fa fa-user" style="font-size: 36px;"></i></a></div>
         </header>
     
     <div id="overlay2" class="overlay_container">
@@ -27,7 +29,7 @@
                 <button>DADOS</button>
             </header>
 
-            <form id="cadastro" action="{{ url_for('update_user', user=infos[0]) }}" method="POST">
+            <form id="cadastro" action="{{ url_for('update_user', user=infos[5]) }}" method="POST" onsubmit="return validateForm(event);">
             <div id="infoUser">
                 <label for="nome">NOME
                     <input type="text" class="cadInput" name="nome" id="nome" value="{{infos[0]}}">
@@ -36,21 +38,23 @@
                     <input type="text" class="cadInput" name="email" id="nome" value="{{infos[3]}}">
                         </label>
                      <label for="nasc">CPF
-                    <input type="text" class="cadInput" name="nasc" id="nasc" value="{{infos[1]}}">
+                    <input type="text" class="cadInput" name="cpf" id="cpf" value="{{infos[1]}}">
                          </label>
                      <label for="cpf">DATA DE NASCIMENTO
-                    <input type="date" class="cadInput" name="cpf" id="cpf" value="{{infos[2]}}">
+                    <input type="date" class="cadInput" name="nasc" id="nasc" value="{{infos[2]}}">
                          </label>
                          <label for="info3">NIVEL DE ACESSO*
                             <div class="dropdown">
-                            <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão <img src='/static/25243.png' id='caretIcon'></button>
+                            <button type="button" id="nvl" name="info3" class="nvl" value="{{infos[4]}}">{{infos[4]}} <img src='/static/25243.png' id='caretIcon'></button>
                             <div id="drop" class="dropdown-content-nvl">
                                 <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
                                 <button type="button" onclick="nvlAcesso(id)" id="nvlButton2">Master</button>
                             </div>
+                            <input type="text" class="cadInput" name="nasc" id="nasc" value="{{infos[5]}}" style="display: none;">
             </div></label>
                 
         </div>
+        <input type="text" id="copy" name="copy" style="display: none;"></input>
         <div class="button-container">
             <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
                 </form>
@@ -68,7 +72,7 @@
             <ul id="list" style="list-style-type:none;">
                 <li>ID</li>
                 <li id="nome_leg">NOME</li>
-                <li>NÍVEL</li>
+                <li id="nvl_leg">NÍVEL</li>
             </ul>
         </div>
                 <table>

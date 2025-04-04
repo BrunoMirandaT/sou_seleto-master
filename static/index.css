@@ -108,7 +108,8 @@ table{
     display: grid;
   grid-template-rows: repeat(auto-fill, minmax(10%, 10%));
   border-spacing: 0px;
-  border: 2px solid black;
+  border-top: 2px solid black;
+  
 }
 tr{
     height: 28px;
@@ -125,6 +126,7 @@ td{
 
 #td1{
     width: 5%;
+    border-left: 2px solid black;
 }
 
 #td2{
@@ -139,7 +141,7 @@ text-align: left;
 }
 
 #td5{
-    border-right: none;
+    border-right: 2px solid black;
 }
 
 tbody{
@@ -738,6 +740,10 @@ p{
 #nome_leg{
     justify-self: start;
     text-indent: 10px;
+}
+
+#nvl_leg{
+    text-indent: 30px;
 }
 
 tbody{

@@ -191,10 +191,12 @@ def get_user(id):
 
             info.append(user_data.get('NomeUser'))
             info.append(user_data.get('Cpf'))
-            info.append(user_data.get('DataNasc'))
+            data = (user_data.get('DataNasc'))
+            info.append(datetime.strptime(data, '%d/%m/%Y').strftime('%Y-%m-%d'))
             info.append(user_data.get('UserEmail'))
             info.append(user_data.get('Nvl'))
-            
+            info.append(user_data.get('id'))
+
             print(info)
 
             lista_users = get_users(searchbar.upper())
@@ -212,7 +214,7 @@ def list_users():
 
     final = get_users(searchbar.upper())
 
-    return render_template('users.html', users=final, infos="") # Renderiza página de lista de usuários,
+    return render_template('users.html', users=final, infos="", username = session['nameUser']) # Renderiza página de lista de usuários,
                                                                         # passando resultado de pesquisa sql para exibição no html
 
 @app.route("/cadastros/novo", methods=['GET', 'POST'])
@@ -314,7 +316,7 @@ def auth(email):
 @app.route("/update/<cad>", methods = ['POST'])
 def update_cad(cad):
     if request.method == 'POST':
-        info = {"CadAtv": True, "NomeAluno": request.form['nome'], "CpfAluno": request.form['cpf'],"DataNasc": datetime.strptime(request.form['info2'] , '%Y-%m-%d').strftime("%d/%m/%Y"),
+        info = {"CadAtv": True, "NomeAluno": request.form['nome'], "CpfAluno": request.form['cpf'],"DataNasc": datetime.strptime(request.form['nasc'] , '%Y-%m-%d').strftime("%d/%m/%Y"),
                 "NomeResp": request.form['resp'],"CpfResp": request.form['cpf2'],"RgResp": request.form['rg'],
                 "NomeMae": request.form['mae'], "NomePai": request.form['pai'],
                 "Sangue": request.form['tiposangue'], "CellResp": request.form['celular'],"TelResp": request.form['telefone']}
@@ -327,18 +329,18 @@ def update_cad(cad):
 
     return render_template('index.html') # Renderiza página de cadastro
 
-@app.route("/update/<user>", methods = ['GET','POST'])
+@app.route("/update_user/<user>", methods = ['GET','POST'])
 def update_user(user):
     if request.method == 'POST':
-        cursor = db.cursor()
-        add = 'update usuarios set nomeUsuario = %s, cpfUsuario = %s, nascimentoUsuario = %s, celularUsuario = %s, nvlAcesso = %s where idCadastro = %s'
-        info = request.form['nome'], request.form['cpf'], request.form['nasc'], request.form['celular'], request.form['nivel'], user
-        cursor.execute(add, info)
-        db.commit()
+        info = {"userAtv": True, "NomeUser": request.form['nome'], "Cpf": request.form['cpf'],"DataNasc": datetime.strptime(request.form['nasc'] , '%Y-%m-%d').strftime("%d/%m/%Y"),
+                "Nvl": request.form['copy'], "UserEmail": request.form['email']}
 
-        return redirect(url_for('main_page'))
+        usuario = db.collection('Usuarios').document(user)
+        usuario.update(info)
 
-    return render_template('index.html')
+        return redirect(url_for('list_users'))
+
+    return render_template('users.html')
 
 @app.route("/delete/cadastros/<type>/<id>")
 def delete_cad(id, type):
