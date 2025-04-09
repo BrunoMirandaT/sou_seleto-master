@@ -45,7 +45,7 @@
                          </label>
                          <label for="info3">NIVEL DE ACESSO*
                             <div class="dropdown">
-                            <button type="button" id="nvl" name="info3" class="nvl" value="{{infos[4]}}">{{infos[4]}} <img src='/static/25243.png' id='caretIcon'></button>
+                            <button type="button" id="nvl" name="info3" class="nvl" value="{{infos[4]}}">{{infos[4]}}<img src='/static/25243.png' id='caretIcon'></button>
                             <div id="drop" class="dropdown-content-nvl">
                                 <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
                                 <button type="button" onclick="nvlAcesso(id)" id="nvlButton2">Master</button>
@@ -96,7 +96,7 @@
 
                     </table>
 
-
+                    <P id="userRole" style="display: none;">{{session.func}}</P>
     <script src="{{ url_for('static',filename='index.js') }}"></script>
 
         </div>

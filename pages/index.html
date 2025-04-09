@@ -12,7 +12,9 @@
     <header id="navbar">
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
         <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
+        {% if session.func %}
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
+        {% endif %}
         
        <div id="user">
         <p id="nameUser">{{user}}</p>
@@ -33,6 +35,7 @@
 
 
             <form id="cadastro" action="{{ url_for('update_cad', cad=infos[11]) }}" method="POST">
+                <fieldset id="fieldset" style="border: none;">
                 <div id="info">
                     <div id="img_aluno2" onmouseover="visible('img_aluno', 'preview')" onmouseout="invisible('img_aluno', 'preview')">
                         <label for="foto_cad" class="custom-file-upload" id="back">
@@ -80,6 +83,7 @@
                      </label>
                      <input type="text" class="cadInput" name="tiposangue" id="tiposangue" value="{{infos[11]}}" style="display: none;">
             </div>
+        </fieldset>
                 <div class="button-container">
             <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
             <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
@@ -107,6 +111,7 @@
                     <img class="preview_docs" id="preview3" onmouseover="visible('img_doc2', 'preview3')" onmouseout="invisible('img_doc2', 'preview3')">
                 </div>
                 <label id="termoLabel" for="contrato">CONTRATO</label>
+            
                 <div class="button-container">
                     <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
                     <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
@@ -120,7 +125,9 @@
     </div><div id="main">
         <div id="tableTop">
             <div id="leftTableTop">
+                {% if session.func %}
         <a id="addButton" href ={{url_for('new_cad')}}>+</a></h3>
+        {% endif %}
             <div class="dropdown">
                 <button class="dropbtn">{{ mode }}</button>
                     <div class="dropdown-content">
@@ -144,22 +151,25 @@
 
                 <tbody>
                 
-               {% for aluno in range((alunos | lenght)//3) %}
+               {% for aluno in range((alunos | lenght)//4) %}
                <tr>
-                   <td name="td1" id="td1" value={{alunos}}>{{ loop.index }}</td>
-                  <td id="td2">{{ alunos[loop.index0 * 3] }}</td>
-                  <td id="td3">{{ alunos[1+loop.index0 * 3] }}</td>
+                   <td name="td1" id="td1" value={{alunos}}>{{ alunos[3+loop.index0 * 4] }}</td>
+                  <td id="td2">{{ alunos[loop.index0 * 4] }}</td>
+                  <td id="td3">{{ alunos[1+loop.index0 * 4] }}</td>
+                  
                    <td id="td4" onclick="togglePopup()">
-                       <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=alunos[2+loop.index0 * 3])}}">EDITAR</a>
+                       <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=alunos[2+loop.index0 * 4])}}">EDITAR</a>
                    </td>
+                   {% if session.func %}
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_cad', id=alunos[2+loop.index0 * 3], type=mode)}}">{{ aux }}</a>
+                            <a id="edit" href="{{url_for('delete_cad', id=alunos[2+loop.index0 * 4], type=mode)}}">{{ aux }}</a>
                         </td>
+                    {% endif %}
                </tr>
 
 
                 {% endfor %}
-                
+                    <P id="userRole" style="display: none;">{{session.func}}</P>
 
                 </tbody>
 

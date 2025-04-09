@@ -44,7 +44,7 @@ def get_cadastros(input):
         
     val1 = list(map(str.upper,val1))
         
-    
+
     result = [v for v in val1 if input in v]
 
     print(input)
@@ -55,6 +55,9 @@ def get_cadastros(input):
         final.append(result[x])
         final.append(val2[x])
         final.append(val3[x])
+        final.append(x)
+
+    print(final)
 
     return final
 
@@ -99,7 +102,7 @@ def main_page():
     
     final = get_cadastros(searchbar.upper())
        
-    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar, user = session['nameUser'])
+    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar, user = session['nameUser'], test = session)
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
 def cadastros_inativos():
@@ -244,8 +247,10 @@ def new_user():
     if request.method == 'POST':
         info = {"userAtv": True, "NomeUser": request.form['info0'], "Cpf": request.form['info1'],"DataNasc": datetime.strptime(request.form['info2'] , '%Y-%m-%d').strftime("%d/%m/%Y"),
                 "Nvl": request.form['copy']}
+        
+        document = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=20))
 
-        db.collection('Usuarios').document("teste").set(info)
+        db.collection('Usuarios').document(document).set(info)
 
         return redirect(url_for('list_users'))
 
@@ -278,16 +283,23 @@ def login_user():
                     print(user_data)
                         
                     session['nameUser'] = (user_data.get('NomeUser'))
+                    session['userRole'] = user_data.get('Nvl')
                     print("yay")
+
+                    def is_master(session):
+                        return session['userRole'] == "Master"
+    
+                    session['func'] = is_master(session)
                 
                 return redirect(url_for('main_page'))
             except:
                 error="CPF ou Senha invalidos!"
                 print("no works")
 
-           
+    
 
     return render_template('login.html', error=error)
+
 
 @app.route('/auth', methods=['GET', 'POST'])
 def auth(email):

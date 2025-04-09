@@ -1,7 +1,12 @@
 window.onload = function togglePopup(){
     link = window.location.href;
     mode = document.getElementById("overlay").getAttribute("value")
+    userRole = document.getElementById("userRole").innerHTML
     if(mode == 1){
+      if(userRole == "False"){
+        document.getElementById("fieldset").disabled = true;
+      }
+
     const overlay = document.getElementById('overlay');
     overlay.classList.toggle('show');
     }
