@@ -18,7 +18,12 @@
         
        <div id="user">
         <p id="nameUser">{{user}}</p>
-        <a id="loginUser" href ="{{url_for('login_user')}}"><i class="fa fa-user" style="font-size: 36px;"></i></a></div>
+        <a id="loginUser" onclick="userDrop()"><i class="fa fa-user" style="font-size: 36px;"></i></a>
+        <div id="userDrop" style="visibility: hidden;">
+            <a>Minha conta</a>
+            <a href="{{url_for('login_user')}}">Sair</a>
+        </div>
+    </div>
         </header>
 
     <div id="overlay2" class="overlay_container">

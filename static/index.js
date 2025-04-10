@@ -136,3 +136,12 @@ function hideDocs(){
   document.getElementById("cadastro").style.display = "flex"
   document.getElementById("documents").style.display = "none"
 }
+
+function userDrop(){
+  mode = document.getElementById("userDrop").style.visibility
+  if(mode == "hidden"){
+    document.getElementById("userDrop").style.visibility = "visible"
+  }else{
+    document.getElementById("userDrop").style.visibility = "hidden"
+  }
+}
