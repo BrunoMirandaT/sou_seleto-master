@@ -284,6 +284,9 @@ def login_user():
                         
                     session['nameUser'] = (user_data.get('NomeUser'))
                     session['userRole'] = user_data.get('Nvl')
+                    session['emailUser'] = user_data.get('UserEmail')
+                    session['cpfUser'] = user_data.get('Cpf')
+                    session['nascUser'] = user_data.get('DataNasc')
                     print("yay")
 
                     def is_master(session):
