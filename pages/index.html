@@ -16,13 +16,13 @@
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
         {% endif %}
         
-       <div id="user">
-        <p id="nameUser">{{user}}</p>
-        <a id="loginUser" onclick="userDrop()"><i class="fa fa-user" style="font-size: 36px;"></i></a>
-        <div id="userDrop" style="visibility: hidden;">
+       <button id="user" class="userBox">
+        <p id="nameUser" style="pointer-events: none;">{{ user[0] }}</p>
+        <a id="loginUser" class="userButton" style="pointer-events: none;"><i class="fa fa-user" style="font-size: 36px;"></i></a>
+        <div id="userDrop" class="drop hidden">
             <a onclick="togglePopup()">Minha conta</a>
             <a href="{{url_for('login_user')}}">Sair</a>
-        </div>
+        </button>
     </div>
         </header>
 

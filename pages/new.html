@@ -10,6 +10,14 @@
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
        <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
+        <div id="user">
+            <p id="nameUser">{{user[0]}}</p>
+            <a id="loginUser" class="userButton"><i class="fa fa-user" style="font-size: 36px;"></i></a>
+            <div id="userDrop" class="drop hidden">
+                <a onclick="togglePopup()">Minha conta</a>
+                <a href="{{url_for('login_user')}}">Sair</a>
+            </div>
+        </div>
         </header>
         <div id="main2">
       <h3 class="title">Adicionar aluno</h3>

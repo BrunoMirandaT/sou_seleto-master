@@ -10,7 +10,13 @@
             <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
             <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
             <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
-            <button id="user"><i class="fa fa-user" style="font-size: 36px;"></i></button>
+            <button id="user" class="userBox">
+        <p id="nameUser" style="pointer-events: none;">{{ user[0] }}</p>
+        <a id="loginUser" class="userButton" style="pointer-events: none;"><i class="fa fa-user" style="font-size: 36px;"></i></a>
+        <div id="userDrop" class="drop hidden">
+            <a onclick="togglePopup()">Minha conta</a>
+            <a href="{{url_for('login_user')}}">Sair</a>
+        </button>
             </header>
             <div id="main2">
       <h3 class="title">Adicionar usuario</h3>
@@ -37,20 +43,21 @@
             <label for="info3">NIVEL DE ACESSO*
                 <div class="dropdown">
                 <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão <img src='/static/25243.png' id='caretIcon'></button>
-                <div id="drop" class="dropdown-content-nvl">
-                    <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
-                    <button type="button" onclick="nvlAcesso(id)" id="nvlButton2">Master</button>
+                <div id="drop" class="drop hidden">
+                    <button type="button" onclick="nvlAcesso(id)" id="nvlButton1" class="nvlAcesso">Padrão</button>
+                    <button type="button" onclick="nvlAcesso(id)" id="nvlButton2" class="nvlAcesso">Master</button>
                 </div>
+            </div>
                 
             </label>
             <input type="text" id="copy" name="copy" style="display: none;"></input>
             </div>
-        </div>
+        
         <div class="button-container">
             <input type="submit" value="Submit"/>
             <input type="button" name="voltar" value="Voltar" onclick="goBack();" />
         </div>
-
+    </div>
         <!-- Mensagem de aviso -->
         <div class="warning-message" id="warningMessage">
             Preencha todos os campos!

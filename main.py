@@ -101,8 +101,10 @@ def main_page():
         searchbar = ""
     
     final = get_cadastros(searchbar.upper())
+
+    print(type(session["userInfo"]))
        
-    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar, user = session['nameUser'], test = session)
+    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar, user = session['userInfo'], test = session)
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
 def cadastros_inativos():
@@ -130,7 +132,7 @@ def cadastros_inativos():
     except:
         print("dead")
 
-    return render_template('index.html', alunos=alunos, mode='CADASTROS INATIVOS', aux='RESTAURAR', infos=0)
+    return render_template('index.html', alunos=alunos, mode='CADASTROS INATIVOS', aux='RESTAURAR', infos=0, user = session['userInfo'])
 @app.route("/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
     if request.method == 'POST':
@@ -169,7 +171,7 @@ def get_cad(cadastro):
         lista_aluno = get_cadastros(searchbar.upper())
         print(searchbar)
     
-    return render_template('index.html', alunos=lista_aluno, infos=info, popup=1, aux="REMOVER", mode='CADASTROS ATIVOS', default=searchbar)
+    return render_template('index.html', alunos=lista_aluno, infos=info, popup=1, aux="REMOVER", mode='CADASTROS ATIVOS', default=searchbar, user = session['userInfo'])
 
 @app.route("/usuarios/<id>", methods=['GET', 'POST'])
 def get_user(id):
@@ -205,7 +207,7 @@ def get_user(id):
             lista_users = get_users(searchbar.upper())
             print(searchbar)
     
-    return render_template('users.html', users=lista_users, infos=info, popup=1, aux="REMOVER", default=searchbar)
+    return render_template('users.html', users=lista_users, infos=info, popup=1, aux="REMOVER", default=searchbar, user = session['userInfo'])
 
 @app.route("/usuarios", methods=['GET', 'POST'])
 def list_users():
@@ -217,7 +219,7 @@ def list_users():
 
     final = get_users(searchbar.upper())
 
-    return render_template('users.html', users=final, infos="", username = session['nameUser']) # Renderiza página de lista de usuários,
+    return render_template('users.html', users=final, infos="", user = session['userInfo']) # Renderiza página de lista de usuários,
                                                                         # passando resultado de pesquisa sql para exibição no html
 
 @app.route("/cadastros/novo", methods=['GET', 'POST'])
@@ -240,7 +242,7 @@ def new_cad():
 
         return redirect(url_for('main_page')) # Retorna para rota main_page
 
-    return render_template('new.html', d = date.strftime("%Y-%m-%d")) # Renderiza página de cadastro
+    return render_template('new.html', d = date.strftime("%Y-%m-%d"), user = session['userInfo']) # Renderiza página de cadastro
 
 @app.route("/new", methods=['GET', 'POST'])
 def new_user():
@@ -254,7 +256,7 @@ def new_user():
 
         return redirect(url_for('list_users'))
 
-    return render_template('new_user.html')
+    return render_template('new_user.html', user = session['userInfo'])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
@@ -281,16 +283,22 @@ def login_user():
                     user_data = user.to_dict()
                     user_data['id'] = user.id  # Inclui o ID do documento no aluno
                     print(user_data)
-                        
+
+                    userInfo = [user_data.get('NomeUser'), user_data.get('Nvl'), user_data.get('UserEmail'), user_data.get('Cpf'), user_data.get('DataNasc')]
+
+                    session['userInfo'] = userInfo
+                    '''
                     session['nameUser'] = (user_data.get('NomeUser'))
                     session['userRole'] = user_data.get('Nvl')
                     session['emailUser'] = user_data.get('UserEmail')
                     session['cpfUser'] = user_data.get('Cpf')
                     session['nascUser'] = user_data.get('DataNasc')
-                    print("yay")
+                    print("yay")'''
+
+                    print(userInfo)
 
                     def is_master(session):
-                        return session['userRole'] == "Master"
+                        return session['userInfo'][1] == "Master"
     
                     session['func'] = is_master(session)
                 
@@ -342,7 +350,7 @@ def update_cad(cad):
 
         return redirect(url_for('main_page')) # Retorna para rota main_page
 
-    return render_template('index.html') # Renderiza página de cadastro
+    return render_template('index.html', user = session['userInfo']) # Renderiza página de cadastro
 
 @app.route("/update_user/<user>", methods = ['GET','POST'])
 def update_user(user):
@@ -355,7 +363,7 @@ def update_user(user):
 
         return redirect(url_for('list_users'))
 
-    return render_template('users.html')
+    return render_template('users.html', user = session['userInfo'])
 
 @app.route("/delete/cadastros/<type>/<id>")
 def delete_cad(id, type):

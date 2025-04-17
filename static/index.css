@@ -55,27 +55,34 @@ a:hover{
     height: 50px;
     background-color: white;
     border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
     border: black solid 2px;
     position: absolute;
     right: 1rem;
-    margin-bottom: .3rem;
     text-align: center;
     line-height: 4;
     font-weight: 400;
-    
+    filter: brightness(90%);
 }
 
 #userDrop{
+    position: relative;
     background-color: #f1f1f1;
     width: 400px;
     height: 80px;
     align-self:flex-end;
     justify-self: flex-end;
-    margin-top: 30px;
+    margin-top: -1px;
+    right: -6px;
     display: flex;
     flex-flow: column nowrap;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1);
+    filter: brightness(100%);
+    text-align: start;
+    pointer-events:fill;
 
     a{
         height: 40px;
@@ -85,7 +92,7 @@ a:hover{
     }
 }
 
-#user{
+.userBox{
     display: flex;
     flex-flow: row wrap;
     width: 150px;
@@ -94,17 +101,20 @@ a:hover{
     right: 0rem;
     align-items: center;
     justify-content: space-between;
+    background-color: transparent;
+    border: none;
 }
 
 #nameUser{
     margin-bottom: 0;
     font-weight: bold;
     font-size: 20px;
-    height: 30px;
+    height: 60px;
     width: 50px;
     text-overflow: ellipsis;
     direction: rtl;
     line-height: 55px;
+    filter: brightness(90%);
 }
 
 
@@ -779,11 +789,11 @@ tbody{
 #list{
     display: grid;
     padding: 0;
-    grid-template-columns: 4.3% 79% 7%;
+    grid-template-columns: 4.1% auto 7.2% 9.5%;
     justify-items: center;
     font-weight: bold;
     margin: 0;
-    align-self: end;
+
 }
 
 .dropbtn {
@@ -858,7 +868,7 @@ tbody{
     border: 1px rgb(118, 118, 118);
     border-style:ridge;
     border-radius: 2px;
-
+    pointer-events: none;
 }
 
 #nomeUser{
@@ -877,13 +887,15 @@ tbody{
     background-color: white;
 }
 
-#drop{
-    visibility: hidden;
-    border: 1px solid black;
+.drop{
     width: 82.5%;
     border-radius: 2px;
     justify-self: center;
 
+}
+
+.drop.hidden{
+    visibility:hidden;
 }
   
   /* Change color of dropdown links on hover */

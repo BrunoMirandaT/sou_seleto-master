@@ -57,21 +57,18 @@ function showUsers(){
 document.addEventListener("click", toggleDrop);
 
 function toggleDrop(event) {
-    var dropdown = document.getElementById("drop");
-    console.log(dropdown.style.visibility)
-    
-if (event.target.classList.contains('nvl')){
-    if(dropdown.style.visibility == "visible"){
-      dropdown.style.visibility = "hidden"
-      document.getElementById('caretIcon').style.transform = "rotate(360deg)"
-    }else{
-      dropdown.style.visibility = "visible"
-      document.getElementById('caretIcon').style.transform = "rotate(180deg)"
-    }
-} else {
-  dropdown.style.visibility = "hidden"
-  document.getElementById('caretIcon').style.transform = "rotate(360deg)"
-}
+  let activeDiv = event.target.querySelector(".drop");
+  console.log(event.target.classList)
+
+  if(event.target.classList.contains('userBox') || event.target.classList.contains('userButton')|| event.target.classList.contains('fa-user') || event.target.classList.contains('dropdown') ||event.target.classList.contains('nvlAcesso')){
+    activeDiv.classList.toggle('hidden')
+    event.target.querySelector('#caretIcon').style.transform = "rotate(180deg)"
+  }else{
+    activeDiv = document.querySelector('.drop')
+    activeDiv.classList.add('hidden')
+    event.target.querySelector('#caretIcon').style.transform = "rotate(0deg)"
+  }
+  
 }
 
 function nvlAcesso(button){
@@ -135,13 +132,4 @@ function showDocs(){
 function hideDocs(){
   document.getElementById("cadastro").style.display = "flex"
   document.getElementById("documents").style.display = "none"
-}
-
-function userDrop(){
-  mode = document.getElementById("userDrop").style.visibility
-  if(mode == "hidden"){
-    document.getElementById("userDrop").style.visibility = "visible"
-  }else{
-    document.getElementById("userDrop").style.visibility = "hidden"
-  }
 }
