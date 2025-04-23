@@ -20,7 +20,7 @@
         <p id="nameUser" style="pointer-events: none;">{{ user[0] }}</p>
         <a id="loginUser" class="userButton" style="pointer-events: none;"><i class="fa fa-user" style="font-size: 36px;"></i></a>
         <div id="userDrop" class="drop hidden">
-            <a onclick="togglePopup()">Minha conta</a>
+            <a href="{{url_for('get_user', id=user[5])}}">Minha conta</a>
             <a href="{{url_for('login_user')}}">Sair</a>
         </button>
     </div>
@@ -162,7 +162,7 @@
                   <td id="td2">{{ alunos[loop.index0 * 4] }}</td>
                   <td id="td3">{{ alunos[1+loop.index0 * 4] }}</td>
                   
-                   <td id="td4" onclick="togglePopup()">
+                   <td id="td4" onclick="">
                        <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=alunos[2+loop.index0 * 4])}}">EDITAR</a>
                    </td>
                    {% if session.func %}

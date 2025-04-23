@@ -17,9 +17,15 @@ window.onload = function togglePopup(){
 }
 
 function closePopup(){
-    const overlay = document.getElementById('overlay');
+   /* const overlay = document.getElementById('overlay');
     overlay.classList.remove('show');
-    overlay.value = '0'
+    overlay.value = '0'*/
+    history.back()
+}
+
+function setMode(){
+  const overlay = document.getElementById('overlay');
+    overlay.classList.toggle('show');
 }
 
 function validateForm(event) {
@@ -64,8 +70,12 @@ function toggleDrop(event) {
     activeDiv.classList.toggle('hidden')
     event.target.querySelector('#caretIcon').style.transform = "rotate(180deg)"
   }else{
-    activeDiv = document.querySelector('.drop')
-    activeDiv.classList.add('hidden')
+    activeDiv = document.querySelectorAll('.drop')
+    console.log(activeDiv)
+    for(i=0; i < 2; i++){
+      activeDiv[i].classList.add('hidden')
+    }
+    
     event.target.querySelector('#caretIcon').style.transform = "rotate(0deg)"
   }
   

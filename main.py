@@ -284,7 +284,7 @@ def login_user():
                     user_data['id'] = user.id  # Inclui o ID do documento no aluno
                     print(user_data)
 
-                    userInfo = [user_data.get('NomeUser'), user_data.get('Nvl'), user_data.get('UserEmail'), user_data.get('Cpf'), user_data.get('DataNasc')]
+                    userInfo = [user_data.get('NomeUser'), user_data.get('Nvl'), user_data.get('UserEmail'), user_data.get('Cpf'), user_data.get('DataNasc'), user_data['id']]
 
                     session['userInfo'] = userInfo
                     '''
