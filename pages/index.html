@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
     <header id="navbar">
@@ -162,12 +163,12 @@
                   <td id="td2">{{ alunos[loop.index0 * 4] }}</td>
                   <td id="td3">{{ alunos[1+loop.index0 * 4] }}</td>
                   
-                   <td id="td4" onclick="">
-                       <a id="edit" onclick="" href="{{url_for('get_cad', cadastro=alunos[2+loop.index0 * 4])}}">EDITAR</a>
+                   <td id="td4" >
+                       <a id="edit" href="{{url_for('get_cad', cadastro=alunos[2+loop.index0 * 4])}}"><i class='fa fa-edit'></i> EDITAR</a>
                    </td>
                    {% if session.func %}
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_cad', id=alunos[2+loop.index0 * 4], type=mode)}}">{{ aux }}</a>
+                            <a id="edit" href="{{url_for('delete_cad', id=alunos[2+loop.index0 * 4], type=mode)}}"><i class="fa fa-remove"></i> {{ aux }}</a>
                         </td>
                     {% endif %}
                </tr>

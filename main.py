@@ -42,7 +42,7 @@ def get_cadastros(input):
         val2.append(aluno_data["DataNasc"])
         val3.append(aluno_data["id"])
         
-    val1 = list(map(str.upper,val1))
+    val1 = list(map(str,val1))
         
 
     result = [v for v in val1 if input in v]

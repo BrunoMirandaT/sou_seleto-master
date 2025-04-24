@@ -65,13 +65,24 @@ document.addEventListener("click", toggleDrop);
 function toggleDrop(event) {
   let activeDiv = event.target.querySelector(".drop");
   console.log(event.target.classList)
+  opacity = 1
+  position = "translateY(0px)"
 
   if(event.target.classList.contains('userBox') || event.target.classList.contains('userButton')|| event.target.classList.contains('fa-user') || event.target.classList.contains('dropdown') ||event.target.classList.contains('nvlAcesso')){
     activeDiv.classList.toggle('hidden')
+    if(document.getElementById('userDrop').style.opacity == 1){
+      opacity = 0
+      position = "translateY(-50px)"
+    }
+    activeDiv.style.opacity= opacity
+    activeDiv.style.transform = position
     event.target.querySelector('#caretIcon').style.transform = "rotate(180deg)"
+    
+
   }else{
     activeDiv = document.querySelectorAll('.drop')
     console.log(activeDiv)
+    event.target.querySelector('.drop').style.opacity= 0
     for(i=0; i < 2; i++){
       activeDiv[i].classList.add('hidden')
     }

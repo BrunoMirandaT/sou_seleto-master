@@ -2,10 +2,12 @@
 
 body{
     margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     position: relative;
   min-height: 100vh;
   padding-bottom: 2.5rem;
+  z-index: -10;
+  text-rendering: optimizeLegibility;
 }
 
 #navbar{
@@ -70,50 +72,62 @@ a:hover{
 
 #userDrop{
     position: relative;
-    background-color: #f1f1f1;
-    width: 400px;
+    background-color: rgb(245, 245, 245);
+    width: 200px;
     height: 80px;
     align-self:flex-end;
     justify-self: flex-end;
     margin-top: -1px;
-    right: -6px;
+    right: 0px;
     display: flex;
     flex-flow: column nowrap;
-    box-shadow: -10px 10px 15px -3px rgba(0,0,0,0.1);
+    box-shadow: 0 0px 3px rgba(0,0,0,0.12), 0 0px 2px rgba(0,0,0,0.24);
     filter: brightness(100%);
     text-align: start;
     pointer-events:fill;
+    transition: all .2s;
+    transform: translateY(-50px);
+    z-index: -5;
+    opacity: 0;
+    overflow-y: visible;
 
     a{
         height: 40px;
-        text-indent: 10px;
+        text-indent: 30px;
         justify-self: center;
         line-height: 40px;
+        font-size: 14px;
+        font-weight: 600;
+        font-smooth: always;
     }
 }
+
+
 
 .userBox{
     display: flex;
     flex-flow: row wrap;
-    width: 150px;
+    width: 210px;
     height: 60px;
     position: absolute;
     right: 0rem;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     background-color: transparent;
     border: none;
+    overflow-y: visible;
 }
 
 #nameUser{
     margin-bottom: 0;
     font-weight: bold;
+    padding-right: 10px;
     font-size: 20px;
     height: 60px;
     width: 50px;
     text-overflow: ellipsis;
     direction: rtl;
-    line-height: 55px;
+    line-height: 57px;
     filter: brightness(90%);
 }
 
@@ -125,7 +139,9 @@ a:hover{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-bottom: 5rem; 
+    padding-bottom: 5rem;
+    position: relative;
+    z-index: -6;
 }
 
 #main2{
@@ -138,14 +154,17 @@ a:hover{
 }
 
 table{
-    width: 95%;
+    width: 85%;
     height: 72.1%;
-    background-color: lightgray;
+    background-color: rgb(245, 245, 245);
+    font-family: 'Segoe UI';
     display: grid;
-  grid-template-rows: repeat(auto-fill, minmax(10%, 10%));
-  border-spacing: 0px;
-  border-top: 2px solid black;
-  
+    grid-template-rows: repeat(auto-fill, minmax(10%, 10%));
+    border-spacing: 0px;
+    box-shadow: 0 0px 3px rgba(0,0,0,0.12), 0 0px 2px rgba(0,0,0,0.24);
+    font-weight:600;
+    font-stretch: 100%;
+    word-spacing: 0;
 }
 tr{
     height: 28px;
@@ -154,38 +173,51 @@ td{
     width: 100%;
     font-size: 16px;
     text-align: center;
-    border-right: black solid 2px;
-    border-bottom: black solid 2px;
-   
+    border-bottom: 1px solid rgb(224, 224, 224);
     align-items: center;
+
 }
 
 #td1{
     width: 5%;
-    border-left: 2px solid black;
+
 }
 
 #td2{
-text-indent: 30px;
+text-indent: 10px;
 text-align: left;
+width: 73%;
 }
 
 #td3{
-    padding-left: 25px;
-    padding-right: 25px;
-    width: 200px;
+   
+    width: 8%;
+}
+
+#td4{
+    width: 7%;
+
+    &:hover{
+        backdrop-filter: brightness(90%);
+    } 
 }
 
 #td5{
-    border-right: 2px solid black;
+    width: 9%;
+border-right: 0;
+padding: 0px;
+&:hover{
+    backdrop-filter: brightness(90%);
+}
 }
 
 tbody{
-    width: 100%;
+    width: 98%;
+    justify-self: center;
     height: 100%;
 }
 #search{
-    width: 80%;
+    width: 85%;
     margin-bottom: 0;
     margin-right: 2px;
     width: 50rem;
@@ -694,7 +726,7 @@ a:link{
 }
 
 #tableTop{
-    width: 95%;
+    width: 85%;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -766,7 +798,7 @@ p{
 }
 
 #legenda{
-    width: 95%;
+    width: 82.8%;
    height: 30px;
    align-items: end;
    display: grid;
@@ -789,7 +821,7 @@ tbody{
 #list{
     display: grid;
     padding: 0;
-    grid-template-columns: 4.1% auto 7.2% 9.5%;
+    grid-template-columns: 4.5% auto 7.2% 13.2%;
     justify-items: center;
     font-weight: bold;
     margin: 0;
@@ -819,7 +851,7 @@ tbody{
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: none;
+  opacity: 0;
   position: absolute;
   background-color: #f1f1f1;
   width: 198px;
@@ -828,7 +860,10 @@ tbody{
   border-radius: 2px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 0px 3px rgba(0,0,0,0.12), 0 0px 2px rgba(0,0,0,0.24);
+  transition: all .2s;
+    transform: translateY(-70px);
+    z-index: -5;
 }
 
 /* Links inside the dropdown */
@@ -843,7 +878,9 @@ tbody{
 .dropdown-content a:hover {backdrop-filter: brightness(90%);}
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {opacity: 1;
+    transform: translateY(0);
+}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {filter: brightness(90%);}
