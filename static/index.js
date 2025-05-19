@@ -67,17 +67,19 @@ function toggleDrop(event) {
   console.log(event.target.classList)
   opacity = 1
   position = "translateY(0px)"
+  let arrow = document.querySelector('#caretIcon').style.transform
+  console.log(arrow)
+  let rotation = arrow == 'rotate(0deg)' ? 'rotate(180deg)' : 'rotate(0deg)';
 
   if(event.target.classList.contains('userBox') || event.target.classList.contains('userButton')|| event.target.classList.contains('fa-user') || event.target.classList.contains('dropdown') ||event.target.classList.contains('nvlAcesso')){
     activeDiv.classList.toggle('hidden')
-    if(document.getElementById('userDrop').style.opacity == 1){
+    if(activeDiv.style.opacity==1){
       opacity = 0
-      position = "translateY(-50px)"
+      position = "translateY(-20px)"
     }
     activeDiv.style.opacity= opacity
     activeDiv.style.transform = position
-    event.target.querySelector('#caretIcon').style.transform = "rotate(180deg)"
-    
+    event.target.querySelector('#caretIcon').style.transform = rotation
 
   }else{
     activeDiv = document.querySelectorAll('.drop')
@@ -85,9 +87,8 @@ function toggleDrop(event) {
     event.target.querySelector('.drop').style.opacity= 0
     for(i=0; i < 2; i++){
       activeDiv[i].classList.add('hidden')
-    }
-    
-    event.target.querySelector('#caretIcon').style.transform = "rotate(0deg)"
+    } 
+    event.target.querySelector('#caretIcon').style.transform = rotation
   }
   
 }

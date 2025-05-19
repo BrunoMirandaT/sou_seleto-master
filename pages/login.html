@@ -13,9 +13,6 @@
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
         <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
-        <div id="user">
-            <p id="nameUser">{{user}}</p>
-            <a id="loginUser" href ="{{url_for('login_user')}}"><i class="fa fa-user" style="font-size: 36px;"></i></a></div>
         </header>
         <div id="main2">
     <form id="login" action="{{url_for('login_user')}}" method="POST">

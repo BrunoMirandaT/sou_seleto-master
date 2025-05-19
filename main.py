@@ -27,8 +27,10 @@ firebase = pyrebase.initialize_app(config)
 
 db = firestore.client()
 
-def get_cadastros(input):
-    info = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True))
+def get_cadastros(input, page):
+    limit = 12
+    curPage = limit * page
+    info = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True)).limit(limit).offset(curPage)
     alunos_docs = info.stream()
 
     val1 = []
@@ -42,7 +44,7 @@ def get_cadastros(input):
         val2.append(aluno_data["DataNasc"])
         val3.append(aluno_data["id"])
         
-    val1 = list(map(str,val1))
+    val1 = list(map(str.upper,val1))
         
 
     result = [v for v in val1 if input in v]
@@ -62,7 +64,7 @@ def get_cadastros(input):
     return final
 
 def get_users(input):
-    info = db.collection('Usuarios').where(filter=FieldFilter('userAtv', '==', True))
+    info = db.collection('Usuarios').where(filter=FieldFilter('userAtv', '==', True)).limit(11)
     user_docs = info.stream()
 
     val1 = []
@@ -95,19 +97,24 @@ def get_users(input):
 
 @app.route("/", methods=['GET', 'POST'])
 def main_page():
+    if session['userInfo'] == "":
+        return redirect(url_for('login_user'))
     if request.method == 'POST':
-        searchbar = request.form.get('searchbar')
+        print(request.form.get('search'))
+        searchbar = request.form.get('searchbar', "")
+        page = request.form.get('page', 0, type=int)
     else:
         searchbar = ""
-    
-    final = get_cadastros(searchbar.upper())
-
-    print(type(session["userInfo"]))
+        page = 0
+    print(page)
+    final = get_cadastros(searchbar.upper(), page)
        
-    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar, user = session['userInfo'], test = session)
+    return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar, user = session['userInfo'], test = session, curPage = page)
 
 @app.route('/cadastros/inativos', methods=['GET', 'POST'])
 def cadastros_inativos():
+    if session['userInfo'] == "":
+        return redirect(url_for('login_user'))
     try:
         if request.method == 'POST':
             searchbar = request.form.get('searchbar')
@@ -211,6 +218,9 @@ def get_user(id):
 
 @app.route("/usuarios", methods=['GET', 'POST'])
 def list_users():
+    if session['userInfo'] == "":
+        return redirect(url_for('login_user'))
+    
     if request.method == 'POST':
        searchbar = request.form.get('searchbar')
         
@@ -261,6 +271,7 @@ def new_user():
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
     error = ''
+    session['userInfo'] = ""
     if request.method == 'POST':
         email = request.form['cpfUser']
         senha = request.form['passwordUser']

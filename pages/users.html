@@ -13,14 +13,13 @@
         <img id="logo" src="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
         <a href = "{{ url_for('main_page') }}" id="headerButton">CADASTROS</a>
         <a href = "{{ url_for('list_users') }}" id="headerButton" onclick="showUsers()">USUARIOS</a>
-        <div id="user">
-            <p id="nameUser">{{user[0]}}</p>
-            <a id="loginUser" class="userButton"><i class="fa fa-user" style="font-size: 36px;"></i></a>
+        <button id="user" class="userBox">
+            <p id="nameUser" style="pointer-events: none;">{{ user[0] }}</p>
+            <a id="loginUser" class="userButton" style="pointer-events: none;"><i class="fa fa-user" style="font-size: 36px;"></i></a>
             <div id="userDrop" class="drop hidden">
-                <a onclick="togglePopup()">Minha conta</a>
+                <a href="{{url_for('get_user', id=user[5])}}">Minha conta <img src='' id='caretIcon'></a>
                 <a href="{{url_for('login_user')}}">Sair</a>
-            </div>
-        </div>
+            </button>
         </header>
     
     <div id="overlay2" class="overlay_container">
@@ -51,7 +50,7 @@
                          <label for="info3">NIVEL DE ACESSO*
                             <div class="dropdown">
                             <button type="button" id="nvl" name="info3" class="nvl" value="{{infos[4]}}">{{infos[4]}}<img src='/static/25243.png' id='caretIcon'></button>
-                            <div id="drop" class="dropdown-content-nvl">
+                            <div id="drop" class="drop hidden">
                                 <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
                                 <button type="button" onclick="nvlAcesso(id)" id="nvlButton2">Master</button>
                             </div>
@@ -70,7 +69,8 @@
         <div id="tableTop">
         <a id="addButton" href ={{url_for('new_user')}}>+</a></h3>
             <form id="searchbar" action="{{ url_for('list_users') }}" method="POST">
-        <input type="text" id="search" name="searchbar">
+                <i class="fa fa-search" id="searchIcon" style="font-size: 20px;"></i>
+                <input type="text" id="search" name="searchbar" placeholder="Pesquisar" value={{default}} >
             </form>
         </div>
         <div id="legenda">

@@ -30,33 +30,36 @@
       
 
       <form id="cadastrarUser" action="{{ request.path }}" method="post" onsubmit="return validateForm(event);">
-        <div id="newUser" class="infoUser">
-            <label for="info0">NOME*
-                <input type="text" id="nomeUser" name="info0" class="cadInput" placeholder="Digite aqui" />
-            </label>
-            <label for="info1">CPF*
-                <input type="text" name="info1" class="cadInput" placeholder="Digite aqui" />
-            </label>
-            <label for="info2">DATA DE NASCIMENTO*
-                <input type="date" name="info2" class="cadInput" placeholder="Digite aqui"/>
-            </label>
-            <label for="info3">NIVEL DE ACESSO*
-                <div class="dropdown">
-                <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão <img src='/static/25243.png' id='caretIcon'></button>
-                <div id="drop" class="drop hidden">
-                    <button type="button" onclick="nvlAcesso(id)" id="nvlButton1" class="nvlAcesso">Padrão</button>
-                    <button type="button" onclick="nvlAcesso(id)" id="nvlButton2" class="nvlAcesso">Master</button>
-                </div>
-            </div>
-                
-            </label>
-            <input type="text" id="copy" name="copy" style="display: none;"></input>
-            </div>
-        
-        <div class="button-container">
-            <input type="submit" value="Submit"/>
-            <input type="button" name="voltar" value="Voltar" onclick="goBack();" />
-        </div>
+        <div id="infoUser">
+            <label for="nome">NOME
+                <input type="text" class="cadInput" name="nome" id="nome">
+                    </label>
+            <label for="email">EMAIL
+                <input type="text" class="cadInput" name="email" id="nome">
+                    </label>
+                 <label for="nasc">CPF
+                <input type="text" class="cadInput" name="cpf" id="cpf">
+                     </label>
+                 <label for="cpf">DATA DE NASCIMENTO
+                <input type="date" class="cadInput" name="nasc" id="nasc">
+                     </label>
+                     <label for="info3">NIVEL DE ACESSO*
+                        <div class="dropdown">
+                        <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão<img src='/static/25243.png' id='caretIcon'></button>
+                        <div id="drop" class="drop hidden">
+                            <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
+                            <button type="button" onclick="nvlAcesso(id)" id="nvlButton2">Master</button>
+                        </div>
+                        <input type="text" class="cadInput" name="nasc" id="nasc" style="display: none;">
+        </div></label>
+            
+    </div>
+    <input type="text" id="copy" name="copy" style="display: none;"></input>
+    <div class="button-container">
+        <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
+            </form>
+            <a class="back" id="voltar" onclick="closePopup()">Voltar</a>
+    </div>
     </div>
         <!-- Mensagem de aviso -->
         <div class="warning-message" id="warningMessage">
