@@ -2,7 +2,7 @@
 
 body{
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family:'Segoe UI';
     position: relative;
   min-height: 100vh;
   padding-bottom: 2.5rem;
@@ -88,7 +88,7 @@ a:hover{
     pointer-events:fill;
     transition: all .2s;
     transform: translateY(-20px);
-    z-index: 1;
+    z-index: 0;
     opacity: 0;
     overflow-y: visible;
 
@@ -117,7 +117,7 @@ a:hover{
     background-color: transparent;
     border: none;
     overflow-y: visible;
-    z-index: 2;
+    z-index: 1;
     background-color: #159F53;
     &.userBox:hover{
         backdrop-filter: brightness(90%);
@@ -125,6 +125,7 @@ a:hover{
 }
 
 #nameUser{
+    position: relative;
     margin-bottom: 0;
     font-weight: bold;
     padding-right: 10px;
@@ -175,7 +176,18 @@ table{
     font-stretch: 100%;
     word-spacing: 0;
 }
+
+@keyframes appearIn{
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
 tr{
+    animation: .1s ease-in 0s 1 appearIn;
     height: 52.41px;
 }
 td{
@@ -240,6 +252,8 @@ tbody{
     box-shadow: 0 0px 0px rgba(0,0,0,0.12), 0 0px 1px rgba(0,0,0,0.24);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     align-self: self-end;
+
+    outline: 0;
 }
 
 #searchIcon{
@@ -347,12 +361,13 @@ footer{
 }
 
 #cadastro_header{
+    position: relative;
     height: 8%;
     background-color: darkgrey;
     display: flex;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    
+    z-index: 10;
 }
 
 #cadastro{
@@ -383,7 +398,14 @@ display: flex;
     color: black;
     float: center;
     width: 1000px;
+    margin-top: 60px;
+
+     & input{
+        margin-bottom: 20px;
+        height: 33.8px !important;
+     }
 }
+
 
 #infoUser{
     display: grid;
@@ -1129,5 +1151,79 @@ tbody{
     grid-area: content2;
     align-items: start;
 }
+
+#pages{
+    display: flex;
+    align-self: flex-end;
+    margin-right: 140px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#page{
+    border: 0;
+    background-color: transparent;
+    width: 20px;
+    height: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Segoe UI';
+    font-size: 14px;
+     &:focus{
+        outline: 0;
+        border-bottom: solid 1px black;
+     }
+}
+
+.pageButton{
+    background-color: transparent;
+    border: 0;
+    height: 20px;
+    width: 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover{
+        backdrop-filter: brightness(90%);
+    }
+}
+
+#next{
+    position: relative;
+    z-index: 1;
+    transform: rotate(-90deg);
+    & img{
+        position: relative;
+        z-index: -5;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+#back{
+    position: relative;
+    z-index: 1;
+    transform: rotate(90deg);
+    & img{
+        position: relative;
+        z-index: -5;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 
 

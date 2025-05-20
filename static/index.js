@@ -13,7 +13,6 @@ window.onload = function togglePopup(){
     else{
             return 0;
         }
-  
 }
 
 function closePopup(){
@@ -47,6 +46,8 @@ function validateForm(event) {
 function goBack() {
    window.history.back();
 }
+
+
 
 function toggleLogin(){
     const overlay = document.getElementById('login');
@@ -99,22 +100,24 @@ function nvlAcesso(button){
     document.getElementById('nvl').innerHTML = option + "<img src='/static/25243.png' id='caretIcon'>"
 }
 
-const icon = document.getElementById('togglePassword');
-let password = document.getElementById('password');
+var pageButton = document.getElementsByClassName("pageButton");
+    for(let item of pageButton){
+      item.addEventListener("click", pageNav);
+    }
 
-/* Event fired when <i> is clicked */
-icon.addEventListener('click', function() {
-  if(password.type === "password") {
-    password.type = "text";
-    icon.classList.add("fa-eye");
-    icon.classList.remove("fa-eye-slash");
-  }
-  else {
-    password.type = "password";
-    icon.classList.add("fa-eye-slash");
-    icon.classList.remove("fa-eye");
-  }
-});
+function pageNav(event){
+  curPage = document.getElementById("page")
+  id = event.srcElement.id;
+  if(id == "next"){
+    curPage.value++
+  }else{
+    if(curPage.value <= 1 ){
+      curPage.value = 1
+    }else if(id =="back"){
+    curPage.value--
+    }
+  } 
+}
 
 function getImgData(file, preview, output) {
     const chooseFile = document.getElementById(file);
@@ -155,3 +158,20 @@ function hideDocs(){
   document.getElementById("cadastro").style.display = "flex"
   document.getElementById("documents").style.display = "none"
 }
+
+const icon = document.getElementById('togglePassword');
+let password = document.getElementById('password');
+
+/* Event fired when <i> is clicked */
+icon.addEventListener('click', function() {
+  if(password.type === "password") {
+    password.type = "text";
+    icon.classList.add("fa-eye");
+    icon.classList.remove("fa-eye-slash");
+  }
+  else {
+    password.type = "password";
+    icon.classList.add("fa-eye-slash");
+    icon.classList.remove("fa-eye");
+  }
+});

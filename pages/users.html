@@ -83,16 +83,16 @@
                 <table>
 
                 <tbody>
-                    {% for user in range((users | lenght)//3) %}
+                    {% for user in range((users | lenght)//4) %}
                <tr>
-                   <td name="td1" id="td1" value={{users}}>{{ loop.index }}</td>
-                  <td id="td2">{{ users[loop.index0 * 3] }}</td>
-                  <td id="td3">{{ users[1+loop.index0 * 3] }}</td>
+                   <td name="td1" id="td1" value={{users}}>{{ users[3+loop.index0 * 4] }}</td>
+                  <td id="td2">{{ users[loop.index0 * 4] }}</td>
+                  <td id="td3">{{ users[1+loop.index0 * 4] }}</td>
                    <td id="td4" onclick="togglePopup()">
-                       <a id="edit" href="{{url_for('get_user', id=users[2+loop.index0 * 3])}}">EDITAR</a>
+                       <a id="edit" href="{{url_for('get_user', id=users[2+loop.index0 * 4])}}">EDITAR</a>
                    </td>
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_user', id=users[2+loop.index0 * 3])}}">REMOVER</a>
+                            <a id="edit" href="{{url_for('delete_user', id=users[2+loop.index0 * 4])}}">REMOVER</a>
                         </td>
                </tr>
                 {% endfor %}
@@ -100,6 +100,11 @@
                 </tbody>
 
                     </table>
+                    <form id="pages" action="{{ url_for('list_users') }}" method="POST">
+                        <button id="back" class="pageButton" name="back" style="font-size: 24px;"><img id="backIcon" src="/static/25243.png"></button>
+                        <input type="number" id="page" name="page" value={{curPage}} autocomplete="off">
+                        <i name="pages" style="display: none;"></i>
+                    <button id="next" class="pageButton" name="next" style="font-size: 24px;"><img id="nextIcon" src="/static/25243.png"></button></form>
 
                     <P id="userRole" style="display: none;">{{session.func}}</P>
     <script src="{{ url_for('static',filename='index.js') }}"></script>

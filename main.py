@@ -27,15 +27,16 @@ firebase = pyrebase.initialize_app(config)
 
 db = firestore.client()
 
-def get_cadastros(input, page):
+def get_cadastros(input, page, cadAtv):
     limit = 12
-    curPage = limit * page
-    info = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', True)).limit(limit).offset(curPage)
+    curPage = limit * (page-1)
+    info = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', cadAtv)).limit(limit).offset(curPage)
     alunos_docs = info.stream()
 
     val1 = []
     val2 = []
     val3 = []
+    val4 = []
 
     for aluno in alunos_docs:
         aluno_data = aluno.to_dict()
@@ -43,33 +44,43 @@ def get_cadastros(input, page):
         val1.append(aluno_data["NomeAluno"])
         val2.append(aluno_data["DataNasc"])
         val3.append(aluno_data["id"])
+        val4.append(aluno_data["ID"])
         
     val1 = list(map(str.upper,val1))
-        
-
-    result = [v for v in val1 if input in v]
-
-    print(input)
 
     final = []
+        
+    if input == "":
+        for x in range(len(val1)) :
+            final.append(val1[x])
+            final.append(val2[x])
+            final.append(val3[x])
+            final.append(val4[x])
+    else:
+        index = [(index, v) for index, v in enumerate(val1) if input in v]
 
-    for x in range(len(result)) :
-        final.append(result[x])
-        final.append(val2[x])
-        final.append(val3[x])
-        final.append(x)
+        id, name = zip(*index)
+
+        for x in range(len(name)):
+            final.append(name[x])
+            final.append(val2[id[x]])
+            final.append(val3[id[x]])
+            final.append(val4[id[x]])
 
     print(final)
 
     return final
 
-def get_users(input):
-    info = db.collection('Usuarios').where(filter=FieldFilter('userAtv', '==', True)).limit(11)
+def get_users(input, page):
+    limit = 12
+    curPage = limit * page
+    info = db.collection('Usuarios').where(filter=FieldFilter('userAtv', '==', True)).limit(limit).offset(curPage)
     user_docs = info.stream()
 
     val1 = []
     val2 = []
     val3 = []
+    val4 = []
 
     for user in user_docs:
         user_data = user.to_dict()
@@ -77,6 +88,7 @@ def get_users(input):
         val1.append(user_data["NomeUser"])
         val2.append(user_data["Nvl"])
         val3.append(user_data["id"])
+        val4.append(user_data["ID"])
         
     val1 = list(map(str.upper,val1))
         
@@ -91,6 +103,7 @@ def get_users(input):
         final.append(result[x])
         final.append(val2[x])
         final.append(val3[x])
+        final.append(val4[x])
 
     return final
 
@@ -100,14 +113,15 @@ def main_page():
     if session['userInfo'] == "":
         return redirect(url_for('login_user'))
     if request.method == 'POST':
-        print(request.form.get('search'))
         searchbar = request.form.get('searchbar', "")
-        page = request.form.get('page', 0, type=int)
+        page = request.form.get('page', 1, type=int)
     else:
         searchbar = ""
-        page = 0
+        page = 1
+    session['page'] = page
+    session['cadAtv'] = True
     print(page)
-    final = get_cadastros(searchbar.upper(), page)
+    final = get_cadastros(searchbar.upper(), page, True)
        
     return render_template('index.html',  alunos=final, mode='CADASTROS ATIVOS', popup=0, aux="REMOVER", infos=0, default = searchbar, user = session['userInfo'], test = session, curPage = page)
 
@@ -117,29 +131,17 @@ def cadastros_inativos():
         return redirect(url_for('login_user'))
     try:
         if request.method == 'POST':
-            searchbar = request.form.get('searchbar')
-            alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', False)).where(filter=FieldFilter('NomeAluno', '==', searchbar))
-            
+            searchbar = request.form.get('searchbar', "")
+            page = request.form.get('page', 1, type=int)
         else:
-            alunos_ref = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', False))
-            print("oi")
-        alunos_docs = alunos_ref.stream()
-
-    
-
-        alunos = []
-        i = 1
-        for aluno in alunos_docs:
-            aluno_data = aluno.to_dict()
-            aluno_data['id'] = aluno.id  # Inclui o ID do documento no aluno
-            alunos.count(id)
-            alunos.append(aluno_data.get('NomeAluno'))
-            alunos.append(aluno_data.get('DataNasc'))
-            alunos.append(aluno_data.get('id'))
+            searchbar = ""
+            page = 1
+        session['cadAtv'] = False
+        final = get_cadastros(searchbar.upper(), page, False)
     except:
         print("dead")
 
-    return render_template('index.html', alunos=alunos, mode='CADASTROS INATIVOS', aux='RESTAURAR', infos=0, user = session['userInfo'])
+    return render_template('index.html', alunos=final, mode='CADASTROS INATIVOS', aux='RESTAURAR', infos=0, user = session['userInfo'], curPage = page)
 @app.route("/<cadastro>", methods=['GET', 'POST'])
 def get_cad(cadastro):
     if request.method == 'POST':
@@ -175,7 +177,7 @@ def get_cad(cadastro):
             info.append(aluno_data.get('id'))
             print(info)
 
-        lista_aluno = get_cadastros(searchbar.upper())
+        lista_aluno = get_cadastros(searchbar.upper(), session['page'], session['cadAtv'])
         print(searchbar)
     
     return render_template('index.html', alunos=lista_aluno, infos=info, popup=1, aux="REMOVER", mode='CADASTROS ATIVOS', default=searchbar, user = session['userInfo'])
@@ -211,7 +213,7 @@ def get_user(id):
 
             print(info)
 
-            lista_users = get_users(searchbar.upper())
+            lista_users = get_users(searchbar.upper(), session['page'])
             print(searchbar)
     
     return render_template('users.html', users=lista_users, infos=info, popup=1, aux="REMOVER", default=searchbar, user = session['userInfo'])
@@ -222,14 +224,16 @@ def list_users():
         return redirect(url_for('login_user'))
     
     if request.method == 'POST':
-       searchbar = request.form.get('searchbar')
-        
+       searchbar = request.form.get('searchbar', "")
+       page = request.form.get('page', 0, type=int)
     else:
         searchbar = ""
+        page = 0
+    session['page'] = page
+    print(page)
+    final = get_users(searchbar.upper(), page)
 
-    final = get_users(searchbar.upper())
-
-    return render_template('users.html', users=final, infos="", user = session['userInfo']) # Renderiza página de lista de usuários,
+    return render_template('users.html', users=final, infos="", user = session['userInfo'], curPage = page) # Renderiza página de lista de usuários,
                                                                         # passando resultado de pesquisa sql para exibição no html
 
 @app.route("/cadastros/novo", methods=['GET', 'POST'])

@@ -44,7 +44,7 @@
                 <fieldset id="fieldset" style="border: none;">
                 <div id="info">
                     <div id="img_aluno2" onmouseover="visible('img_aluno', 'preview')" onmouseout="invisible('img_aluno', 'preview')">
-                        <label for="foto_cad" class="custom-file-upload" id="back">
+                        <label for="foto_cad" class="custom-file-upload" id="backPfp">
                             <i class="fa fa-upload" id="upload"></i>
                         </label>
                         <input type="file" id="foto_cad" onchange="getImgData('foto_cad', 'preview', 'img_aluno')"/>
@@ -97,7 +97,7 @@
                 </form>
             <div id="documents">
                 <div id="img_identidade" class="img_docs" onmouseover="visible('img_doc', 'preview2')" onmouseout="invisible('img_doc', 'preview2')" name="identidade">
-                    <label for="foto_doc" class="custom-file-upload" id="back">
+                    <label for="foto_doc" class="custom-file-upload" id="backPfp">
                         <i class="fa fa-upload" id="upload"></i>
                     </label>
                     <input type="file" class="foto_docs" id="foto_doc" onchange="getImgData('foto_doc', 'preview2', 'img_doc')"/>
@@ -108,7 +108,7 @@
                 <label id="idLabel" for="identidade">IDENTIDADE</label>
                 
                 <div id="img_termo" class="img_docs" onmouseover="visible('img_doc2', 'preview3')" onmouseout="invisible('img_doc2', 'preview3')" name="contrato">
-                    <label for="foto_doc3" class="custom-file-upload" id="back">
+                    <label for="foto_doc3" class="custom-file-upload" id="backPfp">
                         <i class="fa fa-upload" id="upload"></i>
                     </label>
                     <input class="foto_docs" type="file" id="foto_doc3" onchange="getImgData('foto_doc3', 'preview3', 'img_doc2')"/>
@@ -160,7 +160,7 @@
                 
                {% for aluno in range((alunos | lenght)//4) %}
                <tr>
-                   <td name="td1" id="td1" value={{alunos}}>{{ alunos[3+loop.index0 * 4] }}</td>
+                   <td name="td1" id="td1">{{ alunos[3+loop.index0 * 4] }}</td>
                   <td id="td2">{{ alunos[loop.index0 * 4] }}</td>
                   <td id="td3">{{ alunos[1+loop.index0 * 4] }}</td>
                   
@@ -181,10 +181,11 @@
                 </tbody>
 
                     </table>
-                    <form id="pages" action="{{ url_for('main_page') }}" method="POST">
-                        <input type="text" id="page" name="page" value={{curPage}}>
+                    <form id="pages" {% if request.path=="/" %} action="{{ url_for('main_page') }}" {% else %} action="{{ url_for('cadastros_inativos') }}" {% endif %} method="POST">
+                        <button id="back" class="pageButton" name="back" style="font-size: 24px;"><img id="backIcon" src="/static/25243.png"></button>
+                        <input type="number" id="page" name="page" value={{curPage}} autocomplete="off">
                         <i name="pages" style="display: none;"></i>
-                    <button id="next" name="next" style="font-size: 24px;"> -></button></form>
+                    <button id="next" class="pageButton" name="next" style="font-size: 24px;"><img id="nextIcon" src="/static/25243.png"></button></form>
 
 
     <script src="{{ url_for('static',filename='index.js') }}"></script>
