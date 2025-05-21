@@ -21,7 +21,7 @@
         </header>
         <div id="main2">
       <h3 class="title">Adicionar aluno</h3>
-      <hr/>
+      
 
       {%- for category, message in get_flashed_messages(with_categories = true) %}
          <div class = "alert alert-danger">
@@ -33,7 +33,7 @@
         
         <div id="info" class="info">
             <div id="img_aluno2" onmouseover="visible('img_aluno', 'preview')" onmouseout="invisible('img_aluno', 'preview')">
-                <label for="foto_cad" class="custom-file-upload" id="back">
+                <label for="foto_cad" class="custom-file-upload" id="backPfp">
                     <i class="fa fa-upload" id="upload"></i>
                 </label>
                 <input type="file" name="foto_cad" id="foto_cad" onchange="getImgData('foto_cad', 'preview', 'img_aluno')"/>

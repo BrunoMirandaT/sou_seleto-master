@@ -48,7 +48,7 @@
                     <input type="date" class="cadInput" name="nasc" id="nasc" value="{{infos[2]}}">
                          </label>
                          <label for="info3">NIVEL DE ACESSO*
-                            <div class="dropdown">
+                            <div class="dropdownNvl">
                             <button type="button" id="nvl" name="info3" class="nvl" value="{{infos[4]}}">{{infos[4]}}<img src='/static/25243.png' id='caretIcon'></button>
                             <div id="drop" class="drop hidden">
                                 <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>
@@ -89,10 +89,10 @@
                   <td id="td2">{{ users[loop.index0 * 4] }}</td>
                   <td id="td3">{{ users[1+loop.index0 * 4] }}</td>
                    <td id="td4" onclick="togglePopup()">
-                       <a id="edit" href="{{url_for('get_user', id=users[2+loop.index0 * 4])}}">EDITAR</a>
+                       <a id="edit" href="{{url_for('get_user', id=users[2+loop.index0 * 4])}}"><i class='fa fa-edit'></i> EDITAR</a>
                    </td>
                         <td id="td5">
-                            <a id="edit" href="{{url_for('delete_user', id=users[2+loop.index0 * 4])}}">REMOVER</a>
+                            <a id="edit" href="{{url_for('delete_user', id=users[2+loop.index0 * 4])}}"><i class="fa fa-remove"></i> REMOVER</a>
                         </td>
                </tr>
                 {% endfor %}
@@ -101,10 +101,10 @@
 
                     </table>
                     <form id="pages" action="{{ url_for('list_users') }}" method="POST">
-                        <button id="back" class="pageButton" name="back" style="font-size: 24px;"><img id="backIcon" src="/static/25243.png"></button>
+                        <button id="back" class="pageButton" name="back" style="font-size: 24px;"></button>
                         <input type="number" id="page" name="page" value={{curPage}} autocomplete="off">
                         <i name="pages" style="display: none;"></i>
-                    <button id="next" class="pageButton" name="next" style="font-size: 24px;"><img id="nextIcon" src="/static/25243.png"></button></form>
+                    <button id="next" class="pageButton" name="next" style="font-size: 24px;"></button></form>
 
                     <P id="userRole" style="display: none;">{{session.func}}</P>
     <script src="{{ url_for('static',filename='index.js') }}"></script>

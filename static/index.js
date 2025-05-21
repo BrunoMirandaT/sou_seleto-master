@@ -72,7 +72,7 @@ function toggleDrop(event) {
   console.log(arrow)
   let rotation = arrow == 'rotate(0deg)' ? 'rotate(180deg)' : 'rotate(0deg)';
 
-  if(event.target.classList.contains('userBox') || event.target.classList.contains('userButton')|| event.target.classList.contains('fa-user') || event.target.classList.contains('dropdown') ||event.target.classList.contains('nvlAcesso')){
+  if(event.target.classList.contains('userBox') || event.target.classList.contains('userButton')|| event.target.classList.contains('fa-user') || event.target.classList.contains('dropdownNvl') ||event.target.classList.contains('nvlAcesso')){
     activeDiv.classList.toggle('hidden')
     if(activeDiv.style.opacity==1){
       opacity = 0

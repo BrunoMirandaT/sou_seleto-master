@@ -73,7 +73,7 @@ def get_cadastros(input, page, cadAtv):
 
 def get_users(input, page):
     limit = 12
-    curPage = limit * page
+    curPage = limit * (page-1)
     info = db.collection('Usuarios').where(filter=FieldFilter('userAtv', '==', True)).limit(limit).offset(curPage)
     user_docs = info.stream()
 
@@ -114,7 +114,7 @@ def main_page():
         return redirect(url_for('login_user'))
     if request.method == 'POST':
         searchbar = request.form.get('searchbar', "")
-        page = request.form.get('page', 1, type=int)
+        page = request.form.get('page', 1,  type=int)
     else:
         searchbar = ""
         page = 1
@@ -225,10 +225,10 @@ def list_users():
     
     if request.method == 'POST':
        searchbar = request.form.get('searchbar', "")
-       page = request.form.get('page', 0, type=int)
+       page = request.form.get('page', 1, type=int)
     else:
         searchbar = ""
-        page = 0
+        page = 1
     session['page'] = page
     print(page)
     final = get_users(searchbar.upper(), page)

@@ -182,10 +182,10 @@
 
                     </table>
                     <form id="pages" {% if request.path=="/" %} action="{{ url_for('main_page') }}" {% else %} action="{{ url_for('cadastros_inativos') }}" {% endif %} method="POST">
-                        <button id="back" class="pageButton" name="back" style="font-size: 24px;"><img id="backIcon" src="/static/25243.png"></button>
+                        <button id="back" class="pageButton" name="back" style="font-size: 24px;"></button>
                         <input type="number" id="page" name="page" value={{curPage}} autocomplete="off">
                         <i name="pages" style="display: none;"></i>
-                    <button id="next" class="pageButton" name="next" style="font-size: 24px;"><img id="nextIcon" src="/static/25243.png"></button></form>
+                    <button id="next" class="pageButton" name="next" style="font-size: 24px;"></button></form>
 
 
     <script src="{{ url_for('static',filename='index.js') }}"></script>
