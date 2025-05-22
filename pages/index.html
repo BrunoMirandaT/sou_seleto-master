@@ -23,8 +23,9 @@
         <div id="userDrop" class="drop hidden">
             <a href="{{url_for('get_user', id=user[5])}}">Minha conta <img src='' id='caretIcon'></a>
             <a href="{{url_for('login_user')}}">Sair</a>
+            </div>
         </button>
-    </div>
+    
         </header>
 
     <div id="overlay2" class="overlay_container">
@@ -91,7 +92,9 @@
             </div>
         </fieldset>
                 <div class="button-container">
+                    {% if session.func %}
             <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
+            {% endif %}
             <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
         </div>
                 </form>
@@ -119,7 +122,9 @@
                 <label id="termoLabel" for="contrato">CONTRATO</label>
             
                 <div class="button-container">
+                    {% if session.func %}
                     <input type="submit" class="back" value="Salvar" onclick="closePopup()" >
+                    {% endif %}
                     <a class="back" id="voltar" onclick="closePopup()" href ="{{url_for('main_page')}}">Voltar</a>
                 </div>
             </div>
@@ -148,7 +153,7 @@
             </form>
         </div>
             <div id="legenda">
-                <ul id="list" style="list-style-type:none;">
+                <ul {% if session.func %} style="grid-template-columns: 4.5% auto 7.1% 13.8%;" {% endif %} id="list">
                     <li>ID</li>
                     <li id="nome_leg">NOME</li>
                     <li>NASCIMENTO</li>
@@ -183,7 +188,7 @@
                     </table>
                     <form id="pages" {% if request.path=="/" %} action="{{ url_for('main_page') }}" {% else %} action="{{ url_for('cadastros_inativos') }}" {% endif %} method="POST">
                         <button id="back" class="pageButton" name="back" style="font-size: 24px;"></button>
-                        <input type="number" id="page" name="page" value={{curPage}} autocomplete="off">
+                        <input class="pageButton" type="number" id="page" name="page" value={{curPage}} autocomplete="off">
                         <i name="pages" style="display: none;"></i>
                     <button id="next" class="pageButton" name="next" style="font-size: 24px;"></button></form>
 

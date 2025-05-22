@@ -3,6 +3,7 @@
 <head>
    <link rel="stylesheet" href="{{ url_for('static',filename='index.css') }}">
    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link rel="icon" href="{{ url_for('static',filename='projeto_SouSeleto.png') }}">
 </head>
    <body>
@@ -14,8 +15,9 @@
         <p id="nameUser" style="pointer-events: none;">{{ user[0] }}</p>
         <a id="loginUser" class="userButton" style="pointer-events: none;"><i class="fa fa-user" style="font-size: 36px;"></i></a>
         <div id="userDrop" class="drop hidden">
-            <a onclick="togglePopup()">Minha conta</a>
+            <a href="{{url_for('get_user', id=user[5])}}">Minha conta <img src='' id='caretIcon'></a>
             <a href="{{url_for('login_user')}}">Sair</a>
+            </div>
         </button>
             </header>
             <div id="main2">
@@ -44,7 +46,7 @@
                 <input type="date" class="cadInput" name="nasc" id="nasc">
                      </label>
                      <label for="info3">NIVEL DE ACESSO*
-                        <div class="dropdown">
+                        <div class="dropdownNvl">
                         <button type="button" id="nvl" name="info3" class="nvl" value="Padrão">Padrão<img src='/static/25243.png' id='caretIcon'></button>
                         <div id="drop" class="drop hidden">
                             <button type="button" onclick="nvlAcesso(id)" id="nvlButton1">Padrão</button>

@@ -47,7 +47,26 @@ function goBack() {
    window.history.back();
 }
 
+var pageButton = document.getElementsByClassName("pageButton");
+    for(let item of pageButton){
+      item.addEventListener("click", pageNav);
+    }
+var inputPage = document.getElementById('page')
 
+function pageNav(event){
+  curPage = document.getElementById("page")
+  id = event.srcElement.id;
+  if(id == "next"){
+    curPage.value++
+  }else{
+    if(curPage.value <= 1 ){
+      curPage.value = 1
+    }else if(id =="back"){
+    console.log(id)
+    curPage.value--
+    }
+  } 
+}
 
 function toggleLogin(){
     const overlay = document.getElementById('login');
@@ -98,25 +117,6 @@ function nvlAcesso(button){
     option = document.getElementById(button).innerHTML
     console.log(option)
     document.getElementById('nvl').innerHTML = option + "<img src='/static/25243.png' id='caretIcon'>"
-}
-
-var pageButton = document.getElementsByClassName("pageButton");
-    for(let item of pageButton){
-      item.addEventListener("click", pageNav);
-    }
-
-function pageNav(event){
-  curPage = document.getElementById("page")
-  id = event.srcElement.id;
-  if(id == "next"){
-    curPage.value++
-  }else{
-    if(curPage.value <= 1 ){
-      curPage.value = 1
-    }else if(id =="back"){
-    curPage.value--
-    }
-  } 
 }
 
 function getImgData(file, preview, output) {

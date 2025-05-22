@@ -114,7 +114,7 @@ def main_page():
         return redirect(url_for('login_user'))
     if request.method == 'POST':
         searchbar = request.form.get('searchbar', "")
-        page = request.form.get('page', 1,  type=int)
+        page = request.form.get('page', type=int)
     else:
         searchbar = ""
         page = 1
