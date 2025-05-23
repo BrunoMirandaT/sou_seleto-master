@@ -53,19 +53,27 @@ var pageButton = document.getElementsByClassName("pageButton");
     }
 var inputPage = document.getElementById('page')
 
+inputPage.addEventListener("keydown", pageNav)
+
 function pageNav(event){
   curPage = document.getElementById("page")
-  id = event.srcElement.id;
-  if(id == "next"){
+  const keypress = event.key
+  const id = event.srcElement.id;
+
+  if(keypress == "Enter"){
     curPage.value++
-  }else{
-    if(curPage.value <= 1 ){
-      curPage.value = 1
-    }else if(id =="back"){
-    console.log(id)
-    curPage.value--
-    }
-  } 
+    return "ok";
+  }else if(event.srcElement.classList.contains("pageButton")){
+    if(id == "next"){
+      curPage.value++
+    }else{
+      if(curPage.value <= 1 ){
+        curPage.value = 1
+      }else if(id =="back"){
+        curPage.value--
+      }
+    } 
+  }
 }
 
 function toggleLogin(){

@@ -162,6 +162,9 @@
                 <table>
 
                 <tbody>
+                {% if alunos == [] %}
+                <tr style="width:100%;display:flex;justify-content: center;height: 80px;"><td><h1>Nenhum cadastro encontrado</h1></td></tr>
+                {% else %}
                 
                {% for aluno in range((alunos | lenght)//4) %}
                <tr>
@@ -181,6 +184,8 @@
 
 
                 {% endfor %}
+
+                {% endif %}
                     <p id="userRole" style="display: none;">{{session.func}}</p>
 
                 </tbody>
@@ -188,7 +193,7 @@
                     </table>
                     <form id="pages" {% if request.path=="/" %} action="{{ url_for('main_page') }}" {% else %} action="{{ url_for('cadastros_inativos') }}" {% endif %} method="POST">
                         <button id="back" class="pageButton" name="back" style="font-size: 24px;"></button>
-                        <input class="pageButton" type="number" id="page" name="page" value={{curPage}} autocomplete="off">
+                        <input type="number" id="page" name="page" value={{curPage}} autocomplete="off">
                         <i name="pages" style="display: none;"></i>
                     <button id="next" class="pageButton" name="next" style="font-size: 24px;"></button></form>
 

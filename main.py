@@ -32,6 +32,7 @@ def get_cadastros(input, page, cadAtv):
     curPage = limit * (page-1)
     info = db.collection('Alunos').where(filter=FieldFilter('CadAtv', '==', cadAtv)).limit(limit).offset(curPage)
     alunos_docs = info.stream()
+    
 
     val1 = []
     val2 = []
@@ -58,8 +59,13 @@ def get_cadastros(input, page, cadAtv):
             final.append(val4[x])
     else:
         index = [(index, v) for index, v in enumerate(val1) if input in v]
+        print(index)
+        if index == []:
+            return []
 
         id, name = zip(*index)
+        
+        
 
         for x in range(len(name)):
             final.append(name[x])
@@ -114,7 +120,7 @@ def main_page():
         return redirect(url_for('login_user'))
     if request.method == 'POST':
         searchbar = request.form.get('searchbar', "")
-        page = request.form.get('page', type=int)
+        page = request.form.get('page', 1, type=int)
     else:
         searchbar = ""
         page = 1
